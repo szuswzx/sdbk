@@ -1,0 +1,118 @@
+/* HEADER */
+header {
+    width: 100%;
+    height: 200px;
+    background: #ff5f5a;
+    padding: 20px;
+}
+header p {
+    font-size: 16px;
+    color: #FFF;
+}
+header h1 {
+    color: #fff000;
+    font-size: 72px;
+    font-style: italic;
+    font-weight: normal;
+    line-height: 100px;
+    text-align: center;
+}
+header .encourage {
+    font-size: 18px;
+    text-align: center;
+}
+
+/* BTN */
+.generateBtn {
+    width: 90%;
+    margin: 10px auto;
+    height: 40px;
+    color: #ff5f5a;
+    font-size: 16px;
+    background: #FFF;
+    border-radius: 20px;
+    border: 1px solid #ff5f5a;
+    display: block;
+}
+.generateBtn:active {
+    color: #FFF;
+    background: #ff5f5a;
+}
+
+/* LIST */
+.list {
+    width: 100%;
+    padding: 0 10px;
+}
+.list .item {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    color: #FFF;
+    border-radius: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .1);
+    display: -webkit-flex;
+    display: flex;
+}
+.list .item .itemInfo {
+    width: 70%;
+}
+.list .item .itemGrade {
+    width: 30%;
+    text-align: center;
+    display: -webkit-flex;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.list .item .itemGrade h1 {
+    font-size: 58px;
+    line-height: 58px;
+}
+
+/* FOOTER */
+footer {
+    padding: 0 0 10px 0;
+    width: 100%;
+    text-align: center;
+}
+footer p {
+    color: #999;
+    font-size: 12px;
+}
+
+/* GRADE COLOR */
+.AP {
+    background: #ec3030;
+}
+.A {
+    background: #ff5f5a;
+}
+.BP {
+    background: #764AD5;
+}
+.B {
+    background: #4a8fd5;
+}
+.CP {
+    background: #FF7A06;
+}
+.C {
+    background: #ffa200;
+}
+.D {
+    background: #229c3c;
+}
+.F {
+    background: #4c4c4c;
+}
+
+/* GENERATE PAGE */
+.generator {
+    width: 100%;
+}
+.generator p {
+    font-size: 16px;
+    color: #ff5f5a;
+    text-align: center;
+}

@@ -1,0 +1,126 @@
+/*
+ * 深大百科 考场查询
+ */
+
+.header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	background: transparent;
+	z-index: 10;
+}
+.header .headimg {
+	float: left;
+	width: 30%;
+	height: 100px;
+	padding: 20px;
+	padding-right: 5px;
+	text-align: center;
+}
+.header .headimg img {
+	height: 60px;
+	border-radius: 5px;
+	box-shadow: 0 5px 5px rgba(0, 0, 0, .1);
+}
+.header .userinfo {
+	float: left;
+	width: 70%;
+	height: 100px;
+	padding: 30px 0 30px 0;
+}
+.header .userinfo h1 {
+	line-height: 24px;
+	font-size: 20px;
+	color: #FFF;
+	text-shadow: 0 0 5px rgba(0, 0, 0, .3);
+}
+.header .userinfo p {
+	color: #FFF;
+	text-shadow: 0 0 5px rgba(0, 0, 0, .3);
+}
+.header-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	overflow: hidden;
+	z-index: 1;
+}
+.header-bg img {
+	width: 100%;
+	-webkit-filter: blur(50px);
+			filter: blur(50px);
+}
+
+a.creatImgBtn {
+	position: absolute;
+	top: 100px;
+	left: 0;
+	margin: 10px 10% 0 10%;
+	width: 80%;
+	height: 35px;
+	color: #408ec0;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 35px;
+	text-align: center;
+	display: block;
+}
+
+.mainContent {
+	float: left;
+	margin-top: 145px;
+	width: 100%;
+	padding: 0 10px 0 10px;
+}
+.examPlan {
+	margin-top: 10px;
+	width: 100%;
+}
+.examPlan .empty {
+	text-align: center;
+	color: #222;
+	font-size: 18px;
+}
+.Emp {
+	margin-top: 145px;
+}
+.examPlan .examTime {
+	width: 100%;
+	padding: 5px;
+	color: #FFF;
+	font-size: 16px;
+	text-align: center;
+	line-height: 30px;
+	background: #408ec0;
+	border-radius: 5px 5px 0 0;
+}
+.examPlan .examInfo {
+	padding: 10px;
+	width: 100%;
+	color: #222;
+	font-size: 15px;
+	border-radius: 0 0 5px 5px;
+	background: #FFF;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+}
+.examPlan .examInfo .title {
+	color: #408ec0;
+}
+
+.footer {
+	float: left;
+	width: 100%;
+	margin-top: 10px;
+	padding: 10px;
+	border-top: 1px solid #E4E4E4;
+}
+.footer p {
+	font-size: 13px;
+	text-align: center;
+	color: #BBB;
+	text-shadow: 0 1px 0 #fff;
+}
