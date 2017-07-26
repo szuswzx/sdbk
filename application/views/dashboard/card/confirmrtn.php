@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
 <meta charset="utf-8">
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<title></title>
 <style type="text/css">
-
 .left{
-	padding-top: 25px;
+	padding:5px;
+	margin-top: 20px;
 	width: 15%;
+	font-size: 20px;
 	display: inline-block;
 	float: left;
+	height: 40px;
+	text-align: center;
 }
 .inside{
 	height: 30px;
 	font-size: 15px;
 	padding: 10px 20px;
 }
-#all{
-	color: #408ec0;
-	border-right: 3px solid #408ec0;
+.right{
+	width: 50%;
+    float: left;
+    padding-left: 40px;
+    padding-top: 30px;
+    padding-right: 20px;
+}
+.lab{
+	font-size: 15px;
+	text-align: right;
+	width: 20%;
+	padding: 0px 10px;
+	float: left;
+	line-height: 36px;
 }
 .right{
 	width: 84%;
@@ -30,23 +42,33 @@
     padding-top: 30px;
     padding-right: 20px;
 }
-.input{
-	float: right;
-	border:1px solid lightgrey;
-	margin-left: 10px;
-	margin-bottom: 10px;
-}
+
 table{
 	width: 100%;
 	border:1px solid lightgrey;
 }
 tr{
 	height: 40px;
+
 	border-bottom: 1px solid lightgrey;
 }
 td{
-	width: 25%;	
+	width: 20%;	
 	border-right: 1px solid lightgrey;
+}
+#inputmsg{
+	color: black;
+	border: 1px solid white;
+}
+#confirmrtn{
+	border-right: 3px solid #408ec0;
+	color: #408ec0;
+}
+.input{
+	float: right;
+	border:1px solid lightgrey;
+	margin-left: 10px;
+	margin-bottom: 10px;
 }
 .page{
 	text-align: center;
@@ -66,15 +88,12 @@ td{
 	background-color: #daa;
 }
 </style>
-</script>
 </head>
 <body>
-
 <div class="contain">
 	<div class="left">
-		<p class="inside" id="all">全部事务</p>
-		<p class="inside" id="notyet">未回复事务</p>
-		<p class="inside" id="finish">已回复事务</p>
+		<p class="inside" id="inputmsg">录入校园卡</p>
+		<p class="inside" id="confirmrtn">确认归还</p>
 	</div>
 	<div class="right">
 		<button type="submit" class="input" id="">搜索</button>
@@ -82,19 +101,18 @@ td{
 		<table>
 			<tr style="background-color: lightgrey">
 				<td>序号</td>
-				<td>标题</td>
-				<td>咨询人</td>
+				<td>学号</td>
+				<td>失主</td>
+				<td>归还者</td>
 				<td>操作</td>
 			</tr>
-			
-			 <?php foreach($issue as $row){?>
 			<tr>
-				<td><?php echo $row['id'];?></td>
-				<td><?php echo $row['title'];?></td>
-				<td><?php echo $row['user'];?></td>
-				<td>删除</td>
+				<td>222</td>
+				<td>哈哈哈</td>
+				<td>呜呜呜</td>
+				<td>操作</td>
+				<td>操作</td>
 			</tr>
-			<?php }?> 
 		</table>
 		<div class="page">
 			<span>上一页</span>
@@ -107,14 +125,15 @@ td{
 </div>
 </body>
 <script type="text/javascript">
-	$("document").ready(function(){
-		$("#notyet").on("click",function(){
-			$(".contain").load("notyetIssues.php");
-		});
-		$("#finish").on("click",function(){
-			$(".contain").load("finished.php");
-		});
+$("document").ready(function(){
+	$("#inputmsg").click(function(){
+		$(".contain").load("findcard.php");
 	});
+});
+	// $("document").ready(function(){
+	// 	$("input").click(function(){
+	// 		$("input").css("border","1px solid red");
+	// 	});
+	// });
 </script>
-
 </html>
