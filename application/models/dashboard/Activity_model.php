@@ -160,4 +160,55 @@ class Activity_model extends CI_Model
 			$this->db->trans_rollback();			
 		return "success:$success_push , failed:$failed_push";
 	}
+	
+	public function export_activity($id = 0)
+	{
+		$query = $this->db->query('select `sdbk_user`.`studentName`,`sdbk_user`.`studentNo`,`sdbk_user`.`sex`,`sdbk_user`.`org`,`sdbk_activity_record`.`param` from `sdbk_activity_record` left join `sdbk_user` on `sdbk_activity_record`.`uid` = `sdbk_user`.`userid` where `sdbk_activity_record`.`aid` = '.$id);
+		$data = $query->result_array();
+		
+		if(count($data) === 0)
+			return array(array(), array());
+		
+		foreach($data as $key => $value)
+		{
+			$data[$key]['param'] = json_decode($data[$key]['param'], true);
+		}
+		
+		$excelTitle = array();
+		$excelData = array();
+		for ($i = 0; $i < count($data); $i++) 
+		{
+			if ($i == 0) 
+			{
+				foreach ($data[0] as $key => $value) 
+				{
+					if ($key == 'param') 
+					{
+						foreach ($value as $key1 => $value1) 
+						{
+							array_push($excelTitle, $value1['name']);
+						}
+					} else {
+						array_push($excelTitle, $key);
+					}
+				}
+			}
+			$excelData[$i] = array();
+			foreach ($data[$i] as $key => $value) 
+			{
+				if ($key == 'param') 
+				{
+					foreach ($value as $key1 => $value1) 
+					{
+						array_push($excelData[$i], $value1['value']);
+					}
+				} else 
+				{
+					array_push($excelData[$i], $value);
+				}
+			}
+		}
+		
+		return array($excelTitle, $excelData);
+	}
 }

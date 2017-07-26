@@ -106,6 +106,27 @@
 		  echo $res;
 	  }
 	  
+	  public function export_activity($id)
+	  {
+		  //$this->_check_login();
+		  $this->load->model('dashboard/activity_model');
+		  $this->output->set_header('Content-Type: application/vnd.ms-excel');
+		  $this->output->set_header('Content-Disposition: attachment; filename=export-'.time().'.xls');
+		  $this->output->set_header('Pragma: no-cache');
+		  $this->output->set_header('Expires: 0');
+		  
+          list($excelTitle, $excelData) = $this->activity_model->export_activity($id);
+	      $data1 = iconv('utf-8', 'gbk', implode("\t", $excelTitle)). "\n";
+		  $this->output->append_output($data1);
+
+		  foreach ($excelData as $value) 
+		  {
+			  $data2 = iconv('utf-8', 'gbk', implode("\t", $value)). "\n";
+			  $this->output->append_output($data2);
+		  }
+		  
+	  }
+	  
 	  //校园卡找回
       public function card($page = 1, $type = 0)
 	  {
