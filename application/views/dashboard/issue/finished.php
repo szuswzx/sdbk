@@ -7,7 +7,6 @@
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-
 .left{
 	padding-top: 25px;
 	width: 15%;
@@ -20,6 +19,14 @@
 	padding: 10px 20px;
 }
 #all{
+	color: black;
+	border-right: 3px solid white;
+}
+#notyet{
+	color: black;
+	border-right: 3px solid white;
+}
+#finish{
 	color: #408ec0;
 	border-right: 3px solid #408ec0;
 }
@@ -29,12 +36,6 @@
     padding-left: 40px;
     padding-top: 30px;
     padding-right: 20px;
-}
-.input{
-	float: right;
-	border:1px solid lightgrey;
-	margin-left: 10px;
-	margin-bottom: 10px;
 }
 table{
 	width: 100%;
@@ -65,6 +66,12 @@ td{
 .page a:hover,.page span:hover{
 	background-color: #daa;
 }
+.input{
+	float: right;
+	border:1px solid lightgrey;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
 </style>
 </script>
 </head>
@@ -86,15 +93,12 @@ td{
 				<td>咨询人</td>
 				<td>操作</td>
 			</tr>
-			
-			 <?php foreach($issue as $row){?>
 			<tr>
-				<td><?php echo $row['id'];?></td>
-				<td><?php echo $row['title'];?></td>
-				<td><?php echo $row['user'];?></td>
-				<td>删除</td>
+				<td>这里是已回复</td>
+				<td>哈哈哈</td>
+				<td>呜呜呜</td>
+				<td>操作</td>
 			</tr>
-			<?php }?> 
 		</table>
 		<div class="page">
 			<span>上一页</span>
@@ -111,8 +115,8 @@ td{
 		$("#notyet").on("click",function(){
 			$(".contain").load("notyetIssues.php");
 		});
-		$("#finish").on("click",function(){
-			$(".contain").load("finished.php");
+		$("#all").on("click",function(){
+			$(".contain").load("issue.php");
 		});
 	});
 </script>
