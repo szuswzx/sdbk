@@ -534,3 +534,4 @@ $config['app_scrert'] = '68f1f7bc66bfbc2b20353bd945628ae8';
 //template id
 $config['issue_template_id'] = 'XjbVBFEvMhZ2_UaTMqzntH3bMVbcr8hS0u9xRlQ1WuM';
 $config['card_template_id'] = 'bZkMNzBf8NrGO1ucZ4G-93TLMzJjr9qlqRHux7Tgvtw';
+$config['activity_template_id'] = 'oBulYCzxFhDhGyOJbQU_ZLOEcrdDDPS3QEAg6U09tw0';

@@ -32,8 +32,7 @@
 		  $this->db->trans_begin();
 		  
 		  $this->db->insert('news', $data);
-          $news1 = $this->get_news($slug);		
-          print_r($news1);exit();		  
+          $news1 = $this->get_news($slug);			  
 		  if($i == 0){
 		  $this->db->trans_rollback();
 		  }

@@ -52,7 +52,58 @@
 	  //活动发布
 	  public function activity()
 	  {
-        //$this->_check_login();
+		  $this->_check_login();
+		  $this->load->model('dashboard/activity_model');
+
+		  if($this->userinfo['rank'] >= 5)
+		  {
+		  	  $data['activity'] = $this->activity_model->get_activity();
+			  $this->load->view('dashboard/activity/success', $data);
+		  }
+		  else
+		  {
+			  echo '权限不足';
+		  }
+	  }
+	  
+	  public function delete_activity($id = 0)
+	  {
+		  $this->_check_login();
+		  $this->load->model('dashboard/activity_model');
+
+		  if($this->userinfo['rank'] >= 5)
+		  {
+		  	  $res = $this->activity_model->delete_activity($id);
+			  echo $res;
+		  }
+		  else
+		  {
+			  echo '权限不足';
+		  }
+	  }
+	  
+	  public function push_activity($id = 0)
+	  {
+		  $this->_check_login();
+		  $this->load->model('dashboard/activity_model');
+
+		  if($this->userinfo['rank'] >= 5)
+		  {
+		  	  $res = $this->activity_model->push_activity($id);
+			  echo $res;
+		  }
+		  else
+		  {
+			  echo '权限不足';
+		  }
+	  }
+	  
+	  public function add_activity()
+	  {
+		  $this->_check_login();
+		  $this->load->model('dashboard/activity_model');
+		  $res = $this->activity_model->add_activity();
+		  echo $res;
 	  }
 	  
 	  //校园卡找回
