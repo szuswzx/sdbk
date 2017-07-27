@@ -7,29 +7,9 @@
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-.left{
-	padding-top: 25px;
-	width: 15%;
-	display: inline-block;
-	float: left;
-}
-.inside{
-	height: 30px;
-	font-size: 15px;
-	padding: 10px 20px;
-}
-#all{
-	color: black;
-	border-right: 3px solid white;
-}
-#notyet{
-	color: black;
-	border-right: 3px solid white;
-}
-#finish{
-	color: #408ec0;
-	border-right: 3px solid #408ec0;
-}
+
+
+
 .right{
 	width: 84%;
     float: left;
@@ -77,12 +57,7 @@ td{
 </head>
 <body>
 
-<div class="contain">
-	<div class="left">
-		<p class="inside" id="all">全部事务</p>
-		<p class="inside" id="notyet">未回复事务</p>
-		<p class="inside" id="finish">已回复事务</p>
-	</div>
+
 	<div class="right">
 		<button type="submit" class="input" id="">搜索</button>
 		<input type="input" class="input"  placeholder="id、名称、内容、用户" />
@@ -111,14 +86,14 @@ td{
 </div>
 </body>
 <script type="text/javascript">
-	$("document").ready(function(){
-		$("#notyet").on("click",function(){
-			$(".contain").load("notyetIssues.php");
-		});
-		$("#all").on("click",function(){
-			$(".contain").load("issue.php");
-		});
-	});
+	// $("document").ready(function(){
+	// 	$("#notyet").on("click",function(){
+	// 		$(".right").load("notyetIssues.php");
+	// 	});
+	// 	$("#all").on("click",function(){
+	// 		$(".right").load("issue.php");
+	// 	});
+	// });
 </script>
 
 </html>

@@ -5,36 +5,14 @@
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <title></title>
 <style type="text/css">
-.left{
-	padding:5px;
-	margin-top: 20px;
-	width: 15%;
-	font-size: 20px;
-	display: inline-block;
-	float: left;
-	height: 40px;
-	text-align: center;
-}
+
 .inside{
 	height: 30px;
 	font-size: 15px;
 	padding: 10px 20px;
 }
-.right{
-	width: 50%;
-    float: left;
-    padding-left: 40px;
-    padding-top: 30px;
-    padding-right: 20px;
-}
-.lab{
-	font-size: 15px;
-	text-align: right;
-	width: 20%;
-	padding: 0px 10px;
-	float: left;
-	line-height: 36px;
-}
+
+
 .right{
 	width: 84%;
     float: left;
@@ -56,14 +34,7 @@ td{
 	width: 20%;	
 	border-right: 1px solid lightgrey;
 }
-#inputmsg{
-	color: black;
-	border: 1px solid white;
-}
-#confirmrtn{
-	border-right: 3px solid #408ec0;
-	color: #408ec0;
-}
+
 .input{
 	float: right;
 	border:1px solid lightgrey;
@@ -91,10 +62,6 @@ td{
 </head>
 <body>
 <div class="contain">
-	<div class="left">
-		<p class="inside" id="inputmsg">录入校园卡</p>
-		<p class="inside" id="confirmrtn">确认归还</p>
-	</div>
 	<div class="right">
 		<button type="submit" class="input" id="">搜索</button>
 		<input type="input" class="input"  placeholder="id、名称、内容、用户" />
@@ -125,15 +92,11 @@ td{
 </div>
 </body>
 <script type="text/javascript">
-$("document").ready(function(){
-	$("#inputmsg").click(function(){
-		$(".contain").load("findcard.php");
-	});
-});
-	// $("document").ready(function(){
-	// 	$("input").click(function(){
-	// 		$("input").css("border","1px solid red");
-	// 	});
-	// });
+// $("document").ready(function(){
+// 	$("#inputmsg").click(function(){
+// 		$(".contain").load("findcard.php");
+// 	});
+// });
+	
 </script>
 </html>

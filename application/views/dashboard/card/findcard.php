@@ -61,7 +61,7 @@
 	float: left;
 	margin:0 auto;
 }
-#inputmsg{
+.im{
 	border-right: 3px solid #408ec0;
 	color: #408ec0;
 }
@@ -73,12 +73,16 @@
 	padding-right: 20px;
 
 }
+.forcon{
+	border-right: 3px solid #408ec0;
+	color: #408ec0;
+}
 </style>
 </head>
 <body>
 <div class="contain">
 	<div class="left">
-		<p class="inside" id="inputmsg">录入校园卡</p>
+		<p class="inside im" id="inputmsg">录入校园卡</p>
 		<p class="inside" id="confirmrtn">确认归还</p>
 	</div>
 	<div class="right">
@@ -94,13 +98,13 @@
 <script type="text/javascript">
 $("document").ready(function(){
 	$("#confirmrtn").click(function(){
-		$(".contain").load("confirmrtn.php");
+		$(".right").load("confirmrtn.php");
+		$("#inputmsg").removeClass("im");
+		$("#confirmrtn").addClass("forcon");
+	});
+	$("#inputmsg").click(function(){
+		$(".contain").load("findcard.php");
 	});
 });
-	// $("document").ready(function(){
-	// 	$("input").click(function(){
-	// 		$("input").css("border","1px solid red");
-	// 	});
-	// });
 </script>
 </html>

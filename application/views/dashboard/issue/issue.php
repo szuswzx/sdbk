@@ -19,7 +19,15 @@
 	font-size: 15px;
 	padding: 10px 20px;
 }
-#all{
+.whole{
+	color: #408ec0;
+	border-right: 3px solid #408ec0;
+}
+.fornotyet{
+	color: #408ec0;
+	border-right: 3px solid #408ec0;
+}
+.forfini{
 	color: #408ec0;
 	border-right: 3px solid #408ec0;
 }
@@ -72,9 +80,9 @@ td{
 
 <div class="contain">
 	<div class="left">
-		<p class="inside" id="all">全部事务</p>
-		<p class="inside" id="notyet">未回复事务</p>
-		<p class="inside" id="finish">已回复事务</p>
+		<p class="inside whole" id="all">全部事务</p>
+		<p class="inside not" id="notyet">未回复事务</p>
+		<p class="inside fini" id="finish">已回复事务</p>
 	</div>
 	<div class="right">
 		<button type="submit" class="input" id="">搜索</button>
@@ -109,10 +117,19 @@ td{
 <script type="text/javascript">
 	$("document").ready(function(){
 		$("#notyet").on("click",function(){
-			$(".contain").load("notyetIssues.php");
+			$(".right").load("notyetIssues.php");
+			$("#notyet").addClass("fornotyet");
+			$("#all").removeClass("whole");
+			$("#finish").removeClass("forfini");
 		});
 		$("#finish").on("click",function(){
-			$(".contain").load("finished.php");
+			$(".right").load("finished.php");
+			$("#finish").addClass("forfini");
+			$("#all").removeClass("whole");
+			$("#notyet").removeClass("fornotyet");
+		});
+		$("#all").on("click",function(){
+			$(".contain").load("issue.php");
 		});
 	});
 </script>
