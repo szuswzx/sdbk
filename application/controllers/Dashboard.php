@@ -441,6 +441,42 @@
 		  }
 	  }
 	  
+	  public function keywords($keyword = '')
+	  {
+		  //$this->_check_login();
+		  $this->load->model('dashboard/wechat_keyword_model');
+		  
+		  $data['keyword'] = $this->wechat_keyword_model->get_keyword($keyword, 1);
+		  $this->load->view('dashboard/keyword/success', $data);
+	  }
+	  
+	  public function delete_keyword($id = 0)
+	  {
+		  //$this->_check_login();
+		  $this->load->model('dashboard/wechat_keyword_model');
+		  
+		  $res = $this->wechat_keyword_model->delete_keyword($id);
+		  echo $res;
+	  }
+	  
+	  public function add_keyword()
+	  {
+		  //$this->_check_login();
+		  $this->load->model('dashboard/wechat_keyword_model');
+		  
+		  $res = $this->wechat_keyword_model->add_keyword();
+		  echo $res;		  
+	  }
+	  
+	  public function update_keyword($id = 0)
+	  {
+		  //$this->_check_login();
+		  $this->load->model('dashboard/wechat_keyword_model');
+		  
+		  $res = $this->wechat_keyword_model->update_keyword($id);
+		  echo $res;
+	  }
+	  
 	  //一级菜单长度不超过16个字节，二级不超过60个字节
 	  public function check_menu_name($name, $previous)
 	  {

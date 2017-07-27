@@ -79,8 +79,38 @@ class Wechat_api extends CI_Controller
     private function receiveText($object)
     {
         $funcFlag = 0;
-        $contentStr = "你发的 ".$object->Content." 百科君暂时识别不了呢/(ㄒoㄒ)/~~，我会加油的！";
-        $resultStr = $this->transmitText($object, $contentStr, $funcFlag);
+		$this->load->model('dashboard/wechat_keyword_model');
+		$res = $this->wechat_keyword_model->get_keyword($object->Content);
+		if(count($res) != 0 && $res['replyType'] == 'text')
+		{
+			$contentStr = $res['reply'];
+			$resultStr = $this->transmitText($object, $contentStr, $funcFlag);
+		}
+		else if(count($res) != 0 && $res['replyType'] == 'article')
+		{
+			$contentStr = "";
+			$content = json_decode($res['reply'], TRUE);
+			foreach($content as $row)
+			{
+				$contentStr[] = array(
+				    "Title" => $row['title'], 
+				    "Description" => $row['description'], 
+				    "PicUrl" => $row['picUrl'], 
+				    "Url" => $row['url']
+				);
+			}
+			if (is_array($contentStr))
+			{
+				$resultStr = $this->transmitNews($object, $contentStr);
+			}
+		}
+		else
+		{
+			$res = $this->wechat_keyword_model->get_keyword('default');
+			$contentStr = $res['reply'];
+			//$contentStr = "你发的 ".$object->Content." 百科君暂时识别不了呢/(ㄒoㄒ)/~~，我会加油的！";
+			$resultStr = $this->transmitText($object, $contentStr, $funcFlag);
+		}
         return $resultStr;
     }
     
@@ -161,7 +191,7 @@ class Wechat_api extends CI_Controller
         $resultStr = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $content, $funcFlag);
         return $resultStr;
     }
-
+    //回复图片
 	private function transmitImage($object, $imageArray)
 	{
 		$itemTpl = "<Image>
