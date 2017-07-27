@@ -236,7 +236,10 @@
 		
 		$data['issue'] = $issue;
 		$data['page_sum'] = $page_sum;
-		$this->load->view('dashboard/issue/issue', $data);
+		if($type == 0)
+			$this->load->view('dashboard/issue/issue', $data);
+	    else
+			$this->load->view('dashboard/issue/notyetIssues', $data);
 	  }
 	  
 	  public function issue_by_id($id = 0)

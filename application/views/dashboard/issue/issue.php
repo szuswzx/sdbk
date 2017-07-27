@@ -117,13 +117,13 @@ td{
 <script type="text/javascript">
 	$("document").ready(function(){
 		$("#notyet").on("click",function(){
-			$(".right").load("notyetIssues.php");
+			$(".right").load("../dashboard/issue/1/1");
 			$("#notyet").addClass("fornotyet");
 			$("#all").removeClass("whole");
 			$("#finish").removeClass("forfini");
 		});
 		$("#finish").on("click",function(){
-			$(".right").load("finished.php");
+			$(".right").load("../dashboard/issue/1/2");
 			$("#finish").addClass("forfini");
 			$("#all").removeClass("whole");
 			$("#notyet").removeClass("fornotyet");

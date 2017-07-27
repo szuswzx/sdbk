@@ -84,12 +84,14 @@ td{
 				<td>咨询人</td>
 				<td>操作</td>
 			</tr>
+			 <?php foreach($issue as $row){?>
 			<tr>
-				<td>这里是未回复</td>
-				<td>哈哈哈</td>
-				<td>呜呜呜</td>
-				<td>操作</td>
+				<td><?php echo $row['id'];?></td>
+				<td><?php echo $row['title'];?></td>
+				<td><?php echo $row['user'];?></td>
+				<td>删除</td>
 			</tr>
+			<?php }?> 
 		</table>
 		<div class="page">
 			<span>上一页</span>
