@@ -19,6 +19,7 @@
 	height: 30px;
 	font-size: 15px;
 	padding: 10px 20px;
+	cursor: pointer;
 }
 .right{
 	width: 60%;
