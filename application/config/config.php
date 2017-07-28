@@ -529,7 +529,7 @@ $config['proxy_ips'] = '';
 
 */
 $config['app_id'] = 'wx43b29942bc1aa220';
-$config['app_scrert'] = '68f1f7bc66bfbc2b20353bd945628ae8';
+$config['app_secret'] = '68f1f7bc66bfbc2b20353bd945628ae8';
 
 //template id
 $config['issue_template_id'] = 'XjbVBFEvMhZ2_UaTMqzntH3bMVbcr8hS0u9xRlQ1WuM';
