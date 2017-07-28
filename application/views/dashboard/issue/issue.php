@@ -94,15 +94,22 @@ td{
 				<td>咨询人</td>
 				<td>操作</td>
 			</tr>
-			
-			 <?php foreach($issue as $row){?>
+			<tbody id="tbody-result">  
+			<?php foreach($issue as $row){?>
 			<tr>
 				<td><?php echo $row['id'];?></td>
 				<td><?php echo $row['title'];?></td>
 				<td><?php echo $row['user'];?></td>
-				<td>删除</td>
+				<td><?php 
+						  if($row['replied'] == '1')
+							  echo "<button id=".$row['id'].">删除</button>";
+						  else if($row['replied'] == '0')
+							  echo "<button id=".$row['id'].">回复</button>"."<button id=".$row['id'].">删除</button>";
+					?>
+				</td>
 			</tr>
 			<?php }?> 
+			</tbody>
 		</table>
 		<div class="page">
 			<span>上一页</span>
@@ -117,19 +124,87 @@ td{
 <script type="text/javascript">
 	$("document").ready(function(){
 		$("#notyet").on("click",function(){
-			$(".right").load("../dashboard/issue/1/1");
-			$("#notyet").addClass("fornotyet");
-			$("#all").removeClass("whole");
-			$("#finish").removeClass("forfini");
+			var tbody=window.document.getElementById("tbody-result");  
+			$.ajax({  
+				type: "post",  
+				dataType: "json",  
+				url: "../dashboard/issue/notyet/data/1",    
+				success: function (json) {
+					var str = "";
+					for(var i=0;i<json.length;i++)
+					{  
+						str += "<tr>" +  
+							"<td>" + json[i].id + "</td>" +  
+							"<td>" + json[i].title + "</td>" +  
+							"<td>" + json[i].user + "</td>" +
+							"<td>" +
+							"<button id=" + json[i].id + ">回复</button>" +
+							"<button id=" + json[i].id + ">删除</button>" +
+							"</td>" +						
+							"</tr>";
+					}
+                    tbody.innerHTML = str;
+				},  
+				error: function () {  
+					alert("查询失败")  
+				}  
+            });
 		});
 		$("#finish").on("click",function(){
-			$(".right").load("../dashboard/issue/1/2");
-			$("#finish").addClass("forfini");
-			$("#all").removeClass("whole");
-			$("#notyet").removeClass("fornotyet");
+			var tbody=window.document.getElementById("tbody-result");  
+			$.ajax({  
+				type: "post",  
+				dataType: "json",  
+				url: "../dashboard/issue/finish/data/1",    
+				success: function (json) {
+					var str = "";
+					for(var i=0;i<json.length;i++)
+					{  
+						str += "<tr>" +  
+							"<td>" + json[i].id + "</td>" +  
+							"<td>" + json[i].title + "</td>" +  
+							"<td>" + json[i].user + "</td>" +
+							"<td>" +
+							"<button id=" + json[i].id + ">删除</button>" +
+							"</td>" +						
+							"</tr>";
+					}
+                    tbody.innerHTML = str;
+				},  
+				error: function () {  
+					alert("查询失败")  
+				}  
+            });
 		});
 		$("#all").on("click",function(){
-			$(".contain").load("issue.php");
+			var tbody=window.document.getElementById("tbody-result");  
+			$.ajax({  
+				type: "post",  
+				dataType: "json",  
+				url: "../dashboard/issue/all/data/1",
+				success: function (json) {
+					var str = "";
+					for(var i=0;i<json.length;i++)
+					{
+						var buttonStr = "";
+						if(json[i].replied == '0')
+							buttonStr += "<button id=" + json[i].id + ">回复</button>" +
+							             "<button id=" + json[i].id + ">删除</button>";
+						else if(json[i].replied == '1')
+							buttonStr += "<button id=" + json[i].id + ">删除</button>";
+						str += "<tr>" +  
+							"<td>" + json[i].id + "</td>" +  
+							"<td>" + json[i].title + "</td>" +  
+							"<td>" + json[i].user + "</td>" +
+							"<td>"+ buttonStr +"</td>" +						
+							"</tr>";
+					}
+                    tbody.innerHTML = str;
+				},  
+				error: function () {  
+					alert("查询失败")  
+				}  
+            });
 		});
 	});
 </script>

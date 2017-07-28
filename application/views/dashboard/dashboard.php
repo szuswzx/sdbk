@@ -120,7 +120,7 @@ jQuery(function () {
       });
     });
       $("#findcard").on("click",function(){
-      $(".sild").load("findcard.php",function(){
+      $(".sild").load("../dashboard/add_card",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
       });

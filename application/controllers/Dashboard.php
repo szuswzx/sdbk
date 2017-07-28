@@ -128,22 +128,25 @@
 	  }
 	  
 	  //校园卡找回
-      public function card($page = 1, $type = 0)
+      public function card($type = 'all', $out = 'page', $page = 1)
 	  {
 		  //$this->_check_login();
 		  $this->load->model('dashboard/card_model');
 		  
-		  if($type == 0)      //type = 0代表全部拾卡记录
+		  if($type == 'all')      //type = 0代表全部拾卡记录
 			  $card_list = $this->card_model->get_card($page);
-		  else if($type == 1)  //type = 1代表已经归还的拾卡记录
+		  else if($type == 'isreturn')  //type = 1代表已经归还的拾卡记录
 			  $card_list = $this->card_model->get_card($page, $options = array('isreturn' => '1'));
-		  else if($type == 2)
+		  else if($type == 'notreturn')
 			  $card_list = $this->card_model->get_card($page, $options = array('isreturn' => '0'));
 		  else 
 			  $card_list = array();
 		  
 		  $data['card'] = $card_list;
-		  $this->load->view('dashboard/card/success', $data);	  
+		  if($out == 'page')
+			  $this->load->view('dashboard/card/confirmrtn', $data);
+		  else
+			  echo $this->load->view('dashboard/card/confirmrtn', $data, TRUE);
 	  }
 	  
 	  public function add_card()
@@ -164,7 +167,10 @@
 			  
 		  if($this->form_validation->run() == FALSE)
 		  {
-			  $this->load->view('dashboard/card/add_card');
+			  if($this->input->post('ajax') == 'ajax')
+				  echo validation_errors();
+			  else
+				  $this->load->view('dashboard/card/findcard');
 		  }
 		  else
 		  {
@@ -213,20 +219,20 @@
 		  $this->load->model('dashboard/card_model');
 		  $data['card'] = $this->card_model->search_card_by_keyword($page);
 		
-		  $this->load->view('dashboard/card/success', $data);	
+		  $this->load->view('dashboard/card/confirmrtn', $data);	
 	  }
 	  
 	  //事务咨询
-	  public function issue($page = 1, $type = 0)
+	  public function issue($type = 'all', $out = 'page', $page = 1)
 	  {
 		//$this->_check_login();
 		$this->load->model('dashboard/issue_model');
 		
-		if($type == 0)          //type = 0代表返回全部事务
+		if($type == 'all')          //type = 0代表返回全部事务
 			list($issue, $page_sum) = $this->issue_model->get_issue($page);
-		else if($type == 1)     //type = 1代表返回未回复事务
+		else if($type == 'notyet')     //type = 1代表返回未回复事务
 			list($issue, $page_sum) = $this->issue_model->get_issue($page, $options = array('replied' => '0'));
-		else if($type == 2)     //type = 2代表返回已经回复事务
+		else if($type == 'finish')     //type = 2代表返回已经回复事务
 			list($issue, $page_sum) = $this->issue_model->get_issue($page, $options = array('replied' => '1'));
 		else
 		{			
@@ -236,10 +242,10 @@
 		
 		$data['issue'] = $issue;
 		$data['page_sum'] = $page_sum;
-		if($type == 0)
+		if($out == 'page')
 			$this->load->view('dashboard/issue/issue', $data);
 	    else
-			$this->load->view('dashboard/issue/notyetIssues', $data);
+		    echo json_encode($data['issue']);
 	  }
 	  
 	  public function issue_by_id($id = 0)
@@ -248,8 +254,9 @@
 		  $this->load->model('dashboard/issue_model');
 		  $issue = $this->issue_model->get_issue_by_id($id);
 		  
-		  $data['issue'] = $issue;
-		  $this->load->view('dashboard/issue/issue',$data);
+		  //$data['issue'] = $issue;
+		  //$this->load->view('dashboard/issue/issue',$data);
+		  echo json_encode($issue);
 	  }
 	  
 	  public function search_issue($page = 1)

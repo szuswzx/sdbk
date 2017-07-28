@@ -20,7 +20,7 @@
 
       public function get_issue($page, $options = array())
 	  {
-		  $field = array('id', 'title', 'userid');
+		  $field = array('id', 'title', 'userid', 'replied');
 		  $startRow = ($page - 1) * 20;
 		  
 		  $this->db->select($field);

@@ -73,13 +73,21 @@ td{
 				<td>归还者</td>
 				<td>操作</td>
 			</tr>
+			<?php foreach($card as $row){?>
 			<tr>
-				<td>222</td>
-				<td>哈哈哈</td>
-				<td>呜呜呜</td>
-				<td>操作</td>
-				<td>操作</td>
+				<td><?php echo $row['id'];?></td>
+				<td><?php echo $row['studentNo'];?></td>
+				<td><?php echo $row['studentName'];?></td>
+				<td><?php echo $row['getName'];?></td>
+				<td><?php 
+						  if($row['isReturn'] == '1')
+							  echo "<button id=".$row['id'].">删除</button>";
+						  else if($row['isReturn'] == '0')
+							  echo "<button id=".$row['id'].">确认归还</button>"."<button id=".$row['id'].">删除</button>";
+					?>
+				</td>
 			</tr>
+			<?php }?> 
 		</table>
 		<div class="page">
 			<span>上一页</span>

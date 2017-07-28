@@ -85,22 +85,52 @@
 		<p class="inside im" id="inputmsg">录入校园卡</p>
 		<p class="inside" id="confirmrtn">确认归还</p>
 	</div>
-	<div class="right">
-		<div class="item"><p class="lab">学号</p><input type="text" name="oldPwd" class="txt" placeholder="201xxxxxxx">
+	<div class="right" id="result">
+	<?php echo form_open('dashboard/add_card',array('id' => 'add_card')); ?>
+		<div class="item"><p class="lab">学号</p><input type="text" name="studentNo" class="txt" placeholder="201xxxxxxx">
 		<div class="inputTips">10位校园卡号，只能为数字</div></div>
 		
-		<div class="item"><p class="lab">失主姓名</p><input type="text" name="newPwd" class="txt"></div>
-		<div class="item"><p class="lab">归还者姓名</p><input type="text" name="Pwd" class="txt"></div>
-		<div class="btn"></div>
+		<div class="item"><p class="lab">失主姓名</p><input type="text" name="studentName" class="txt"></div>
+		<div class="item"><p class="lab">归还者姓名</p><input type="text" name="getName" class="txt"></div>
+		<div class="btn"><p class="lab">备注</p><textarea type="text" name="remark" class="txt" placeholder="在哪拾获，交接地点信息等"></textarea></div>
+		<input type="hidden" name="ajax" value="ajax">
+	    <p id="message"></p>
+	</form>
+    <div><button id="submit">信息录入</button></div>
 	</div>
 </div>
 </body>
 <script type="text/javascript">
 $("document").ready(function(){
 	$("#confirmrtn").click(function(){
-		$(".right").load("confirmrtn.php");
+            /*var url = '../dashboard/card/all/data';  
+            $.post(url,function(result){  
+                $('#result').replaceWith(result);  
+            })	*/		
+		
+		$(".right").load("../dashboard/card");
 		$("#inputmsg").removeClass("im");
 		$("#confirmrtn").addClass("forcon");
+	});
+	$("#submit").click(function(){
+		$.ajax({  
+			type: "POST",  
+			url:'../dashboard/add_card',  
+			data:$('#add_card').serialize(),
+			async: false,  //同步等待结果执行返回
+			error: function(request) {
+				alert("Connection error");  //提示服务器异常
+			},  
+			success: function(data) {
+				//console.log(data);
+				 var tbody=window.document.getElementById("message");
+				 var str = "";
+				 str += data;
+				 tbody.innerHTML = str;
+                 //alert(data);			 
+				//接收后台返回的结果,应该输出错误提示或者成功提示，同时清空表单，我还没清空表单哦
+			}  
+        });
 	});
 	$("#inputmsg").click(function(){
 		$(".contain").load("findcard.php");
