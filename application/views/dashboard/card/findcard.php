@@ -59,8 +59,7 @@
 }
 .btn{
 	width: 100%;
-	float: left;
-	margin:0 auto;
+	padding-left: 100px;
 }
 .im{
 	border-right: 3px solid #408ec0;
@@ -71,8 +70,7 @@
 	color: #888;
 	font-size: 14px;
 	line-height: 20px;
-	padding-right: 20px;
-
+	padding-right: 35px;
 }
 .forcon{
 	border-right: 3px solid #408ec0;
@@ -93,25 +91,26 @@
 		
 		<div class="item"><p class="lab">失主姓名</p><input type="text" name="studentName" class="txt"></div>
 		<div class="item"><p class="lab">归还者姓名</p><input type="text" name="getName" class="txt"></div>
-		<div class="btn"><p class="lab">备注</p><textarea type="text" name="remark" class="txt" placeholder="在哪拾获，交接地点信息等"></textarea></div>
+		<div class="item"><p class="lab">备注</p><textarea type="text" name="remark" class="txt" placeholder="在哪拾获，交接地点信息等" rows="10"></textarea></div>
 		<input type="hidden" name="ajax" value="ajax">
 	    <p id="message"></p>
-	</form>
-    <div><button id="submit">信息录入</button></div>
+    	<div class="btn"><button  id="submit">信息录入</button></div>
 	</div>
 </div>
 </body>
 <script type="text/javascript">
 $("document").ready(function(){
-	$("#confirmrtn").click(function(){
+	var $inputmsg=$('#inputmsg');
+	var $confirmrtn=$('#confirmrtn');
+	$confirmrtn.click(function(){
             /*var url = '../dashboard/card/all/data';  
             $.post(url,function(result){  
                 $('#result').replaceWith(result);  
             })	*/		
 		
 		$(".right").load("../dashboard/card");
-		$("#inputmsg").removeClass("im");
-		$("#confirmrtn").addClass("forcon");
+		$inputmsg.removeClass("im");
+		$confirmrtn.addClass("forcon");
 	});
 	$("#submit").click(function(){
 		$.ajax({  
@@ -133,7 +132,9 @@ $("document").ready(function(){
 			}  
         });
 	});
-	$("#inputmsg").click(function(){
+	$inputmsg.click(function(){
+		$inputmsg.addClass("im");
+		$confirmrtn.removeClass("forcon");
 		$(".contain").load("findcard.php");
 	});
 });

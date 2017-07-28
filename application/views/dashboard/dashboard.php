@@ -65,7 +65,7 @@
    </div>
   </div>
 </div>
-<div class="dLeft" background="./public/images/dashboard_bg.jpg">
+<div class="dLeft" background="url(../public/images/dashboard_bg.jpg)">
    <div class="menuheader">
      <h2>深大百科</h2>
      <p>dashboard</p>

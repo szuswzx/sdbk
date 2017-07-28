@@ -8,25 +8,8 @@
 
 <style type="text/css">
 
-.inside{
-	height: 30px;
-	font-size: 15px;
-	padding: 10px 20px;
-}
-#all{
-	color: black;
-	border-right: 3px solid white;
-}
-#notyet{
-	color: #408ec0;
-	border-right: 3px solid #408ec0;
-}
-#finish{
-	color: black;
-	border-right: 3px solid white;
-}
 .right{
-	width: 84%;
+	width:84%;
     float: left;
     padding-left: 40px;
     padding-top: 30px;
@@ -35,15 +18,9 @@
 
 table{
 	width: 100%;
-	border:1px solid lightgrey;
 }
 tr{
 	height: 40px;
-	border-bottom: 1px solid lightgrey;
-}
-td{
-	width: 25%;	
-	border-right: 1px solid lightgrey;
 }
 .page{
 	text-align: center;
@@ -78,7 +55,7 @@ td{
 		<button type="submit" class="input" id="">搜索</button>
 		<input type="input" class="input"  placeholder="id、名称、内容、用户" />
 		<table>
-			<tr style="background-color: lightgrey">
+			<tr style="background-color: rgba(199, 189, 189, 0.16)">
 				<td>序号</td>
 				<td>标题</td>
 				<td>咨询人</td>
@@ -103,15 +80,5 @@ td{
 	</div>
 </div>
 </body>
-<script type="text/javascript">
-	// $("document").ready(function(){
-	// 	$("#all").on("click",function(){
-	// 		$(".contain").load("issue.php");
-	// 	});
-	// 	$("#finish").on("click",function(){
-	// 		$(".contain").load("finished.php");
-	// 	});
-	// });
-</script>
 
 </html>

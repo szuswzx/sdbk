@@ -27,7 +27,6 @@ table{
 }
 tr{
 	height: 40px;
-
 	border-bottom: 1px solid lightgrey;
 }
 td{

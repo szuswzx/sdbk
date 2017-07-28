@@ -19,15 +19,10 @@
 }
 table{
 	width: 100%;
-	border:1px solid lightgrey;
+
 }
 tr{
 	height: 40px;
-	border-bottom: 1px solid lightgrey;
-}
-td{
-	width: 25%;	
-	border-right: 1px solid lightgrey;
 }
 .page{
 	text-align: center;
@@ -62,7 +57,7 @@ td{
 		<button type="submit" class="input" id="">搜索</button>
 		<input type="input" class="input"  placeholder="id、名称、内容、用户" />
 		<table>
-			<tr style="background-color: lightgrey">
+			<tr style="background-color: rgba(199, 189, 189, 0.16)">
 				<td>序号</td>
 				<td>标题</td>
 				<td>咨询人</td>
@@ -85,15 +80,6 @@ td{
 	</div>
 </div>
 </body>
-<script type="text/javascript">
-	// $("document").ready(function(){
-	// 	$("#notyet").on("click",function(){
-	// 		$(".right").load("notyetIssues.php");
-	// 	});
-	// 	$("#all").on("click",function(){
-	// 		$(".right").load("issue.php");
-	// 	});
-	// });
-</script>
+
 
 </html>

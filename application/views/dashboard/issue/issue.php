@@ -10,14 +10,16 @@
 
 .left{
 	padding-top: 25px;
-	width: 15%;
+	width: 12%;
 	display: inline-block;
 	float: left;
+	margin-left: 20px;
 }
 .inside{
 	height: 30px;
 	font-size: 15px;
 	padding: 10px 20px;
+	cursor: pointer;
 }
 .whole{
 	color: #408ec0;
@@ -46,15 +48,10 @@
 }
 table{
 	width: 100%;
-	border:1px solid lightgrey;
+	text-align: center;
 }
 tr{
 	height: 40px;
-	border-bottom: 1px solid lightgrey;
-}
-td{
-	width: 25%;	
-	border-right: 1px solid lightgrey;
 }
 .page{
 	text-align: center;
@@ -81,18 +78,18 @@ td{
 <div class="contain">
 	<div class="left">
 		<p class="inside whole" id="all">全部事务</p>
-		<p class="inside not" id="notyet">未回复事务</p>
-		<p class="inside fini" id="finish">已回复事务</p>
+		<p class="inside" id="notyet">未回复事务</p>
+		<p class="inside" id="finish">已回复事务</p>
 	</div>
 	<div class="right">
 		<button type="submit" class="input" id="">搜索</button>
 		<input type="input" class="input"  placeholder="id、名称、内容、用户" />
 		<table>
-			<tr style="background-color: lightgrey">
-				<td>序号</td>
-				<td>标题</td>
-				<td>咨询人</td>
-				<td>操作</td>
+			<tr style="background-color: rgba(199, 189, 189, 0.16)">
+				<td style="width: 15%;">序号</td>
+				<td style="max-width:40%;">标题</td>
+				<td style="width: 25%;">咨询人</td>
+				<td style="width: 10%;">操作</td>
 			</tr>
 			<tbody id="tbody-result">  
 			<?php foreach($issue as $row){?>
@@ -123,7 +120,13 @@ td{
 </body>
 <script type="text/javascript">
 	$("document").ready(function(){
+		var $all=$('#all');
+		var $notyet=$('#notyet');
+		var $finish=$('#finish');
 		$("#notyet").on("click",function(){
+			$all.removeClass('whole');
+			$notyet.addClass('fornotyet');
+			$finish.removeClass('forfini');
 			var tbody=window.document.getElementById("tbody-result");  
 			$.ajax({  
 				type: "post",  
@@ -151,6 +154,9 @@ td{
             });
 		});
 		$("#finish").on("click",function(){
+			$all.removeClass('whole');
+			$finish.addClass('forfini');
+			$notyet.removeClass('fornotyet');
 			var tbody=window.document.getElementById("tbody-result");  
 			$.ajax({  
 				type: "post",  
@@ -177,6 +183,9 @@ td{
             });
 		});
 		$("#all").on("click",function(){
+			$all.addClass('whole');
+			$notyet.removeClass('fornotyet');
+			$finish.removeClass('forfini');
 			var tbody=window.document.getElementById("tbody-result");  
 			$.ajax({  
 				type: "post",  
