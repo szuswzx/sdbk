@@ -86,15 +86,20 @@
 .formatWrong{
 	width: 84%;
 	height: 70px;
+	border-radius: 5px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: red;
+	background-color: rgb(224, 68, 68);
 	color: white;
 	font-size: 18px;
 	display: none;
 	float: left;
 
+}
+.btn[disabled]{
+	cursor: not-allowed;
+	opacity: 50%;
 }
 </style>
 </head>
@@ -116,7 +121,7 @@
 			<input type="hidden" name="ajax" value="ajax">
 	    	<div id="message"></div >
 	    	</form>
-    		<div class="btn"><button  id="submit" disabled="disabled">信息录入</button></div>
+    		<div class="btn"><button  id="submit" disabled="disabled" onclick="typein()">信息录入</button></div>
 		</div>
 
 	</div>
@@ -126,6 +131,10 @@
 $("document").ready(function(){
 	var $inputmsg=$('#inputmsg');
 	var $confirmrtn=$('#confirmrtn');
+	var $studentNo=$('#studentNo');
+	var stuNo=$studentNo.val();
+	var $formatWrong=$('.formatWrong');
+	var $submit=$('#submit');
 	$confirmrtn.click(function(){
             /*var url = '../dashboard/card/all/data';  
             $.post(url,function(result){  
@@ -136,17 +145,16 @@ $("document").ready(function(){
 		$inputmsg.removeClass("im");
 		$confirmrtn.addClass("forcon");
 	});
-	var $studentNo=$('#studentNo');
-	var stuNo=$studentNo.val();
-	var $formatWrong=$('.formatWrong');
-	var $submit=$('#submit');
-	if(stuNo.length()!=0||stuNo.length()!=null){
-		$submit.attr('disabled',false);	
+	if(stuNo.length!==0||stuNo.length!=null){
+			$submit.removeAttr("disabled");	
 	}
-	$submit.click(function(){
+	function typein(){
+		if($submit.hasAttr('disabled')=='disabled'){
+			return false;	
+		}
 		if(stuNo.length()!==10){
 			$formatWrong.show('',function(){
-				$formatWrong.hide(1500);		
+				$formatWrong.hide(3000);		
 			});
 		}
 		$.ajax({  
@@ -161,13 +169,13 @@ $("document").ready(function(){
 				//console.log(data);
 				 var tbody=window.document.getElementById("message");
 				 var str = "";
-				 str += data;
-				 tbody.innerHTML = str;
+				// str += data;
+				 //tbody.innerHTML = str;
                  //alert(data);			 
 				//接收后台返回的结果,应该输出错误提示或者成功提示，同时清空表单，我还没清空表单哦
 			}  
         });
-	});
+	}
 	$inputmsg.click(function(){
 		$inputmsg.addClass("im");
 		$confirmrtn.removeClass("forcon");
