@@ -83,6 +83,18 @@
 .message{
 	height: 40px;
 }
+.formatWrong{
+	width: 84%;
+	height: 70px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: red;
+	color: white;
+	font-size: 18px;
+	display: none;
+
+}
 </style>
 </head>
 <body>
@@ -91,10 +103,11 @@
 		<p class="inside im" id="inputmsg">录入校园卡</p>
 		<p class="inside" id="confirmrtn">确认归还</p>
 	</div>
+	<div class="formatWrong">请务必输入十位数字</div>
 	<div class="right">
 		<div class="rightlabel" id="result">
 		<?php echo form_open('dashboard/add_card',array('id' => 'add_card')); ?>
-			<div class="item"><p class="lab">学号</p><input type="text" name="studentNo" class="txt" placeholder="201xxxxxxx">
+			<div class="item"><p class="lab">学号</p><input type="text" id="studentNo" name="studentNo" class="txt" placeholder="201xxxxxxx">
 			<div class="inputTips">10位校园卡号，只能为数字</div></div>
 			<div class="item"><p class="lab">失主姓名</p><input type="text" name="studentName" class="txt"></div>
 			<div class="item"><p class="lab">归还者姓名</p><input type="text" name="getName" class="txt"></div>
@@ -102,7 +115,7 @@
 			<input type="hidden" name="ajax" value="ajax">
 	    	<div id="message"></div >
 	    	</form>
-    		<div class="btn"><button  id="submit">信息录入</button></div>
+    		<div class="btn"><button  id="submit" disabled="disabled">信息录入</button></div>
 		</div>
 
 	</div>
@@ -122,7 +135,19 @@ $("document").ready(function(){
 		$inputmsg.removeClass("im");
 		$confirmrtn.addClass("forcon");
 	});
-	$("#submit").click(function(){
+	var $studentNo=$('#studentNo');
+	var stuNo=$studentNo.val();
+	var $formatWrong=$('.formatWrong');
+	var $submit=$('#submit');
+	if(stuNo.length()!=0){
+		$submit.attr('disabled',false);
+	}
+	$submit.click(function(){
+		if(stuNo.length()!==10){
+			$formatWrong.show('',function(){
+				$formatWrong.hide(1500);
+			});
+		}
 		$.ajax({  
 			type: "POST",  
 			url:'../dashboard/add_card',  
@@ -147,6 +172,7 @@ $("document").ready(function(){
 		$confirmrtn.removeClass("forcon");
 		$(".right").load("../dashboard/add_card/add");
 	});
+
 });
 </script>
 </html>

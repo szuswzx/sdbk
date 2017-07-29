@@ -23,7 +23,10 @@ body{
      font-size: 20px;
      color: black;
      display: inline-block;
-     margin-right: 15px;
+     
+ }
+ .fa-envelope,.fa-credit-card,.fa-cogs{
+    margin-right: 15px;
  }
 .dash{
      font-size: 20px;
