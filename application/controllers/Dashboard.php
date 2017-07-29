@@ -149,7 +149,7 @@
 			  echo $this->load->view('dashboard/card/confirmrtn', $data, TRUE);
 	  }
 	  
-	  public function add_card()
+	  public function add_card($page = 'first')
 	  {
 		  //$this->_check_login();
 		  $this->load->model('dashboard/card_model');
@@ -169,8 +169,10 @@
 		  {
 			  if($this->input->post('ajax') == 'ajax')
 				  echo validation_errors();
-			  else
+			  else if($page == 'first')
 				  $this->load->view('dashboard/card/findcard');
+			  else
+				  $this->load->view('dashboard/card/returnCard');
 		  }
 		  else
 		  {
