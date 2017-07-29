@@ -53,6 +53,9 @@ table{
 tr{
 	height: 40px;
 }
+td{
+	border-right: 1px solid white;
+}
 .page{
 	text-align: center;
 	height: 40px;

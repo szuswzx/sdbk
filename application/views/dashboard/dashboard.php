@@ -32,6 +32,7 @@
       </ul>
    </li>
  </ul>
+
  <ul class="nav navbar-nav">
    <li class="dropdown">
       <a href="" class="user dropdown-toggle" data-toggle="dropdown">账户<b class="caret"></b> 
@@ -45,6 +46,7 @@
  </a>
  </div>
 </div>
+
 <div class="sild">
  <div class="out">
   <div class="inner" href="www.baidu.com">
@@ -65,7 +67,8 @@
    </div>
   </div>
 </div>
-<div class="dLeft" background="url(../public/images/dashboard_bg.jpg)">
+
+<div class="dLeft" style="background-image: url(../public/images/dashboard_bg.jpg)">
    <div class="menuheader">
      <h2>深大百科</h2>
      <p>dashboard</p>
@@ -80,6 +83,7 @@
      <i class="fa fa-cogs"></i>设置
    </div>
 </div>
+
 </body>
  <script type="text/javascript">
 jQuery(function () {

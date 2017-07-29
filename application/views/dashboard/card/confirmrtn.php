@@ -5,35 +5,27 @@
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <title></title>
 <style type="text/css">
-
 .inside{
 	height: 30px;
 	font-size: 15px;
 	padding: 10px 20px;
 }
-
-
-.right{
-	width: 84%;
+.rightcon{
+	width: 100%;
     float: left;
-    padding-left: 40px;
-    padding-top: 30px;
+    padding-left: 20px;
     padding-right: 20px;
 }
-
 table{
 	width: 100%;
-	border:1px solid lightgrey;
+	text-align: center;
 }
 tr{
-	height: 40px;
-	border-bottom: 1px solid lightgrey;
+	height: 45px;	
 }
 td{
-	width: 20%;	
-	border-right: 1px solid lightgrey;
+	border-right: 1px solid white;
 }
-
 .input{
 	float: right;
 	border:1px solid lightgrey;
@@ -61,16 +53,16 @@ td{
 </head>
 <body>
 <div class="contain">
-	<div class="right">
+	<div class="rightcon">
 		<button type="submit" class="input" id="">搜索</button>
 		<input type="input" class="input"  placeholder="id、名称、内容、用户" />
 		<table>
-			<tr style="background-color: lightgrey">
-				<td>序号</td>
-				<td>学号</td>
-				<td>失主</td>
-				<td>归还者</td>
-				<td>操作</td>
+			<tr style="background-color: rgba(199, 189, 189, 0.16)">
+				<td style="width: 10%">序号</td>
+				<td style="width: 15%">学号</td>
+				<td style="width: 10%">失主</td>
+				<td style="width: 30%">归还者</td>
+				<td style="width: 25%">操作</td>
 			</tr>
 			<?php foreach($card as $row){?>
 			<tr>
@@ -79,10 +71,8 @@ td{
 				<td><?php echo $row['studentName'];?></td>
 				<td><?php echo $row['getName'];?></td>
 				<td><?php 
-						  if($row['isReturn'] == '1')
-							  echo "<button id=".$row['id'].">删除</button>";
-						  else if($row['isReturn'] == '0')
-							  echo "<button id=".$row['id'].">确认归还</button>"."<button id=".$row['id'].">删除</button>";
+						if($row['isReturn'] == '0')
+							 echo "<button style='background-color:pink' id=".$row['id']." >确认归还</button>";
 					?>
 				</td>
 			</tr>
@@ -98,12 +88,4 @@ td{
 	</div>
 </div>
 </body>
-<script type="text/javascript">
-// $("document").ready(function(){
-// 	$("#inputmsg").click(function(){
-// 		$(".contain").load("findcard.php");
-// 	});
-// });
-	
-</script>
 </html>

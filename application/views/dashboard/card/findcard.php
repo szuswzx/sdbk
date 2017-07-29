@@ -8,12 +8,13 @@
 .left{
 	padding:5px;
 	margin-top: 20px;
-	width: 15%;
+	width: 12%;
 	font-size: 20px;
 	display: inline-block;
 	float: left;
 	height: 40px;
 	text-align: center;
+	margin-left: 20px;
 }
 .inside{
 	height: 30px;
@@ -22,11 +23,14 @@
 	cursor: pointer;
 }
 .right{
-	width: 60%;
+	width: 84%;
     float: left;
     padding-left: 40px;
     padding-top: 30px;
     padding-right: 20px;
+}
+.rightlabel{
+	width: 68%;
 }
 .lab{
 	font-size: 15px;
@@ -76,6 +80,9 @@
 	border-right: 3px solid #408ec0;
 	color: #408ec0;
 }
+.message{
+	height: 40px;
+}
 </style>
 </head>
 <body>
@@ -84,17 +91,20 @@
 		<p class="inside im" id="inputmsg">录入校园卡</p>
 		<p class="inside" id="confirmrtn">确认归还</p>
 	</div>
-	<div class="right" id="result">
-	<?php echo form_open('dashboard/add_card',array('id' => 'add_card')); ?>
-		<div class="item"><p class="lab">学号</p><input type="text" name="studentNo" class="txt" placeholder="201xxxxxxx">
-		<div class="inputTips">10位校园卡号，只能为数字</div></div>
+	<div class="right">
+		<div class="rightlabel" id="result">
+		<?php echo form_open('dashboard/add_card',array('id' => 'add_card')); ?>
+			<div class="item"><p class="lab">学号</p><input type="text" name="studentNo" class="txt" placeholder="201xxxxxxx">
+			<div class="inputTips">10位校园卡号，只能为数字</div></div>
 		
-		<div class="item"><p class="lab">失主姓名</p><input type="text" name="studentName" class="txt"></div>
-		<div class="item"><p class="lab">归还者姓名</p><input type="text" name="getName" class="txt"></div>
-		<div class="item"><p class="lab">备注</p><textarea type="text" name="remark" class="txt" placeholder="在哪拾获，交接地点信息等" rows="10"></textarea></div>
-		<input type="hidden" name="ajax" value="ajax">
-	    <p id="message"></p>
-    	<div class="btn"><button  id="submit">信息录入</button></div>
+			<div class="item"><p class="lab">失主姓名</p><input type="text" name="studentName" class="txt"></div>
+			<div class="item"><p class="lab">归还者姓名</p><input type="text" name="getName" class="txt"></div>
+			<div class="item"><p class="lab">备注</p><textarea type="text" name="remark" class="txt" placeholder="在哪拾获，交接地点信息等" rows="10"></textarea></div>
+			<input type="hidden" name="ajax" value="ajax">
+	    	<div id="message"></div >
+	    	</form>
+    		<div class="btn"><button  id="submit">信息录入</button></div>
+		</div>
 	</div>
 </div>
 </body>
@@ -135,7 +145,7 @@ $("document").ready(function(){
 	$inputmsg.click(function(){
 		$inputmsg.addClass("im");
 		$confirmrtn.removeClass("forcon");
-		$(".contain").load("findcard.php");
+		$(".right").load("../dashboard/add_card");
 	});
 });
 </script>
