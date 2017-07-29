@@ -93,6 +93,7 @@
 	color: white;
 	font-size: 18px;
 	display: none;
+	float: left;
 
 }
 </style>
@@ -139,13 +140,13 @@ $("document").ready(function(){
 	var stuNo=$studentNo.val();
 	var $formatWrong=$('.formatWrong');
 	var $submit=$('#submit');
-	if(stuNo.length()!=0){
-		$submit.attr('disabled',false);
+	if(stuNo.length()!=0||stuNo.length()!=null){
+		$submit.attr('disabled',false);	
 	}
 	$submit.click(function(){
 		if(stuNo.length()!==10){
 			$formatWrong.show('',function(){
-				$formatWrong.hide(1500);
+				$formatWrong.hide(1500);		
 			});
 		}
 		$.ajax({  
