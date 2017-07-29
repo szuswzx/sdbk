@@ -94,6 +94,7 @@
 		<div class="item"><p class="lab">备注</p><textarea type="text" name="remark" class="txt" placeholder="在哪拾获，交接地点信息等" rows="10"></textarea></div>
 		<input type="hidden" name="ajax" value="ajax">
 	    <p id="message"></p>
+		</form>
     	<div class="btn"><button  id="submit">信息录入</button></div>
 	</div>
 </div>
@@ -135,7 +136,7 @@ $("document").ready(function(){
 	$inputmsg.click(function(){
 		$inputmsg.addClass("im");
 		$confirmrtn.removeClass("forcon");
-		$(".contain").load("findcard.php");
+		$(".right").load("../dashboard/add_card/add");
 	});
 });
 </script>
