@@ -168,7 +168,7 @@
 		  if($this->form_validation->run() == FALSE)
 		  {
 			  if($this->input->post('ajax') == 'ajax')
-				  echo validation_errors();
+				  echo 0;
 			  else if($page == 'first')
 				  $this->load->view('dashboard/card/findcard');
 			  else
@@ -177,12 +177,7 @@
 		  else
 		  {
 			  $res = $this->card_model->add_card();
-			  if($res == 0)
-				  echo '添加校园卡丢失记录失败！';
-			  else if($res == 1)
-				  echo '添加校园卡丢失记录成功！';
-			  else 
-				  echo '添加校园卡丢失记录成功，丢卡提醒推送发送失败！';
+			  echo $res;
 		  }
 	  }
 	  
