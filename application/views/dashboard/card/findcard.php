@@ -133,7 +133,7 @@ $("document").ready(function(){
 	var $studentNo=$('#studentNo');
 	var $submit=$('#submit');
 	
-	$confirmrtn.click(function(){		
+	$confirmrtn.click(function(){
 		$(".right").load("../dashboard/card");
 		$inputmsg.removeClass("im");
 		$confirmrtn.addClass("forcon");
@@ -146,6 +146,62 @@ $("document").ready(function(){
 		$submit.prop("disabled","disabled");
 	  }
 	});
+	$(".right").on("click", "table button", function(evt){
+		var $formatWrong=$('.formatWrong');
+		var $form=$('#add_card');
+		var $message=window.document.getElementById("message");		
+		var id = $(this).attr("id");
+		
+		$.ajax({
+			type: "POST",  
+			url:'../dashboard/return_card/'+id,  
+			async: false,  //同步等待结果执行返回
+			error: function(request) {
+				$message.innerHTML = '服务器异常';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
+			},  
+			success: function(data) {
+				if(data == 0)
+				{
+					$message.innerHTML = '归还记录修改失败！';
+					$formatWrong.css('background-color','rgb(224, 68, 68)');
+				}
+				else if(data == 1)
+				{
+					$message.innerHTML = '归还记录修改成功！';
+					$formatWrong.css('background-color','rgb(68, 249, 68)');
+				}
+				else
+				{
+					$message.innerHTML = '归还记录修改成功，归还提醒推送发送失败！';
+					$formatWrong.css('background-color','rgb(224, 68, 68)');
+				}
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
+				$(".right").load("../dashboard/card");
+				$inputmsg.removeClass("im");
+				$confirmrtn.addClass("forcon");
+			}  
+		});
+	});
+	$(".right").on("click", "#search", function(evt){
+		var searchContent = $("#searchContent").val();
+		$(".right").load("../dashboard/search_card", {keyword: searchContent},function(){
+			$("#searchContent").val(searchContent);
+		});		
+	});
+	$(".right").on("click", "a", function(evt){
+		var uri = $("#uri").val();
+		var page = $(this)[0].innerHTML;
+		var searchContent = $("#searchContent").val();
+		$(".right").load("../"+uri, {page:page,keyword: searchContent},function(){
+			$("#searchContent").val(searchContent);
+		});
+	});
 	$inputmsg.click(function(){
 		$inputmsg.addClass("im");
 		$confirmrtn.removeClass("forcon");
@@ -154,8 +210,6 @@ $("document").ready(function(){
 
 });
 function typein(){
-	var $studentNo=$('#studentNo');
-	var stuNo=$studentNo.val();
 	var $formatWrong=$('.formatWrong');
 	var $form=$('#add_card');
 	var $message=window.document.getElementById("message");

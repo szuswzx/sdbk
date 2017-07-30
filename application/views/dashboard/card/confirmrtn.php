@@ -54,8 +54,8 @@ td{
 <body>
 <div class="contain">
 	<div class="rightcon">
-		<button type="submit" class="input" id="">搜索</button>
-		<input type="input" class="input"  placeholder="id、名称、内容、用户" />
+		<button type="submit" class="input" id="search">搜索</button>
+		<input type="input" class="input" id="searchContent"  placeholder="id、名称、内容、用户" />
 		<table>
 			<tr style="background-color: rgba(199, 189, 189, 0.16)">
 				<td style="width: 10%">序号</td>
@@ -79,10 +79,12 @@ td{
 			<?php }?> 
 		</table>
 		<div class="page">
+		    <input type="hidden" id="uri" value="<?php echo uri_string();?>">
 			<span>上一页</span>
-			<a href="#">1</a>
-			<a href="#">2</a>
-			<a href="#">3</a>
+			<a>1</a>
+			<a>2</a>
+			<a>3</a>
+			<a><?php echo $page_num;?></a>
 			<span>下一页</span>
 		</div>
 	</div>
