@@ -6,7 +6,6 @@
 	<div class="item"><p class="lab">归还者姓名</p><input type="text" name="getName" class="txt"></div>
 	<div class="item"><p class="lab">备注</p><textarea type="text" name="remark" class="txt" placeholder="在哪拾获，交接地点信息等" rows="10"></textarea></div>
 	<input type="hidden" name="ajax" value="ajax">
-	<div id="message"></div >
 	</form>
 	<div class="btn"><button  id="submit" disabled="disabled" onclick="typein()">信息录入</button></div>
 </div>

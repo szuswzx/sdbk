@@ -109,7 +109,7 @@
 		<p class="inside im" id="inputmsg">录入校园卡</p>
 		<p class="inside" id="confirmrtn">确认归还</p>
 	</div>
-	<div class="formatWrong">请务必输入十位数字</div>
+	<div class="formatWrong" id="message">请务必输入十位数字</div>
 	<div class="right">
 		<div class="rightlabel" id="result">
 		<?php echo form_open('dashboard/add_card',array('id' => 'add_card')); ?>
@@ -118,8 +118,7 @@
 			<div class="item"><p class="lab">失主姓名</p><input type="text" name="studentName" class="txt"></div>
 			<div class="item"><p class="lab">归还者姓名</p><input type="text" name="getName" class="txt"></div>
 			<div class="item"><p class="lab">备注</p><textarea type="text" name="remark" class="txt" placeholder="在哪拾获，交接地点信息等" rows="10"></textarea></div>
-			<input type="hidden" name="ajax" value="ajax">
-	    	<div id="message"></div >
+			<input type="hidden" name="ajax" value="ajax">	    	
 	    	</form>
     		<div class="btn"><button  id="submit" disabled="disabled" onclick="typein()">信息录入</button></div>
 		</div>
@@ -132,15 +131,9 @@ $("document").ready(function(){
 	var $inputmsg=$('#inputmsg');
 	var $confirmrtn=$('#confirmrtn');
 	var $studentNo=$('#studentNo');
-	var stuNo=$studentNo.val();
-	var $formatWrong=$('.formatWrong');
 	var $submit=$('#submit');
-	$confirmrtn.click(function(){
-            /*var url = '../dashboard/card/all/data';  
-            $.post(url,function(result){  
-                $('#result').replaceWith(result);  
-            })	*/		
-		
+	
+	$confirmrtn.click(function(){		
 		$(".right").load("../dashboard/card");
 		$inputmsg.removeClass("im");
 		$confirmrtn.addClass("forcon");
@@ -148,7 +141,7 @@ $("document").ready(function(){
 	$(".right").on("input", '#studentNo', function(evt){
 	  var $submit=$('#submit');
 	  if($(this).val().trim().length == 10){
-		$submit.removeAttr("disabled");	
+		$submit.removeAttr("disabled");
 	  }else{
 		$submit.prop("disabled","disabled");
 	  }
@@ -164,25 +157,42 @@ function typein(){
 	var $studentNo=$('#studentNo');
 	var stuNo=$studentNo.val();
 	var $formatWrong=$('.formatWrong');
-
+	var $form=$('#add_card');
+	var $message=window.document.getElementById("message");
+	
 	$.ajax({  
 		type: "POST",  
 		url:'../dashboard/add_card',  
 		data:$('#add_card').serialize(),
 		async: false,  //同步等待结果执行返回
 		error: function(request) {
-			alert("Connection error");  //提示服务器异常
-		},  
-		success: function(data) {
-			$formatWrong.show('',function(){
-				$formatWrong.hide(3000);		
+			$message.innerHTML = '服务器异常';
+			$formatWrong.css('background-color','rgb(224, 68, 68)');
+			$formatWrong.fadeIn('',function(){
+				$formatWrong.fadeOut(3000);
 			});
-			 var tbody=window.document.getElementById("message");
-			 var str = "";
-			// str += data;
-			 //tbody.innerHTML = str;
-			 //alert(data);			 
-			//接收后台返回的结果,应该输出错误提示或者成功提示，同时清空表单，我还没清空表单哦
+		},  
+		success: function(data) {			
+			if(data == 0)
+			{
+				$message.innerHTML = '添加校园卡丢失记录失败！';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+			}
+			else if(data == 1)
+			{
+				$message.innerHTML = '添加校园卡丢失记录成功！';
+				$formatWrong.css('background-color','rgb(68, 249, 68)');
+				$form[0].reset();
+			}
+			else
+			{
+				$message.innerHTML = '添加校园卡丢失记录成功，丢卡提醒推送发送失败！';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+				$form[0].reset();
+			}
+			$formatWrong.fadeIn('',function(){
+				$formatWrong.fadeOut(3000);
+			});
 		}  
 	});
 }
