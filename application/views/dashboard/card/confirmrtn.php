@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
 <title></title>
 <style type="text/css">
 .inside{
@@ -22,6 +23,9 @@ table{
 }
 tr{
 	height: 45px;	
+}
+tr:hover{
+	background-color: rgba(224, 212, 212, 0.17);
 }
 td{
 	border-right: 1px solid white;
@@ -49,6 +53,18 @@ td{
 .page a:hover,.page span:hover{
 	background-color: #daa;
 }
+.btn{
+	width: 80px;
+	text-align: center;
+	background-color: white;
+	padding: 0px;
+}
+.btn:hover{
+	color: red;
+}
+.btn>.fa:hover{
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -58,11 +74,11 @@ td{
 		<input type="input" class="input"  placeholder="id、名称、内容、用户" />
 		<table>
 			<tr style="background-color: rgba(199, 189, 189, 0.16)">
-				<td style="width: 10%">序号</td>
-				<td style="width: 15%">学号</td>
+				<td style="width: 15%">序号</td>
+				<td style="width: 20%">学号</td>
 				<td style="width: 10%">失主</td>
 				<td style="width: 30%">归还者</td>
-				<td style="width: 25%">操作</td>
+				<td style="width: 15%">操作</td>
 			</tr>
 			<?php foreach($card as $row){?>
 			<tr>
@@ -72,7 +88,7 @@ td{
 				<td><?php echo $row['getName'];?></td>
 				<td><?php 
 						if($row['isReturn'] == '0')
-							 echo "<button style='background-color:pink' id=".$row['id']." >确认归还</button>";
+							 echo "<button class='btn' id=".$row['id']." ><i class='fa fa-check-square'></i>确认归还</button>";
 					?>
 				</td>
 			</tr>
@@ -88,4 +104,5 @@ td{
 	</div>
 </div>
 </body>
+
 </html>

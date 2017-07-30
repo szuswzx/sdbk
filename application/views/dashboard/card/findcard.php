@@ -86,7 +86,6 @@
 	height:40px;
 	border-radius: 5px;
 	text-align: center;
-	background-color: rgb(224, 68, 68);
 	color: white;
 	font-size: 18px;
 	float: left;
