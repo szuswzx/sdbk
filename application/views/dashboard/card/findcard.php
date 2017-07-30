@@ -80,21 +80,18 @@
 	border-right: 3px solid #408ec0;
 	color: #408ec0;
 }
-.message{
-	height: 40px;
-}
+
 .formatWrong{
 	width: 84%;
-	height: 70px;
+	height:40px;
 	border-radius: 5px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	text-align: center;
 	background-color: rgb(224, 68, 68);
 	color: white;
 	font-size: 18px;
-	display: none;
 	float: left;
+	display: none;
+	line-height: 40px;
 
 }
 button[disabled]{
@@ -109,7 +106,7 @@ button[disabled]{
 		<p class="inside im" id="inputmsg">录入校园卡</p>
 		<p class="inside" id="confirmrtn">确认归还</p>
 	</div>
-	<div class="formatWrong" id="message">请务必输入十位数字</div>
+	<div class="formatWrong" id="message"></div>
 	<div class="right">
 		<div class="rightlabel" id="result">
 		<?php echo form_open('dashboard/add_card',array('id' => 'add_card')); ?>
@@ -120,7 +117,7 @@ button[disabled]{
 			<div class="item"><p class="lab">备注</p><textarea type="text" name="remark" class="txt" placeholder="在哪拾获，交接地点信息等" rows="10"></textarea></div>
 			<input type="hidden" name="ajax" value="ajax">	    	
 	    	</form>
-    		<div class="btn"><button  id="submit" disabled="disabled" >信息录入</button></div>
+    		<div class="btn"><button  id="submit" disabled="disabled" onclick="typein()">信息录入</button></div>
 		</div>
 
 	</div>
