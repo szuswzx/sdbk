@@ -381,13 +381,10 @@ button{
 		var $content=$('.edit');
 		var $close=$('.fa');
 		$('td').click(function(evt){
-			// document.body.appendChild($editMask);
 			$editMask.fadeIn('slow');
 			$content.fadeIn('slow');
 			evt.preventDefault();
-			// document.body.style.overflow = "hidden";
-			 // $editMask.show();
-			 // $content.show();
+
 		});
 		$close.click(function(){
 			$content.css('display','none');
