@@ -145,7 +145,14 @@ $("document").ready(function(){
 		$inputmsg.removeClass("im");
 		$confirmrtn.addClass("forcon");
 	});
-	if(stuNo.length!==0||stuNo.length!=null){
+	$(".right").on("input", "#studentNo", function(evt){
+	  if($(this).val().trim().length == 10){
+		$submit.removeAttr("disabled");	
+	  }else{
+		$submit.prop("disabled","disabled");
+	  }
+	});
+	/*if(stuNo.length!==0||stuNo.length!=null){
 			$submit.removeAttr("disabled");	
 	}
 	function typein(){
@@ -175,7 +182,7 @@ $("document").ready(function(){
 				//接收后台返回的结果,应该输出错误提示或者成功提示，同时清空表单，我还没清空表单哦
 			}  
         });
-	}
+	}*/
 	$inputmsg.click(function(){
 		$inputmsg.addClass("im");
 		$confirmrtn.removeClass("forcon");
