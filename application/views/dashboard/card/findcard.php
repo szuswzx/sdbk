@@ -80,24 +80,20 @@
 	border-right: 3px solid #408ec0;
 	color: #408ec0;
 }
-.message{
-	height: 40px;
-}
+
 .formatWrong{
 	width: 84%;
-	height: 70px;
+	height:40px;
 	border-radius: 5px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: rgb(224, 68, 68);
+	text-align: center;
 	color: white;
 	font-size: 18px;
-	display: none;
 	float: left;
+	display: none;
+	line-height: 40px;
 
 }
-.btn[disabled]{
+button[disabled]{
 	cursor: not-allowed;
 	opacity: 50%;
 }
@@ -109,7 +105,7 @@
 		<p class="inside im" id="inputmsg">录入校园卡</p>
 		<p class="inside" id="confirmrtn">确认归还</p>
 	</div>
-	<div class="formatWrong" id="message">请务必输入十位数字</div>
+	<div class="formatWrong" id="message"></div>
 	<div class="right">
 		<div class="rightlabel" id="result">
 		<?php echo form_open('dashboard/add_card',array('id' => 'add_card')); ?>
