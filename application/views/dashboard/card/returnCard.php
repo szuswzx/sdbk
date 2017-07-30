@@ -1,6 +1,6 @@
 <div class="rightlabel" id="result">
 		<?php echo form_open('dashboard/add_card',array('id' => 'add_card')); ?>
-			<div class="item"><p class="lab">学号</p><input type="text" name="studentNo" class="txt" placeholder="201xxxxxxx">
+			<div class="item"><p class="lab">学号</p><input type="text" id="studentNo" name="studentNo" class="txt" placeholder="201xxxxxxx">
 			<div class="inputTips">10位校园卡号，只能为数字</div></div>
 			<div class="item"><p class="lab">失主姓名</p><input type="text" name="studentName" class="txt"></div>
 			<div class="item"><p class="lab">归还者姓名</p><input type="text" name="getName" class="txt"></div>
