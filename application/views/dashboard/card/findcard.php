@@ -145,44 +145,14 @@ $("document").ready(function(){
 		$inputmsg.removeClass("im");
 		$confirmrtn.addClass("forcon");
 	});
-	$(".right").on("input", "#studentNo", function(evt){
+	$(".right").on("input", '#studentNo', function(evt){
+	  var $submit=$('#submit');
 	  if($(this).val().trim().length == 10){
 		$submit.removeAttr("disabled");	
 	  }else{
 		$submit.prop("disabled","disabled");
 	  }
 	});
-	/*if(stuNo.length!==0||stuNo.length!=null){
-			$submit.removeAttr("disabled");	
-	}
-	function typein(){
-		if($submit.hasAttr('disabled')=='disabled'){
-			return false;	
-		}
-		if(stuNo.length()!==10){
-			$formatWrong.show('',function(){
-				$formatWrong.hide(3000);		
-			});
-		}
-		$.ajax({  
-			type: "POST",  
-			url:'../dashboard/add_card',  
-			data:$('#add_card').serialize(),
-			async: false,  //同步等待结果执行返回
-			error: function(request) {
-				alert("Connection error");  //提示服务器异常
-			},  
-			success: function(data) {
-				//console.log(data);
-				 var tbody=window.document.getElementById("message");
-				 var str = "";
-				// str += data;
-				 //tbody.innerHTML = str;
-                 //alert(data);			 
-				//接收后台返回的结果,应该输出错误提示或者成功提示，同时清空表单，我还没清空表单哦
-			}  
-        });
-	}*/
 	$inputmsg.click(function(){
 		$inputmsg.addClass("im");
 		$confirmrtn.removeClass("forcon");
@@ -190,5 +160,31 @@ $("document").ready(function(){
 	});
 
 });
+function typein(){
+	var $studentNo=$('#studentNo');
+	var stuNo=$studentNo.val();
+	var $formatWrong=$('.formatWrong');
+
+	$.ajax({  
+		type: "POST",  
+		url:'../dashboard/add_card',  
+		data:$('#add_card').serialize(),
+		async: false,  //同步等待结果执行返回
+		error: function(request) {
+			alert("Connection error");  //提示服务器异常
+		},  
+		success: function(data) {
+			$formatWrong.show('',function(){
+				$formatWrong.hide(3000);		
+			});
+			 var tbody=window.document.getElementById("message");
+			 var str = "";
+			// str += data;
+			 //tbody.innerHTML = str;
+			 //alert(data);			 
+			//接收后台返回的结果,应该输出错误提示或者成功提示，同时清空表单，我还没清空表单哦
+		}  
+	});
+}
 </script>
 </html>
