@@ -379,7 +379,7 @@ $("document").ready(function(){
 	var $content=$('.edit');
 	var $close=$('.fa');
 	//$('td').click(function(evt){
-	var formOff=$("#tbody-result").on("click", "td", function(evt){     //用on从right父节点开始绑定，表格增改都能动态绑定
+	var formShow=$("#tbody-result").on("click", "td", function(evt){     //用on从right父节点开始绑定，表格增改都能动态绑定
 		var id = $(this).parent().find("button").attr("id");
 		$.ajax({  
 			type: "post",  
@@ -420,6 +420,12 @@ $("document").ready(function(){
 	});
 
 
+	$('.deleteIssue').on('click',function(){
+		formShow.off();
+		alert("haha");
+		formShow.on();
+	});
+		
 	$close.click(function(){
 		$content.css('display','none');
 		$editMask.css('display','none');
@@ -463,13 +469,10 @@ $("document").ready(function(){
 			error: function () {  
 				alert("提交失败")  
 			}  
-	});
-	});
-		$('.deleteIssue').on('click',function(){
-			formOff.off();
-			alert("haha");
-			formOff.on();
 		});
+	});
+		
+		
 	
 });
 function reply()
