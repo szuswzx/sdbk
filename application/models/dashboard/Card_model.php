@@ -36,7 +36,12 @@
 		  $query = $this->db->get('sdbk_card');
 		  $card = $query->result_array();
 		  
-		  return $card;		  
+		  //获取当前搜索结果的总数
+		  $this->db->where($options);
+		  $sum = $this->db->count_all_results('sdbk_card');
+		  $page_sum = (int)($sum / 20) + 1;
+		  
+		  return array($card, $page_sum);		  
 	  }
 	  
 	  public function add_card()
@@ -138,8 +143,16 @@
 		  $this->db->limit(20, $startRow);
 		  $query = $this->db->get('sdbk_card');
 		  $card = $query->result_array();
-
-		  return $card;
+		  
+		  $this->db->or_like('studentName', $keyword);
+		  $this->db->or_like('studentNo', $keyword);
+		  $this->db->or_like('getName', $keyword);
+		  $this->db->or_like('remark', $keyword);
+		  $this->db->or_like('id', $keyword);
+		  $sum = $this->db->count_all_results('sdbk_card');
+		  $page_sum = (int)($sum / 20) + 1;
+		  
+		  return array($card, $page_sum);
 	  }
 	  	 
   }

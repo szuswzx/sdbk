@@ -203,7 +203,7 @@ button{
 				<td style="width: 15%;">序号</td>
 				<td style="max-width:40%;">标题</td>
 				<td style="width: 25%;">咨询人</td>
-				<td style="width: 10%;">操作</td>
+				<td colspan="2" style="width: 10%;">操作</td>
 			</tr>
 			<tbody id="tbody-result">  
 			<?php foreach($issue as $row){?>
@@ -212,12 +212,11 @@ button{
 				<td><?php echo $row['title'];?></td>
 				<td><?php echo $row['user'];?></td>
 				<td><?php 
-						  if($row['replied'] == '1')
-							  echo "<button id=".$row['id'].">删除</button>";
-						  else if($row['replied'] == '0')
-							  echo "<button id=".$row['id'].">回复</button>"."<button id=".$row['id'].">删除</button>";
+				          if($row['replied'] == '0')
+							  echo "<button id=".$row['id'].">回复</button>";
 					?>
 				</td>
+				<td><?php echo "<button id=".$row['id'].">删除</button>";?></td>
 			</tr>
 			<?php }?> 
 			</tbody>
@@ -281,150 +280,152 @@ button{
 </div>
 </body>
 <script type="text/javascript">
-	$("document").ready(function(){
-		var $all=$('#all');
-		var $notyet=$('#notyet');
-		var $finish=$('#finish');
-		$("#notyet").on("click",function(){
-			$all.removeClass('whole');
-			$notyet.addClass('fornotyet');
-			$finish.removeClass('forfini');
-			var tbody=window.document.getElementById("tbody-result");  
-			$.ajax({  
-				type: "post",  
-				dataType: "json",  
-				url: "../dashboard/issue/notyet/data/1",    
-				success: function (json) {
-					var str = "";
-					for(var i=0;i<json.length;i++)
-					{  
-						str += "<tr>" +  
-							"<td>" + json[i].id + "</td>" +  
-							"<td>" + json[i].title + "</td>" +  
-							"<td>" + json[i].user + "</td>" +
-							"<td>" +
-							"<button id=" + json[i].id + ">回复</button>" +
-							"<button id=" + json[i].id + ">删除</button>" +
-							"</td>" +						
-							"</tr>";
-					}
-                    tbody.innerHTML = str;
-				},  
-				error: function () {  
-					alert("查询失败")  
-				}  
-            });
-		});
-		$("#finish").on("click",function(){
-			$all.removeClass('whole');
-			$finish.addClass('forfini');
-			$notyet.removeClass('fornotyet');
-			var tbody=window.document.getElementById("tbody-result");  
-			$.ajax({  
-				type: "post",  
-				dataType: "json",  
-				url: "../dashboard/issue/finish/data/1",    
-				success: function (json) {
-					var str = "";
-					for(var i=0;i<json.length;i++)
-					{  
-						str += "<tr>" +  
-							"<td>" + json[i].id + "</td>" +  
-							"<td>" + json[i].title + "</td>" +  
-							"<td>" + json[i].user + "</td>" +
-							"<td>" +
-							"<button id=" + json[i].id + ">删除</button>" +
-							"</td>" +						
-							"</tr>";
-					}
-                    tbody.innerHTML = str;
-				},  
-				error: function () {  
-					alert("查询失败")  
-				}  
-            });
-		});
-		$("#all").on("click",function(){
-			$all.addClass('whole');
-			$notyet.removeClass('fornotyet');
-			$finish.removeClass('forfini');
-			var tbody=window.document.getElementById("tbody-result");  
-			$.ajax({  
-				type: "post",  
-				dataType: "json",
-				url: "../dashboard/issue/all/data/1",
-				success: function (json) {
-					var str = "";
-					for(var i=0;i<json.length;i++)
-					{
-						var buttonStr = "";
-						if(json[i].replied == '0')
-							buttonStr += "<button id=" + json[i].id + ">回复</button>" +
-							             "<button id=" + json[i].id + ">删除</button>";
-						else if(json[i].replied == '1')
-							buttonStr += "<button id=" + json[i].id + ">删除</button>";
-						str += "<tr>" +  
-							"<td>" + json[i].id + "</td>" +  
-							"<td>" + json[i].title + "</td>" +  
-							"<td>" + json[i].user + "</td>" +
-							"<td>"+ buttonStr +"</td>" +						
-							"</tr>";
-					}
-                    tbody.innerHTML = str;
-				},  
-				error: function () {  
-					alert("查询失败")  
-				}  
-            });
-		});
-		var $editMask=$('.editMask');
-		var $content=$('.edit');
-		var $close=$('.fa');
-		//$('td').click(function(evt){
-		$("#tbody-result").on("click", "td", function(evt){     //用on从right父节点开始绑定，表格增改都能动态绑定
-			var id = $(this).parent().find("button").attr("id");
-			$.ajax({  
-				type: "post",  
-				dataType: "json",
-				url: "../dashboard/issue_by_id/"+id,
-				success: function (json) {
-					$(".item").each(function(){
-						var left = $(this).find(".editleft").html();
-						var $right = $(this).find(".editright");
-						if(left == "标题")
-							$right.html(json['title']);
-						else if(left == "事务内容")
-							$right.html(json['content']);
-						else if(left == "咨询人")
-							$right.html(json['studentName']);
-						else if(left == "咨询人学号")
-							$right.html(json['studentNo']);
-						else if(left == "所在单位")
-							$right.html(json['org']);
-						else if(left == "联系方式")
-							$right.html(json['phone']);
-						else if(left == "回复部门")
-							$right.find('input').val(json['asso']);
-						else if(left == "回复内容")
-							$right.find('textarea').val(json['reply']);
-						else if(left == "回复人")
-							$right.html(json['responder']);
-					});
-				},  
-				error: function () {  
-					alert("查询失败")  
-				}  
-            });
-			$editMask.fadeIn('slow');
-			$content.fadeIn('slow');
-			evt.preventDefault();
-
-		});
-		$close.click(function(){
-			$content.css('display','none');
-			$editMask.css('display','none');
+$("document").ready(function(){
+	var $all=$('#all');
+	var $notyet=$('#notyet');
+	var $finish=$('#finish');
+	$("#notyet").on("click",function(){
+		$all.removeClass('whole');
+		$notyet.addClass('fornotyet');
+		$finish.removeClass('forfini');
+		var tbody=window.document.getElementById("tbody-result");  
+		$.ajax({  
+			type: "post",  
+			dataType: "json",  
+			url: "../dashboard/issue/notyet/data/1",    
+			success: function (json) {
+				var str = "";
+				for(var i=0;i<json.length;i++)
+				{  
+					str += "<tr>" +  
+						"<td>" + json[i].id + "</td>" +  
+						"<td>" + json[i].title + "</td>" +  
+						"<td>" + json[i].user + "</td>" +
+						"<td>" + "<button id=" + json[i].id + ">回复</button>" + "</td>" +
+						"<td>" + "<button id=" + json[i].id + ">删除</button>" + "</td>" +						
+						"</tr>";
+				}
+				tbody.innerHTML = str;
+			},  
+			error: function () {  
+				alert("查询失败")  
+			}  
 		});
 	});
+	$("#finish").on("click",function(){
+		$all.removeClass('whole');
+		$finish.addClass('forfini');
+		$notyet.removeClass('fornotyet');
+		var tbody=window.document.getElementById("tbody-result");  
+		$.ajax({  
+			type: "post",  
+			dataType: "json",  
+			url: "../dashboard/issue/finish/data/1",    
+			success: function (json) {
+				var str = "";
+				for(var i=0;i<json.length;i++)
+				{  
+					str += "<tr>" +  
+						"<td>" + json[i].id + "</td>" +  
+						"<td>" + json[i].title + "</td>" +  
+						"<td>" + json[i].user + "</td>" +
+						"<td>" + "</td>" +
+						"<td>" + "<button id=" + json[i].id + ">删除</button>" + "</td>" +						
+						"</tr>";
+				}
+				tbody.innerHTML = str;
+			},  
+			error: function () {  
+				alert("查询失败")  
+			}  
+		});
+	});
+	$("#all").on("click",function(){
+		$all.addClass('whole');
+		$notyet.removeClass('fornotyet');
+		$finish.removeClass('forfini');
+		var tbody=window.document.getElementById("tbody-result");  
+		$.ajax({  
+			type: "post",  
+			dataType: "json",
+			url: "../dashboard/issue/all/data/1",
+			success: function (json) {
+				var str = "";
+				for(var i=0;i<json.length;i++)
+				{
+					var buttonStr = "";
+					if(json[i].replied == '0')
+						buttonStr += "<button id=" + json[i].id + ">回复</button>" + "</td>" +
+									 "<td>" + "<button id=" + json[i].id + ">删除</button>";
+					else if(json[i].replied == '1')
+						buttonStr += "</td>" +
+					                 "<td>" + "<button id=" + json[i].id + ">删除</button>";
+					str += "<tr>" +  
+						"<td>" + json[i].id + "</td>" +  
+						"<td>" + json[i].title + "</td>" +  
+						"<td>" + json[i].user + "</td>" +
+						"<td>"+ buttonStr +"</td>" +						
+						"</tr>";
+				}
+				tbody.innerHTML = str;
+			},  
+			error: function () {  
+				alert("查询失败")  
+			}  
+		});
+	});
+	var $editMask=$('.editMask');
+	var $content=$('.edit');
+	var $close=$('.fa');
+	//$('td').click(function(evt){
+	$("#tbody-result").on("click", "td", function(evt){     //用on从right父节点开始绑定，表格增改都能动态绑定
+		var id = $(this).parent().find("button").attr("id");
+		$.ajax({  
+			type: "post",  
+			dataType: "json",
+			url: "../dashboard/issue_by_id/"+id,
+			success: function (json) {
+				$(".item").each(function(){
+					var left = $(this).find(".editleft").html();
+					var $right = $(this).find(".editright");
+					if(left == "标题")
+						$right.html(json['title']);
+					else if(left == "事务内容")
+						$right.html(json['content']);
+					else if(left == "咨询人")
+						$right.html(json['studentName']);
+					else if(left == "咨询人学号")
+						$right.html(json['studentNo']);
+					else if(left == "所在单位")
+						$right.html(json['org']);
+					else if(left == "联系方式")
+						$right.html(json['phone']);
+					else if(left == "回复部门")
+						$right.find('input').val(json['asso']);
+					else if(left == "回复内容")
+						$right.find('textarea').val(json['reply']);
+					else if(left == "回复人")
+						$right.html(json['responder']);
+				});
+			},  
+			error: function () {  
+				alert("查询失败")  
+			}  
+		});
+		$editMask.fadeIn('slow');
+		$content.fadeIn('slow');
+		evt.preventDefault();
+
+	});
+	$close.click(function(){
+		$content.css('display','none');
+		$editMask.css('display','none');
+	});	
+});
+function reply()
+{
+	alert(132);
+}
 </script>
 
 </html>

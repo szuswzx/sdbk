@@ -132,17 +132,22 @@
 	  {
 		  //$this->_check_login();
 		  $this->load->model('dashboard/card_model');
-		  
+		  if($this->input->post('page') != '')
+			  $page = $this->input->post('page');
 		  if($type == 'all')      //type = 0代表全部拾卡记录
-			  $card_list = $this->card_model->get_card($page);
+			  list($card_list, $page_num) = $this->card_model->get_card($page);
 		  else if($type == 'isreturn')  //type = 1代表已经归还的拾卡记录
-			  $card_list = $this->card_model->get_card($page, $options = array('isreturn' => '1'));
+			  list($card_list, $page_num) = $this->card_model->get_card($page, $options = array('isreturn' => '1'));
 		  else if($type == 'notreturn')
-			  $card_list = $this->card_model->get_card($page, $options = array('isreturn' => '0'));
+			  list($card_list, $page_num) = $this->card_model->get_card($page, $options = array('isreturn' => '0'));
 		  else 
+		  {
 			  $card_list = array();
+			  $page_num = 0;
+		  }
 		  
 		  $data['card'] = $card_list;
+		  $data['page_num'] = $page_num;
 		  if($out == 'page')
 			  $this->load->view('dashboard/card/confirmrtn', $data);
 		  else
@@ -202,21 +207,21 @@
 		  //$this->_check_login();
 		  $this->load->model('dashboard/card_model');
 		  $res = $this->card_model->return_card($id);
-		  if($res == 0)
-			  echo '归还记录修改失败！';
-		  else if($res == 1)
-			  echo '归还记录修改成功！';
-		  else 
-			  echo '归还记录修改成功，归还提醒推送发送失败！';
+		  echo $res;
 	  }
 	  
 	  public function search_card($page = 1)
 	  {
 		  //$this->_check_login();
 		  $this->load->model('dashboard/card_model');
-		  $data['card'] = $this->card_model->search_card_by_keyword($page);
+		  
+		  if($this->input->post('page') != '')
+			  $page = $this->input->post('page');
+		  list($card_list, $page_num)= $this->card_model->search_card_by_keyword($page);
+		  $data['card'] = $card_list;
+		  $data['page_num'] = $page_num;
 		
-		  $this->load->view('dashboard/card/confirmrtn', $data);	
+		  $this->load->view('dashboard/card/confirmrtn', $data);
 	  }
 	  
 	  //事务咨询

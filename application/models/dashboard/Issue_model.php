@@ -47,7 +47,7 @@
 	  
 	  public function get_issue_by_id($id = 0)  //根据id获取事务和学生信息（提交事务的学生）
 	  {
-		  $field = array('id', 'title', 'content', 'userid', 'reply', 'responder');
+		  $field = array('id', 'title', 'content', 'userid', 'reply', 'responder', 'asso');
 		  $options = array('id' => $id);
 		  
 		  $this->db->select($field);
