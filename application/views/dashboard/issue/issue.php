@@ -263,11 +263,11 @@ button{
 			</div>
 			<div class="item">
 				<div class="editleft">回复部门</div>
-				<div class="editright"><input type="text"></div>
+				<div class="editright"><input name="asso" type="text"></div>
 			</div>
 			<div class="item">
 				<div class="editleft">回复内容</div>
-				<div class="editright"><textarea placeholder="回复些什么吧"></textarea></div>
+				<div class="editright"><textarea name="reply" placeholder="回复些什么吧"></textarea></div>
 			</div>
 			<div class="item">
 				<div class="editleft">回复人</div>
@@ -351,7 +351,7 @@ button{
 			var tbody=window.document.getElementById("tbody-result");  
 			$.ajax({  
 				type: "post",  
-				dataType: "json",  
+				dataType: "json",
 				url: "../dashboard/issue/all/data/1",
 				success: function (json) {
 					var str = "";
@@ -380,7 +380,41 @@ button{
 		var $editMask=$('.editMask');
 		var $content=$('.edit');
 		var $close=$('.fa');
-		$('td').click(function(evt){
+		//$('td').click(function(evt){
+		$("#tbody-result").on("click", "td", function(evt){     //用on从right父节点开始绑定，表格增改都能动态绑定
+			var id = $(this).parent().find("button").attr("id");
+			$.ajax({  
+				type: "post",  
+				dataType: "json",
+				url: "../dashboard/issue_by_id/"+id,
+				success: function (json) {
+					$(".item").each(function(){
+						var left = $(this).find(".editleft").html();
+						var $right = $(this).find(".editright");
+						if(left == "标题")
+							$right.html(json['title']);
+						else if(left == "事务内容")
+							$right.html(json['content']);
+						else if(left == "咨询人")
+							$right.html(json['studentName']);
+						else if(left == "咨询人学号")
+							$right.html(json['studentNo']);
+						else if(left == "所在单位")
+							$right.html(json['org']);
+						else if(left == "联系方式")
+							$right.html(json['phone']);
+						else if(left == "回复部门")
+							$right.find('input').val(json['asso']);
+						else if(left == "回复内容")
+							$right.find('textarea').val(json['reply']);
+						else if(left == "回复人")
+							$right.html(json['responder']);
+					});
+				},  
+				error: function () {  
+					alert("查询失败")  
+				}  
+            });
 			$editMask.fadeIn('slow');
 			$content.fadeIn('slow');
 			evt.preventDefault();
