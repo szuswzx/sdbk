@@ -159,6 +159,7 @@ td{
 }
 textarea{
 	height: 200px;
+	width: 100%;
 	resize: none;
 }
 .replayBtn{
@@ -216,7 +217,7 @@ button{
 							  echo "<button id=".$row['id'].">回复</button>";
 					?>
 				</td>
-				<td><?php echo "<button id=".$row['id'].">删除</button>";?></td>
+				<td><?php echo "<button class='deleteIssue' id=".$row['id'].">删除</button>";?></td>
 			</tr>
 			<?php }?> 
 			</tbody>
@@ -273,7 +274,7 @@ button{
 				<div class="editright"></div>
 			</div>
 			<div class="item">
-				<div class="replayBtn"><button>提交回复</button><span class="cancel">取消</span></div>
+				<div class="replayBtn"><button class="submitReply">提交回复</button><span class="cancel">取消</span></div>
 			</div>
 		</div>
 	</div>
@@ -378,7 +379,7 @@ $("document").ready(function(){
 	var $content=$('.edit');
 	var $close=$('.fa');
 	//$('td').click(function(evt){
-	$("#tbody-result").on("click", "td", function(evt){     //用on从right父节点开始绑定，表格增改都能动态绑定
+	var formOff=$("#tbody-result").on("click", "td", function(evt){     //用on从right父节点开始绑定，表格增改都能动态绑定
 		var id = $(this).parent().find("button").attr("id");
 		$.ajax({  
 			type: "post",  
@@ -417,10 +418,59 @@ $("document").ready(function(){
 		evt.preventDefault();
 
 	});
+
+
 	$close.click(function(){
 		$content.css('display','none');
 		$editMask.css('display','none');
 	});	
+	$('.cancel').click(function(){
+		$content.css('display','none');
+		$editMask.css('display','none');
+	});
+
+
+	$('.submitReply').on('click',function(){
+		var id = $(this).parent().find("button").attr("id");
+		$.ajax({  
+			type: "post",  
+			dataType: "json",
+			url: "../dashboard/issue_by_id/"+id,
+			success: function (json) {
+				$(".item").each(function(){
+					var left = $(this).find(".editleft").html();
+					var $right = $(this).find(".editright");
+					// if(left == "标题")
+					// 	$right.html(json['title']);
+					// else if(left == "事务内容")
+					// 	$right.html(json['content']);
+					// else if(left == "咨询人")
+					// 	$right.html(json['studentName']);
+					// else if(left == "咨询人学号")
+					// 	$right.html(json['studentNo']);
+					// else if(left == "所在单位")
+					// 	$right.html(json['org']);
+					// else if(left == "联系方式")
+					// 	$right.html(json['phone']);
+					// else if(left == "回复部门")
+					// 	$right.find('input').val(json['asso']);
+					// else if(left == "回复内容")
+					// 	$right.find('textarea').val(json['reply']);
+					// else if(left == "回复人")
+					// 	$right.html(json['responder']);
+				});
+			},  
+			error: function () {  
+				alert("提交失败")  
+			}  
+	});
+	});
+		$('.deleteIssue').on('click',function(){
+			formOff.off();
+			alert("haha");
+			formOff.on();
+		});
+	
 });
 function reply()
 {
