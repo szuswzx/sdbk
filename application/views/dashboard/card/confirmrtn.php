@@ -36,7 +36,7 @@ td{
 	margin-left: 10px;
 	margin-bottom: 10px;
 }
-.page{
+/*.page{
 	text-align: center;
 	height: 40px;
 	margin-top: 40px;
@@ -52,7 +52,7 @@ td{
 }
 .page a:hover,.page span:hover{
 	background-color: #daa;
-}
+}*/
 .btn{
 	width: 80px;
 	text-align: center;
@@ -64,6 +64,19 @@ td{
 }
 .btn>.fa:hover{
 	color: red;
+}
+.getMore{
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+.getMore:hover{
+	background-color: rgba(199, 189, 189, 0.16);
 }
 </style>
 </head>
@@ -94,7 +107,7 @@ td{
 			</tr>
 			<?php }?> 
 		</table>
-		<div class="page">
+		<!-- <div class="page">
 		    <input type="hidden" id="uri" value="<?php echo uri_string();?>">
 			<span>上一页</span>
 			<a>1</a>
@@ -102,7 +115,8 @@ td{
 			<a>3</a>
 			<a><?php echo $page_num;?></a>
 			<span>下一页</span>
-		</div>
+		</div> -->
+		<div class="getMore">点击获取更多</div>
 	</div>
 </div>
 </body>

@@ -1,0 +1,212 @@
+.left{
+	padding-top: 25px;
+	width: 12%;
+	display: inline-block;
+	float: left;
+	margin-left: 20px;
+}
+.inside{
+	height: 30px;
+	font-size: 15px;
+	padding: 10px 20px;
+	cursor: pointer;
+}
+.whole{
+	color: #408ec0;
+	border-right: 3px solid #408ec0;
+}
+.fornotyet{
+	color: #408ec0;
+	border-right: 3px solid #408ec0;
+}
+.forfini{
+	color: #408ec0;
+	border-right: 3px solid #408ec0;
+}
+.right{
+	width: 84%;
+    float: left;
+    padding-left: 40px;
+    padding-top: 30px;
+    padding-right: 20px;
+}
+.input{
+	float: right;
+	border:1px solid lightgrey;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	height: 30px;
+	line-height: 30px;
+}
+table{
+	width: 100%;
+	text-align: center;
+}
+tr{
+	height: 40px;
+	border-bottom: 2px solid white;
+}
+tr:hover{
+	background-color: rgba(224, 212, 212, 0.17);
+}
+td{
+	border-right: 1px solid white;
+}
+/*.page{
+	text-align: center;
+	height: 40px;
+	margin-top: 40px;
+	border-radius: 4px;
+	
+}
+.page a,.page span{
+	text-decoration: none;
+	border: 1px solid lightgrey;
+	padding: 5px 7px;
+	color: #333;
+	cursor: pointer;
+}
+.page a:hover,.page span:hover{
+	background-color: #daa;
+}*/
+.getMore{
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+.getMore:hover{
+	background-color: rgba(199, 189, 189, 0.16);
+}
+
+.editMask{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.8);
+	z-index: 1005;
+	display: none;
+}
+.edit{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -250px;
+	margin-top: -270px;
+	width: 500px;
+	height: 540px;
+	overflow: auto;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 20px rgba(0,0,0,.4);
+	display: none;
+
+}
+.editTitle{
+	background-color: #f45757;
+	padding: 0 10px;
+	color: #fff;
+	font-size: 16px;
+	line-height: 36px;
+
+}
+.close{
+	float: right;
+	cursor: pointer;
+}
+.fa{
+	display: inline-block;
+	font-size: inherit;
+	text-rendering: auto;
+
+}
+.editBody{
+	width: 100%;
+	padding: 10px;
+	padding-bottom: 20px;
+}
+.item{
+	float: left;
+	width: 100%;
+	margin-top: 5px;
+}
+.editleft{
+	float: left;
+	width: 20%;
+	padding: 5px 10px;
+	text-align: right;
+	color: #f45757;
+	font-size: 14px;
+}
+.editright{
+	float: left;
+	width: 76%;
+	padding: 5px;
+	text-align: justify;
+	color: #2b2b2b;
+	font-size: 14px;
+}
+[type='text']{
+	width: 100%;
+	padding: 5px 10px;
+	color: #2b2b2b;
+	font-size: 14px;
+	line-height: 24px;
+	border-radius: 3px;
+	border: 1px solid #ddd;
+}
+textarea{
+	height: 200px;
+	width: 100%;
+	resize: none;
+}
+.replayBtn{
+	width: 150px;
+	margin:0 auto;
+}
+#search{
+	width: 100px;
+	font-size: 14px;
+	background: #f6f6f6;
+	border-radius: 3px;
+
+}
+.cancel{
+	float: right;
+	color: #888;
+	font-size: 14px;
+	line-height: 42px;
+	cursor: pointer;
+
+}
+.formatWrong{
+	width: 84%;
+	height:40px;
+	border-radius: 5px;
+	text-align: center;
+	color: white;
+	font-size: 18px;
+	float: left;
+	display: none;
+	line-height: 40px;
+
+}
+.hold{
+	width: 100px;
+	margin:0 auto;
+	padding-top: 10px;
+}
+/*.hold:hover{
+	color: red;
+}*/
+.delBtn{
+	display: inline-block;
+}
+
