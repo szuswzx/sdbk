@@ -159,6 +159,7 @@ td{
 }
 textarea{
 	height: 200px;
+	width: 100%;
 	resize: none;
 }
 .replayBtn{
@@ -196,8 +197,8 @@ button{
 		<p class="inside" id="finish">已回复事务</p>
 	</div>
 	<div class="right">
-		<button type="submit" class="input" id="">搜索</button>
-		<input type="input" class="input"  placeholder="id、名称、内容、用户" />
+		<button type="submit" class="input" id="search">搜索</button>
+		<input type="input" class="input" id="searchContent" placeholder="id、名称、内容、用户" />
 		<table>
 			<tr style="background-color: rgba(199, 189, 189, 0.16)">
 				<td style="width: 15%;">序号</td>
@@ -216,17 +217,19 @@ button{
 							  echo "<button id=".$row['id'].">回复</button>";
 					?>
 				</td>
-				<td id="delete"><?php echo "<button id=".$row['id'].">删除</button>";?></td>
+				<td class='deleteIssue'><?php echo "<button id=".$row['id'].">删除</button>";?></td>
 			</tr>
 			<?php }?> 
 			</tbody>
 		</table>
 		<div class="page">
+		    <input type="hidden" id="url" value="../dashboard/issue/all/data/">
+			<input type="hidden" id="current_page" value="1">
 			<span>上一页</span>
-			<a href="#">1</a>
-			<a href="#">2</a>
-			<a href="#">3</a>
-			<span>下一页</span>
+			<a>1</a>
+			<a>2</a>
+			<a>3</a>
+			<span>下一页</span>			
 		</div>
 	</div>
 </div>
@@ -262,18 +265,19 @@ button{
 			</div>
 			<div class="item">
 				<div class="editleft">回复部门</div>
-				<div class="editright"><input name="asso" type="text"></div>
+				<div class="editright"><input id="asso" type="text"></div>
 			</div>
 			<div class="item">
 				<div class="editleft">回复内容</div>
-				<div class="editright"><textarea name="reply" placeholder="回复些什么吧"></textarea></div>
+				<div class="editright"><textarea id="reply" placeholder="回复些什么吧"></textarea></div>
 			</div>
 			<div class="item">
 				<div class="editleft">回复人</div>
 				<div class="editright"></div>
 			</div>
 			<div class="item">
-				<div class="replayBtn"><button>提交回复</button><span class="cancel">取消</span></div>
+			    <input type="hidden" id="issueId">
+				<div class="replayBtn"><button class="submitReply">提交回复</button><span class="cancel">取消</span></div>
 			</div>
 		</div>
 	</div>
@@ -288,103 +292,101 @@ $("document").ready(function(){
 		$all.removeClass('whole');
 		$notyet.addClass('fornotyet');
 		$finish.removeClass('forfini');
-		var tbody=window.document.getElementById("tbody-result");  
 		$.ajax({  
 			type: "post",  
 			dataType: "json",  
 			url: "../dashboard/issue/notyet/data/1",    
-			success: function (json) {
-				var str = "";
-				for(var i=0;i<json.length;i++)
-				{  
-					str += "<tr>" +  
-						"<td>" + json[i].id + "</td>" +  
-						"<td>" + json[i].title + "</td>" +  
-						"<td>" + json[i].user + "</td>" +
-						"<td>" + "<button id=" + json[i].id + ">回复</button>" + "</td>" +
-						"<td id='delete'>" + "<button id=" + json[i].id + ">删除</button>" + "</td>" +						
-						"</tr>";
-				}
-				tbody.innerHTML = str;
-			},  
+			success: loadIssue,
 			error: function () {  
-				alert("查询失败")  
+				alert("服务器异常");
 			}  
 		});
+		$('#url').val('../dashboard/issue/notyet/data/');
+		$("#current_page").val('1');
 	});
 	$("#finish").on("click",function(){
 		$all.removeClass('whole');
 		$finish.addClass('forfini');
-		$notyet.removeClass('fornotyet');
-		var tbody=window.document.getElementById("tbody-result");  
+		$notyet.removeClass('fornotyet'); 
 		$.ajax({  
 			type: "post",  
 			dataType: "json",  
 			url: "../dashboard/issue/finish/data/1",    
-			success: function (json) {
-				var str = "";
-				for(var i=0;i<json.length;i++)
-				{  
-					str += "<tr>" +  
-						"<td>" + json[i].id + "</td>" +  
-						"<td>" + json[i].title + "</td>" +  
-						"<td>" + json[i].user + "</td>" +
-						"<td>" + "</td>" +
-						"<td id='delete'>" + "<button id=" + json[i].id + ">删除</button>" + "</td>" +						
-						"</tr>";
-				}
-				tbody.innerHTML = str;
-			},  
+			success: loadIssue,  
 			error: function () {  
-				alert("查询失败")  
+				alert("服务器异常");  
 			}  
 		});
+		$('#url').val('../dashboard/issue/finish/data/');
+		$("#current_page").val('1');
 	});
 	$("#all").on("click",function(){
 		$all.addClass('whole');
 		$notyet.removeClass('fornotyet');
 		$finish.removeClass('forfini');
-		var tbody=window.document.getElementById("tbody-result");  
 		$.ajax({  
 			type: "post",  
 			dataType: "json",
 			url: "../dashboard/issue/all/data/1",
-			success: function (json) {
-				var str = "";
-				for(var i=0;i<json.length;i++)
-				{
-					var buttonStr = "";
-					if(json[i].replied == '0')
-						buttonStr += "<button id=" + json[i].id + ">回复</button>" + "</td>" +
-									 "<td id='delete'>" + "<button id=" + json[i].id + ">删除</button>";
-					else if(json[i].replied == '1')
-						buttonStr += "</td>" +
-					                 "<td id='delete'>" + "<button id=" + json[i].id + ">删除</button>";
-					str += "<tr>" +  
-						"<td>" + json[i].id + "</td>" +  
-						"<td>" + json[i].title + "</td>" +  
-						"<td>" + json[i].user + "</td>" +
-						"<td>"+ buttonStr +"</td>" +						
-						"</tr>";
-				}
-				tbody.innerHTML = str;
-			},  
+			success: loadIssue,  
 			error: function () {  
-				alert("查询失败")  
+				alert("服务器异常");  
 			}  
 		});
+		$('#url').val('../dashboard/issue/all/data/');
+		$("#current_page").val('1');
 	});
+	
+	$("#search").on("click", function(evt){  //search issue
+		var searchContent = $("#searchContent").val();
+		$.ajax({  
+			type: "post",  
+			dataType: "json",
+			url: "../dashboard/search_issue",
+			data: {keyword:searchContent},
+			success: loadIssue,  
+			error: function () {  
+				alert("服务器异常");
+			}  
+		});	
+		$('#url').val('../dashboard/search_issue/');
+		$("#current_page").val('1');
+	});
+	$(".page").on("click", "a,span", function(evt){        //paging issue
+		var url = $("#url").val();
+		var current_page = $("#current_page").val();
+		var page = $(this)[0].innerHTML;
+		if(page == "上一页" && current_page != "1")
+			page = current_page*1 - 1*1;
+		else if(page == "上一页" && current_page == "1")
+			page = current_page*1;
+		else if(page == "下一页")
+			page = current_page*1 + 1*1;
+		
+		var searchContent = $("#searchContent").val();
+		$.ajax({  
+			type: "post",  
+			dataType: "json",
+			url: url+page,
+			data: {keyword:searchContent},
+			success: loadIssue,  
+			error: function () {  
+				alert("服务器异常");
+			}  
+		});
+		$("#current_page").val(page);
+	});
+	
 	var $editMask=$('.editMask');
 	var $content=$('.edit');
 	var $close=$('.fa');
-	//$('td').click(function(evt){
-	$("#tbody-result").on("click", "td", function(evt){     //用on从right父节点开始绑定，表格增改都能动态绑定
+	$("#tbody-result").on("click", "td", function(evt){     //popup form
 		var id = $(this).parent().find("button").attr("id");
-		/*if($(this).attr("id") == "delete")
+		if($(this).attr("class") == "deleteIssue")
 		{
 			$(this).off();
 			return false;
-		}*/
+		}
 		$.ajax({  
 			type: "post",  
 			dataType: "json",
@@ -412,9 +414,11 @@ $("document").ready(function(){
 					else if(left == "回复人")
 						$right.html(json['responder']);
 				});
+				$('#issueId').val(id);
+				
 			},  
 			error: function () {  
-				alert("查询失败")  
+				alert("查询失败");  
 			}  
 		});
 		$editMask.fadeIn('slow');
@@ -422,45 +426,123 @@ $("document").ready(function(){
 		evt.preventDefault();
 
 	});
-    $("#tbody-result").on("click", "#delete", function(evt){
+    $("#tbody-result").on("click", ".deleteIssue", function(evt){   //delete issue
 		var id = $(this).find("button").attr("id");
-		$.ajax({
-			type: "POST",
-			url:'../dashboard/delete_issue/'+id,  
-			async: false,  //同步等待结果执行返回
-			error: function(request) {
+		var $issue = $(this).parent('tr');
+		var r = confirm("确定要删除编号为" + id + "的事务咨询吗？")
+		if (r==true)
+		{
+			//var $formatWrong=$('.formatWrong');
+			//var $message=window.document.getElementById("message");
+			$.ajax({
+				type: "POST",
+				url:'../dashboard/delete_issue/'+id,  
+				async: false,  //同步等待结果执行返回
+				error: function(request) {
+					/*$message.innerHTML = '服务器异常';
+					$formatWrong.css('background-color','rgb(224, 68, 68)');
+					$formatWrong.fadeIn('',function(){
+						$formatWrong.fadeOut(3000);
+					});*/
+				},  
+				success: function(data) {
+					alert(data);
+					/*if(data == 0)
+					{
+						$message.innerHTML = '事务删除失败！';
+						$formatWrong.css('background-color','rgb(224, 68, 68)');
+					}
+					else if(data == 1)
+					{
+						$message.innerHTML = '事务删除成功！';
+						$formatWrong.css('background-color','rgb(68, 249, 68)');
+					}
+					$formatWrong.fadeIn('',function(){
+						$formatWrong.fadeOut(3000);
+					});*/
+					$issue.remove();
+				}  
+			});
+		}
+		else
+		{
+		}
+	});		
+	
+	$close.click(function(){
+		$content.css('display','none');
+		$editMask.css('display','none');
+	});	
+	$('.cancel').click(function(){
+		$content.css('display','none');
+		$editMask.css('display','none');
+	});
+
+	$('.submitReply').on('click',function(){  //reply issue
+		var id = $(this).parent().prev('input').val();
+		var asso = $('#asso').val();
+		var reply = $('#reply').val();
+		//var $formatWrong=$('.formatWrong');
+		//var $message=window.document.getElementById("message");
+		$.ajax({  
+			type: "post",
+			url: "../dashboard/reply_issue/"+id,
+			data:{asso:asso,reply:reply},
+			async: false,
+			success: function (data) {
+				$content.css('display','none');
+		        $editMask.css('display','none');
+				alert(data);
+				/*if(data == 0)
+				{
+					$message.innerHTML = '事务回复失败！';
+					$formatWrong.css('background-color','rgb(224, 68, 68)');
+				}
+				else if(data == 1)
+				{
+					$message.innerHTML = '事务回复成功！';
+					$formatWrong.css('background-color','rgb(68, 249, 68)');
+				}
+				else
+				{
+					$message.innerHTML = '事务回复成功，提醒推送发送失败！';
+					$formatWrong.css('background-color','rgb(224, 68, 68)');
+				}
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});*/
+			},  
+			error: function () {  
 				/*$message.innerHTML = '服务器异常';
 				$formatWrong.css('background-color','rgb(224, 68, 68)');
 				$formatWrong.fadeIn('',function(){
 					$formatWrong.fadeOut(3000);
 				});*/
-			},  
-			success: function(data) {
-				alert(data);
-				/*if(data == 0)
-				{
-					$message.innerHTML = '归还记录修改失败！';
-					$formatWrong.css('background-color','rgb(224, 68, 68)');
-				}
-				else if(data == 1)
-				{
-					$message.innerHTML = '归还记录修改成功！';
-					$formatWrong.css('background-color','rgb(68, 249, 68)');
-				}
-				$formatWrong.fadeIn('',function(){
-					$formatWrong.fadeOut(3000);
-				});
-				$(".right").load("../dashboard/card");
-				$inputmsg.removeClass("im");
-				$confirmrtn.addClass("forcon");*/
 			}  
 		});
-	});		
-	$close.click(function(){
-		$content.css('display','none');
-		$editMask.css('display','none');
-	});	
+	});
 });
+function loadIssue(json) { //load issue
+	var tbody=window.document.getElementById("tbody-result"); 
+	var str = "";
+	for(var i=0;i<json.length;i++)
+	{
+		var buttonStr = "";
+		if(json[i].replied == '0')
+			buttonStr += "<button id=" + json[i].id + ">回复</button>" + "</td>" +
+						 "<td class='deleteIssue'>" + "<button id=" + json[i].id + ">删除</button>";
+		else if(json[i].replied == '1')
+			buttonStr += "</td>" +
+						 "<td class='deleteIssue'>" + "<button id=" + json[i].id + ">删除</button>";
+		str += "<tr>" +  
+			"<td>" + json[i].id + "</td>" +  
+			"<td>" + json[i].title + "</td>" +  
+			"<td>" + json[i].user + "</td>" +
+			"<td>"+ buttonStr +"</td>" +						
+			"</tr>";
+	}
+	tbody.innerHTML = str;
+}
 </script>
 
 </html>

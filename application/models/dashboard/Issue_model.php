@@ -70,7 +70,7 @@
 	  {
 		  $keyword = $this->input->post('keyword');
 		  $keyword = $this->security->xss_clean($keyword);
-		  $field = array('id', 'title', 'userid');		  
+		  $field = array('id', 'title', 'userid', 'replied');		  
 		  $startRow = ($page - 1) * 20;
 		  
 		  //根据id，标题，正文，回复模糊查找
@@ -134,11 +134,11 @@
 			  $result = $this->weixin->pushtemple($token['access_token'], $issue['openid'], $this->template_id, $templeurl, $textPic);
 			  $result = json_decode($result, true);
 			  if($result['errcode'] == 0 && $result['errmsg'] == 'ok')
-				  return TRUE;
+				  return 1;
 			  else
-				  return FALSE;		  
+				  return 2;		  
 		  }
 		  else		  
-			  return FALSE;
+			  return 0;
 	  }	   		  	  
   }

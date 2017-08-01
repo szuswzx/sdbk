@@ -273,7 +273,7 @@
 		  $data['issue'] = $issue;
 		  $data['page_sum'] = $page_sum;
 		  $data = $this->security->xss_clean($data);
-		  $this->load->view('dashboard/issue/issue',$data);
+		  echo json_encode($issue);
 	  }
 	  
 	  public function delete_issue($id = 0)
@@ -295,15 +295,12 @@
 			  'replied' => 1,
 			  'asso' => $this->input->post('asso'),
 			  'reply' => $this->input->post('reply'),
-			  'responder' => $this->userinfo['username'],
+			  'responder' => 123456,//$this->userinfo['username'],
 			  'replyTime' => time()
 		  );
 		  
 		  $res = $this->issue_model->reply_issue($id, $issue);
-		  if($res)
-			  echo 'success';
-		  else
-			  echo 'false';
+		  echo $res;
 	  }
 	  
 	  //菜单设计
