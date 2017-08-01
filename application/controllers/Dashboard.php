@@ -146,8 +146,10 @@
 			  $page_num = 0;
 		  }
 		  
+		  
 		  $data['card'] = $card_list;
 		  $data['page_num'] = $page_num;
+		  $data = $this->security->xss_clean($data);
 		  if($out == 'page')
 			  $this->load->view('dashboard/card/confirmrtn', $data);
 		  else
@@ -220,7 +222,8 @@
 		  list($card_list, $page_num)= $this->card_model->search_card_by_keyword($page);
 		  $data['card'] = $card_list;
 		  $data['page_num'] = $page_num;
-		
+		  $data = $this->security->xss_clean($data);
+		  
 		  $this->load->view('dashboard/card/confirmrtn', $data);
 	  }
 	  
@@ -244,6 +247,7 @@
 		
 		$data['issue'] = $issue;
 		$data['page_sum'] = $page_sum;
+		$data = $this->security->xss_clean($data);
 		if($out == 'page')
 			$this->load->view('dashboard/issue/issue', $data);
 	    else
@@ -256,8 +260,7 @@
 		  $this->load->model('dashboard/issue_model');
 		  $issue = $this->issue_model->get_issue_by_id($id);
 		  
-		  //$data['issue'] = $issue;
-		  //$this->load->view('dashboard/issue/issue',$data);
+		  $issue = $this->security->xss_clean($issue);
 		  echo json_encode($issue);
 	  }
 	  
@@ -269,6 +272,7 @@
 		  
 		  $data['issue'] = $issue;
 		  $data['page_sum'] = $page_sum;
+		  $data = $this->security->xss_clean($data);
 		  $this->load->view('dashboard/issue/issue',$data);
 	  }
 	  
@@ -278,9 +282,9 @@
 		  $this->load->model('dashboard/issue_model');
 		  $success = $this->issue_model->delete_issue_by_id($id);
 		  if($success == 1)
-			  echo "success";
+			  echo 1;
 		  else
-			  echo "false";
+			  echo 0;
 	  }
 	  
 	  public function reply_issue($id = 0)

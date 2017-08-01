@@ -53,6 +53,7 @@
 			  'remark' => $this->input->post('remark'),
 			  'time' => date("Y-m-d")
 		  );
+		  $data = $this->security->xss_clean($data);
 		  $insert = $this->insert($data);
 		  
 		  if($insert == 1)
@@ -129,6 +130,7 @@
 	  public function search_card_by_keyword($page = 1)
 	  {
 		  $keyword = $this->input->post('keyword');
+		  $keyword = $this->security->xss_clean($keyword);
 		  $field = array('id', 'studentNo', 'studentName', 'getName', 'isReturn', 'remark');
 		  $startRow = ($page - 1) * 20;
 		  

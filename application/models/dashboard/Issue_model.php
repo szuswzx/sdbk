@@ -69,6 +69,7 @@
 	  public function get_issue_by_keyword($page = 1)//根据关键词查找事务
 	  {
 		  $keyword = $this->input->post('keyword');
+		  $keyword = $this->security->xss_clean($keyword);
 		  $field = array('id', 'title', 'userid');		  
 		  $startRow = ($page - 1) * 20;
 		  

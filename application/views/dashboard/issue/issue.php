@@ -216,7 +216,7 @@ button{
 							  echo "<button id=".$row['id'].">回复</button>";
 					?>
 				</td>
-				<td><?php echo "<button id=".$row['id'].">删除</button>";?></td>
+				<td id="delete"><?php echo "<button id=".$row['id'].">删除</button>";?></td>
 			</tr>
 			<?php }?> 
 			</tbody>
@@ -302,7 +302,7 @@ $("document").ready(function(){
 						"<td>" + json[i].title + "</td>" +  
 						"<td>" + json[i].user + "</td>" +
 						"<td>" + "<button id=" + json[i].id + ">回复</button>" + "</td>" +
-						"<td>" + "<button id=" + json[i].id + ">删除</button>" + "</td>" +						
+						"<td id='delete'>" + "<button id=" + json[i].id + ">删除</button>" + "</td>" +						
 						"</tr>";
 				}
 				tbody.innerHTML = str;
@@ -330,7 +330,7 @@ $("document").ready(function(){
 						"<td>" + json[i].title + "</td>" +  
 						"<td>" + json[i].user + "</td>" +
 						"<td>" + "</td>" +
-						"<td>" + "<button id=" + json[i].id + ">删除</button>" + "</td>" +						
+						"<td id='delete'>" + "<button id=" + json[i].id + ">删除</button>" + "</td>" +						
 						"</tr>";
 				}
 				tbody.innerHTML = str;
@@ -356,10 +356,10 @@ $("document").ready(function(){
 					var buttonStr = "";
 					if(json[i].replied == '0')
 						buttonStr += "<button id=" + json[i].id + ">回复</button>" + "</td>" +
-									 "<td>" + "<button id=" + json[i].id + ">删除</button>";
+									 "<td id='delete'>" + "<button id=" + json[i].id + ">删除</button>";
 					else if(json[i].replied == '1')
 						buttonStr += "</td>" +
-					                 "<td>" + "<button id=" + json[i].id + ">删除</button>";
+					                 "<td id='delete'>" + "<button id=" + json[i].id + ">删除</button>";
 					str += "<tr>" +  
 						"<td>" + json[i].id + "</td>" +  
 						"<td>" + json[i].title + "</td>" +  
@@ -380,6 +380,11 @@ $("document").ready(function(){
 	//$('td').click(function(evt){
 	$("#tbody-result").on("click", "td", function(evt){     //用on从right父节点开始绑定，表格增改都能动态绑定
 		var id = $(this).parent().find("button").attr("id");
+		/*if($(this).attr("id") == "delete")
+		{
+			$(this).off();
+			return false;
+		}*/
 		$.ajax({  
 			type: "post",  
 			dataType: "json",
@@ -417,15 +422,45 @@ $("document").ready(function(){
 		evt.preventDefault();
 
 	});
+    $("#tbody-result").on("click", "#delete", function(evt){
+		var id = $(this).find("button").attr("id");
+		$.ajax({
+			type: "POST",
+			url:'../dashboard/delete_issue/'+id,  
+			async: false,  //同步等待结果执行返回
+			error: function(request) {
+				/*$message.innerHTML = '服务器异常';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});*/
+			},  
+			success: function(data) {
+				alert(data);
+				/*if(data == 0)
+				{
+					$message.innerHTML = '归还记录修改失败！';
+					$formatWrong.css('background-color','rgb(224, 68, 68)');
+				}
+				else if(data == 1)
+				{
+					$message.innerHTML = '归还记录修改成功！';
+					$formatWrong.css('background-color','rgb(68, 249, 68)');
+				}
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
+				$(".right").load("../dashboard/card");
+				$inputmsg.removeClass("im");
+				$confirmrtn.addClass("forcon");*/
+			}  
+		});
+	});		
 	$close.click(function(){
 		$content.css('display','none');
 		$editMask.css('display','none');
 	});	
 });
-function reply()
-{
-	alert(132);
-}
 </script>
 
 </html>
