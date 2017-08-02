@@ -32,13 +32,14 @@
 				<td><?php echo $row['id'];?></td>
 				<td><?php echo $row['title'];?></td>
 				<td><?php echo $row['user'];?></td>
-				<td><?php 
-				          if($row['replied'] == '0')
-							  echo "<p id=".$row['id'].">回复</p>";
+				<td class='deleteIssue'>
+					<div class="hold">
+					<?php 
+				     if($row['replied'] == '0')
+							  echo "<p class='replyBtn' style='display:inline-block;float:left' id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>";
 					?>
+					<?php echo "<p class='delBtn' id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p>";?></div>
 				</td>
-				
-				<td class='deleteIssue'><div class="hold"><i class='fa fa-trash' style="margin-right: 5px"></i><?php echo "<p class='delBtn' id=".$row['id'].">删除</p>";?></div></td>
 			</tr>
 				<?php }?> 
 				

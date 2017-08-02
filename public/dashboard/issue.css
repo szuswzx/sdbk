@@ -208,5 +208,12 @@ textarea{
 }*/
 .delBtn{
 	display: inline-block;
+	float: left;
+	cursor: pointer;
+}
+.replyBtn{
+	display: inline-block;
+	float: left;
+	cursor: pointer;
 }
 

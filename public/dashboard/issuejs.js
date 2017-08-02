@@ -105,16 +105,15 @@ $(function(){
 				{
 					var buttonStr = "";
 					if(json[i].replied == '0')
-						buttonStr += "<p id=" + json[i].id + ">回复</p>" + "</td>" +
-									 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
+						buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;float:left' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
+									  "<p class='delBtn' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p></div>";
 					else if(json[i].replied == '1')
-						buttonStr += "</td>" +
-									 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
+						buttonStr += "<div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
 					str += "<tr>" +  
 						"<td>" + json[i].id + "</td>" +  
 						"<td>" + json[i].title + "</td>" +  
 						"<td>" + json[i].user + "</td>" +
-						"<td>"+ buttonStr +"</td>" +						
+						"<td class='deleteIssue'>"+ buttonStr +"</td>" +						
 						"</tr>";
 				}
 				$('#tbody-result').append(str);
@@ -300,16 +299,15 @@ function loadIssue(json) { //load issue
 	{
 		var buttonStr = "";
 		if(json[i].replied == '0')
-			buttonStr += "<p id=" + json[i].id + ">回复</p>" + "</td>" +
-						 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
+			buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;float:left' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
+						  "<p class='delBtn' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p></div>";
 		else if(json[i].replied == '1')
-			buttonStr += "</td>" +
-						 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
-		str += "<tr>" +  
+			buttonStr += "<div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
+			str += "<tr>" +   
 			"<td>" + json[i].id + "</td>" +  
 			"<td>" + json[i].title + "</td>" +  
 			"<td>" + json[i].user + "</td>" +
-			"<td>"+ buttonStr +"</td>" +						
+			"<td class='deleteIssue'>"+ buttonStr +"</td>" +						
 			"</tr>";
 	}
 	tbody.innerHTML = str;
