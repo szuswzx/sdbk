@@ -1,4 +1,4 @@
-$("document").ready(function(){
+$(function(){
 	var $all=$('#all');
 	var $notyet=$('#notyet');
 	var $finish=$('#finish');
@@ -140,9 +140,12 @@ $("document").ready(function(){
 		});        
 	});
 	
+
+
 	var $editMask=$('.editMask');
 	var $content=$('.edit');
 	var $close=$('.fa');
+
 	$("#tbody-result").on("click", "td", function(evt){     //popup form
 		var id = $(this).parent().find("p").attr("id");
 		if($(this).attr("class") == "deleteIssue")
@@ -289,7 +292,7 @@ $("document").ready(function(){
 			}  
 		});
 	});
-});
+
 function loadIssue(json) { //load issue
 	var tbody=window.document.getElementById("tbody-result"); 
 	var str = "";
@@ -311,3 +314,4 @@ function loadIssue(json) { //load issue
 	}
 	tbody.innerHTML = str;
 }
+});
