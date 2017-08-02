@@ -112,13 +112,13 @@ jQuery(function () {
        $('.dLeft').removeClass('mobile-menu-left');
     });
     $("#setting").on("click",function(){
-      $(".sild").load("password.php",function(){
+      $(".sild").load("../dashboard/setting",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
       });
     });
     $("#settings").on("click",function(){
-      $(".sild").load("password.php",function(){
+      $(".sild").load("../dashboard/setting",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
       });

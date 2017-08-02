@@ -2,6 +2,9 @@ $("document").ready(function(){
 	var $all=$('#all');
 	var $notyet=$('#notyet');
 	var $finish=$('#finish');
+	var $formatWrong=$('.formatWrong');
+	var $message=window.document.getElementById("message");
+	
 	$("#notyet").on("click",function(){
 		$all.removeClass('whole');
 		$notyet.addClass('fornotyet');
@@ -12,11 +15,16 @@ $("document").ready(function(){
 			url: "../dashboard/issue/notyet/data/1",    
 			success: loadIssue,
 			error: function () {  
-				alert("服务器异常");
+				$message.innerHTML = '服务器异常';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
 			}  
 		});
 		$('#url').val('../dashboard/issue/notyet/data/');
 		$("#current_page").val('1');
+		$("#searchContent").val('');
 	});
 	$("#finish").on("click",function(){
 		$all.removeClass('whole');
@@ -28,11 +36,16 @@ $("document").ready(function(){
 			url: "../dashboard/issue/finish/data/1",    
 			success: loadIssue,  
 			error: function () {  
-				alert("服务器异常");  
+				$message.innerHTML = '服务器异常';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
 			}  
 		});
 		$('#url').val('../dashboard/issue/finish/data/');
 		$("#current_page").val('1');
+		$("#searchContent").val('');
 	});
 	$("#all").on("click",function(){
 		$all.addClass('whole');
@@ -44,11 +57,16 @@ $("document").ready(function(){
 			url: "../dashboard/issue/all/data/1",
 			success: loadIssue,  
 			error: function () {  
-				alert("服务器异常");  
+				$message.innerHTML = '服务器异常';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
 			}  
 		});
 		$('#url').val('../dashboard/issue/all/data/');
 		$("#current_page").val('1');
+		$("#searchContent").val('');
 	});
 
 	$("#search").on("click", function(evt){  //search issue
@@ -60,39 +78,66 @@ $("document").ready(function(){
 			data: {keyword:searchContent},
 			success: loadIssue,  
 			error: function () {  
-				alert("服务器异常");
+				$message.innerHTML = '服务器异常';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
 			}  
 		});	
 		$('#url').val('../dashboard/search_issue/');
 		$("#current_page").val('1');
 	});
-	// $(".page").on("click", "a,span", function(evt){        //paging issue
-	// 	var url = $("#url").val();
-	// 	var current_page = $("#current_page").val();
-	// 	var page = $(this)[0].innerHTML;
-	// 	if(page == "上一页" && current_page != "1")
-	// 		page = current_page*1 - 1*1;
-	// 	else if(page == "上一页" && current_page == "1")
-	// 		page = current_page*1;
-	// 	else if(page == "下一页")
-	// 		page = current_page*1 + 1*1;
-		
-	// 	var searchContent = $("#searchContent").val();
-	// 	$.ajax({  
-	// 		type: "post",  
-	// 		dataType: "json",
-	// 		url: url+page,
-	// 		data: {keyword:searchContent},
-	// 		success: loadIssue,  
-	// 		error: function () {  
-	// 			alert("服务器异常");
-	// 		}  
-	// 	});
-	// 	$("#current_page").val(page);
-	// });
 
 	$('.getMore').on('click',function(){  // 点击获取更多
-		$('tbody').append("<tr><td>1</td></tr>");
+		var url = $("#url").val();
+		var current_page = $("#current_page").val();
+		var searchContent = $("#searchContent").val();
+		current_page = current_page*1+1*1;
+		$.ajax({
+			type: "post",  
+			dataType: "json",
+			url: url+current_page,
+			data: {keyword:searchContent},
+			success: function(json) { //load issue
+				var str = "";
+				for(var i=0;i<json.length;i++)
+				{
+					var buttonStr = "";
+					if(json[i].replied == '0')
+						buttonStr += "<p id=" + json[i].id + ">回复</p>" + "</td>" +
+									 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
+					else if(json[i].replied == '1')
+						buttonStr += "</td>" +
+									 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
+					str += "<tr>" +  
+						"<td>" + json[i].id + "</td>" +  
+						"<td>" + json[i].title + "</td>" +  
+						"<td>" + json[i].user + "</td>" +
+						"<td>"+ buttonStr +"</td>" +						
+						"</tr>";
+				}
+				$('#tbody-result').append(str);
+				$("#current_page").val(current_page);
+				if(json.length == 0)  //not more
+				{
+					$(window).scrollTop(0);
+					$message.innerHTML = '没有更多啦！';
+					$formatWrong.css('background-color','rgb(68, 249, 68)');
+					$formatWrong.fadeIn('',function(){
+						$formatWrong.fadeOut(3000);
+					});
+				}
+			},
+			error: function () {
+				$(window).scrollTop(0);
+				$message.innerHTML = '服务器异常';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
+			}  
+		});        
 	});
 	
 	var $editMask=$('.editMask');
@@ -133,16 +178,19 @@ $("document").ready(function(){
 						$right.html(json['responder']);
 				});
 				$('#issueId').val(id);
+				$editMask.fadeIn('slow');
+				$content.fadeIn('slow');
+				evt.preventDefault();
 				
 			},  
 			error: function () {  
-				alert("查询失败");  
+				$message.innerHTML = '服务器异常';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
 			}  
 		});
-		$editMask.fadeIn('slow');
-		$content.fadeIn('slow');
-		evt.preventDefault();
-
 	});
     $("#tbody-result").on("click", ".deleteIssue", function(evt){   //delete issue
 		var id = $(this).find("p").attr("id");
@@ -150,8 +198,6 @@ $("document").ready(function(){
 		var r = confirm("确定要删除编号为" + id + "的事务咨询吗？")
 		if (r==true)
 		{
-			var $formatWrong=$('.formatWrong');
-			var $message=window.document.getElementById("message");
 			$.ajax({
 				type: "POST",
 				url:'../dashboard/delete_issue/'+id,  
@@ -164,21 +210,21 @@ $("document").ready(function(){
 					});
 				},  
 				success: function(data) {
-					// alert(data);
-					if(data == 0)
+					$(window).scrollTop(0);
+					if(data == 1)
+					{
+						$message.innerHTML = '事务删除成功！';
+						$formatWrong.css('background-color','rgb(68, 249, 68)');
+						$issue.remove();
+					}
+					else
 					{
 						$message.innerHTML = '事务删除失败！';
 						$formatWrong.css('background-color','rgb(224, 68, 68)');
 					}
-					else if(data == 1)
-					{
-						$message.innerHTML = '事务删除成功！';
-						$formatWrong.css('background-color','rgb(68, 249, 68)');
-					}
 					$formatWrong.fadeIn('',function(){
 						$formatWrong.fadeOut(3000);
 					});
-					$issue.remove();
 				}  
 			});
 		}
@@ -200,21 +246,19 @@ $("document").ready(function(){
 		var id = $(this).parent().prev('input').val();
 		var asso = $('#asso').val();
 		var reply = $('#reply').val();
-		var $formatWrong=$('.formatWrong');
-		var $message=window.document.getElementById("message");
 		$.ajax({  
 			type: "post",
 			url: "../dashboard/reply_issue/"+id,
 			data:{asso:asso,reply:reply},
 			async: false,
 			success: function (data) {
+				$(window).scrollTop(0);
 				$content.css('display','none');
 		        $editMask.css('display','none');
-				alert(data);
-				if(data == 0)
+				if(data == 2)
 				{
-					$message.innerHTML = '事务回复失败！';
-					$formatWrong.css('background-color','rgb(224, 68, 68)');
+					$message.innerHTML = '事务回复成功，提醒推送发送失败！';
+					$formatWrong.css('background-color','rgb(224, 68, 68)');					
 				}
 				else if(data == 1)
 				{
@@ -223,9 +267,15 @@ $("document").ready(function(){
 				}
 				else
 				{
-					$message.innerHTML = '事务回复成功，提醒推送发送失败！';
+					$message.innerHTML = '事务回复失败！';
 					$formatWrong.css('background-color','rgb(224, 68, 68)');
 				}
+
+				if($all.attr('class') == 'inside whole')    //事务回复后，刷新页面
+					$all.trigger('click');
+				else if($notyet.attr('class') == 'inside fornotyet')
+					$notyet.trigger('click');
+				
 				$formatWrong.fadeIn('',function(){
 					$formatWrong.fadeOut(3000);
 				});
@@ -248,10 +298,10 @@ function loadIssue(json) { //load issue
 		var buttonStr = "";
 		if(json[i].replied == '0')
 			buttonStr += "<p id=" + json[i].id + ">回复</p>" + "</td>" +
-						 "<td class='deleteIssue'>" + "<p id=" + json[i].id + ">删除</p>";
+						 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
 		else if(json[i].replied == '1')
 			buttonStr += "</td>" +
-						 "<td class='deleteIssue'>" + "<p id=" + json[i].id + ">删除</p>";
+						 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
 		str += "<tr>" +  
 			"<td>" + json[i].id + "</td>" +  
 			"<td>" + json[i].title + "</td>" +  

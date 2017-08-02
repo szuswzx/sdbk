@@ -34,7 +34,7 @@
 				<td><?php echo $row['user'];?></td>
 				<td><?php 
 				          if($row['replied'] == '0')
-							  echo "<button id=".$row['id'].">回复</button>";
+							  echo "<p id=".$row['id'].">回复</p>";
 					?>
 				</td>
 				
@@ -42,19 +42,10 @@
 			</tr>
 				<?php }?> 
 				
-
-
 			</tbody>
 		</table>
-		<!-- <div class="page">
-		    <input type="hidden" id="url" value="../dashboard/issue/all/data/">
-			<input type="hidden" id="current_page" value="1">
-			<span>上一页</span>
-			<a>1</a>
-			<a>2</a>
-			<a>3</a>
-			<span>下一页</span>			
-		</div> -->
+		<input type="hidden" id="url" value="../dashboard/issue/all/data/">
+		<input type="hidden" id="current_page" value="1">
 		<div class="getMore">点击获取更多</div>
 	</div>
 </div>

@@ -153,7 +153,7 @@
 		  if($out == 'page')
 			  $this->load->view('dashboard/card/confirmrtn', $data);
 		  else
-			  echo $this->load->view('dashboard/card/confirmrtn', $data, TRUE);
+			  echo json_encode($card_list);
 	  }
 	  
 	  public function add_card($page = 'first')
@@ -212,7 +212,7 @@
 		  echo $res;
 	  }
 	  
-	  public function search_card($page = 1)
+	  public function search_card($out = 'page', $page = 1)
 	  {
 		  //$this->_check_login();
 		  $this->load->model('dashboard/card_model');
@@ -224,7 +224,10 @@
 		  $data['page_num'] = $page_num;
 		  $data = $this->security->xss_clean($data);
 		  
-		  $this->load->view('dashboard/card/confirmrtn', $data);
+		  if($out == 'page')
+			  $this->load->view('dashboard/card/confirmrtn', $data);
+		  else
+			  echo json_encode($card_list);
 	  }
 	  
 	  //事务咨询
@@ -507,9 +510,9 @@
 	  }
 		  
 	  //设置
-	  public function setting()
+	  public function setting($page = 'setting')
 	  {
-		  $this->_check_login();
+		  //$this->_check_login();
 		  $this->load->helper('form');
 		  $this->load->library('form_validation');		  
 			  
@@ -537,18 +540,21 @@
 		  
 		  if($this->form_validation->run() == FALSE)
 		  {
-			  $this->load->view('dashboard/setting/password');
+			  if($page == 'setting')
+				  $this->load->view('dashboard/setting/setting');
+		      else
+				  $this->load->view('dashboard/setting/password');
 		  }
 		  else
-		  {
-		  $res = $this->dashboard_admin_model->change_password($options = array('uuid' => $this->userinfo['uuid']));
-		  echo $res;
+		  {		  
+			  $res = $this->dashboard_admin_model->change_password($options = array('uuid' => $this->userinfo['uuid']));
+		      echo $res;
 		  }	  
 	  }
 	  
 	  public function add_admin()
 	  {
-		  $this->_check_login();
+		  //$this->_check_login();
 		  $this->load->helper('form');
 		  $this->load->library('form_validation');		  
 			  
@@ -586,14 +592,14 @@
 	  
 	  public function get_all_admin($keyword = '')
 	  {
-		  $this->_check_login();
-		  if($this->userinfo['rank'] >= 5)
-		  {			  
+		  //$this->_check_login();
+		  //if($this->userinfo['rank'] >= 5)
+		  //{			  
 			  $data['admin'] = $this->dashboard_admin_model->get_all_admin($keyword);
-			  $this->load->view('dashboard/setting/success', $data);
-		  }
-          else
-              echo '权限不足';			  
+			  $this->load->view('dashboard/setting/manage_admin', $data);
+		  //}
+          //else
+             // echo '权限不足';			  
 	  }
 	  
 	  public function delete_admin($uid = 0)
@@ -635,12 +641,16 @@
 		{
 			$uuid = $_COOKIE['uuid'];
 			$this->userinfo = $this->dashboard_admin_model->get_admin(array('uuid' => $uuid));
-			if (!$this->userinfo) 
+			if (!$this->userinfo)
+			{
 				header("location:".site_url("dashboard/index"));
+				exit();
+			}
 		} 
 		else 
 		{
 			header("location:".site_url("dashboard/index"));
+			exit();
 		}
 	  }
 	  

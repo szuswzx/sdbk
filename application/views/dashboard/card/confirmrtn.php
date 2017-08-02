@@ -107,15 +107,8 @@ td{
 			</tr>
 			<?php }?> 
 		</table>
-		<!-- <div class="page">
-		    <input type="hidden" id="uri" value="<?php echo uri_string();?>">
-			<span>上一页</span>
-			<a>1</a>
-			<a>2</a>
-			<a>3</a>
-			<a><?php echo $page_num;?></a>
-			<span>下一页</span>
-		</div> -->
+		<input type="hidden" id="url" value="../dashboard/card/all/data/">
+		<input type="hidden" id="current_page" value="1">
 		<div class="getMore">点击获取更多</div>
 	</div>
 </div>
