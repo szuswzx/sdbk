@@ -53,23 +53,6 @@ tr:hover{
 td{
 	border-right: 1px solid white;
 }
-/*.page{
-	text-align: center;
-	height: 40px;
-	margin-top: 40px;
-	border-radius: 4px;
-	
-}
-.page a,.page span{
-	text-decoration: none;
-	border: 1px solid lightgrey;
-	padding: 5px 7px;
-	color: #333;
-	cursor: pointer;
-}
-.page a:hover,.page span:hover{
-	background-color: #daa;
-}*/
 .getMore{
 	width: 200px;
 	height: 40px;
@@ -202,11 +185,22 @@ textarea{
 	width: 100px;
 	margin:0 auto;
 	padding-top: 10px;
+	cursor: pointer;
 }
-/*.hold:hover{
+.hold:hover{
 	color: red;
-}*/
+}
 .delBtn{
 	display: inline-block;
 }
+.deleteBtn{
+	width: 100px;
+	display: inline-block;
+	float: left;
 
+}
+.replyBtn{
+	width: 100px;
+	display: inline-block;
+	float: left;
+}

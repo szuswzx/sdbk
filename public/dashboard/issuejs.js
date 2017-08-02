@@ -105,11 +105,10 @@ $("document").ready(function(){
 				{
 					var buttonStr = "";
 					if(json[i].replied == '0')
-						buttonStr += "<p id=" + json[i].id + ">回复</p>" + "</td>" +
-									 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
+						buttonStr += "<div class='replyBtn'><p id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p></div>" + 
+									 "<div class='deleteBtn'><p id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p></div>";
 					else if(json[i].replied == '1')
-						buttonStr += "</td>" +
-									 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
+						buttonStr += "<div class='deleteBtn'><p id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p></div>";
 					str += "<tr>" +  
 						"<td>" + json[i].id + "</td>" +  
 						"<td>" + json[i].title + "</td>" +  
@@ -145,7 +144,7 @@ $("document").ready(function(){
 	var $close=$('.fa');
 	$("#tbody-result").on("click", "td", function(evt){     //popup form
 		var id = $(this).parent().find("p").attr("id");
-		if($(this).attr("class") == "deleteIssue")
+		if($(this).attr("class") == "operation")
 		{
 			$(this).off();
 			return false;
@@ -192,7 +191,7 @@ $("document").ready(function(){
 			}  
 		});
 	});
-    $("#tbody-result").on("click", ".deleteIssue", function(evt){   //delete issue
+    $("#tbody-result").on("click", ".operation", function(evt){   //delete issue
 		var id = $(this).find("p").attr("id");
 		var $issue = $(this).parent('tr');
 		var r = confirm("确定要删除编号为" + id + "的事务咨询吗？")
@@ -297,12 +296,10 @@ function loadIssue(json) { //load issue
 	{
 		var buttonStr = "";
 		if(json[i].replied == '0')
-			buttonStr += "<p id=" + json[i].id + ">回复</p>" + "</td>" +
-						 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
+			buttonStr += "<div class='replyBtn'><p id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p></div>" + 
+									 "<div class='deleteBtn'><p id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p></div>";
 		else if(json[i].replied == '1')
-			buttonStr += "</td>" +
-						 "<td class='deleteIssue'><div class='hold'><i class='fa fa-trash' style='margin-right: 5px'></i>" + "<p class='delBtn' id=" + json[i].id + ">删除</p></div>";
-		str += "<tr>" +  
+			str += "<tr>" +  
 			"<td>" + json[i].id + "</td>" +  
 			"<td>" + json[i].title + "</td>" +  
 			"<td>" + json[i].user + "</td>" +
