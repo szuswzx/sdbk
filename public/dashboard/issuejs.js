@@ -108,7 +108,7 @@ $(function(){
 						buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;float:left;cursor:pointer' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
 									  "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 					else if(json[i].replied == '1')
-						buttonStr += "<div class='hold'><i class='fa fa-trash' style='margin-right: 5px;'></i>" + "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + ">删除</p></div>";
+						buttonStr += "<div class='hold'>" + "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 					str += "<tr>" +  
 						"<td>" + json[i].id + "</td>" +  
 						"<td>" + json[i].title + "</td>" +  
@@ -145,9 +145,9 @@ $(function(){
 	var $content=$('.edit');
 	var $close=$('.fa');
 
-	$("#tbody-result").on("click", "td", function(evt){     //popup form
+	$("#tbody-result").on("click", "td ,td .replyBtn", function(evt){     //popup form
 		var id = $(this).parent().find("p").attr("id");
-		if($(this).attr("class") == "delBtn")
+		if($(this).attr("class") == "deleteIssue")
 		{
 			$(this).off();
 			return false;
@@ -195,8 +195,8 @@ $(function(){
 		});
 	});
     $("#tbody-result").on("click", ".delBtn", function(evt){   //delete issue
-		var id = $(this).find("p").attr("id");
-		var $issue = $(this).parent('tr');
+		var id = $(this).attr("id");
+		var $issue = $(this).parent('.hold').parent('.deleteIssue').parent('tr');
 		var r = confirm("确定要删除编号为" + id + "的事务咨询吗？")
 		if (r==true)
 		{
@@ -302,7 +302,7 @@ function loadIssue(json) { //load issue
 			buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;float:left;cursor:pointer' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
 						  "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 		else if(json[i].replied == '1')
-			buttonStr += "<div class='hold'><i class='fa fa-trash' style='margin-right: 5px;'></i>" + "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + ">删除</p></div>";
+			buttonStr += "<div class='hold'>" + "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 			str += "<tr>" +   
 			"<td>" + json[i].id + "</td>" +  
 			"<td>" + json[i].title + "</td>" +  
