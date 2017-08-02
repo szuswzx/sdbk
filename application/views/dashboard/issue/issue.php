@@ -33,12 +33,12 @@
 				<td><?php echo $row['title'];?></td>
 				<td><?php echo $row['user'];?></td>
 				<td>
-					<div class="replyBtn"><?php 
+					<div class="replyBtn" style="width: 50%"><?php 
 					          if($row['replied'] == '0')
 								  echo "<p id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>";
 						?>
 					</div>
-					<div class="deleteBtn"><?php echo "<p class='delBtn' id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p>";?>
+					<div class="deleteBtn" style="width: 50%"><?php echo "<p id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p>";?>
 						
 					</div>
 				</td>

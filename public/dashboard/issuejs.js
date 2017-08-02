@@ -1,4 +1,4 @@
-$("document").ready(function(){
+$(function(){
 	var $all=$('#all');
 	var $notyet=$('#notyet');
 	var $finish=$('#finish');
@@ -288,23 +288,25 @@ $("document").ready(function(){
 			}  
 		});
 	});
-});
-function loadIssue(json) { //load issue
-	var tbody=window.document.getElementById("tbody-result"); 
-	var str = "";
-	for(var i=0;i<json.length;i++)
-	{
-		var buttonStr = "";
-		if(json[i].replied == '0')
-			buttonStr += "<div class='replyBtn'><p id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p></div>" + 
-									 "<div class='deleteBtn'><p id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p></div>";
-		else if(json[i].replied == '1')
-			str += "<tr>" +  
-			"<td>" + json[i].id + "</td>" +  
-			"<td>" + json[i].title + "</td>" +  
-			"<td>" + json[i].user + "</td>" +
-			"<td>"+ buttonStr +"</td>" +						
-			"</tr>";
+
+	function loadIssue(json) { //load issue
+		var tbody=window.document.getElementById("tbody-result"); 
+		var str = "";
+		for(var i=0;i<json.length;i++)
+		{
+			var buttonStr = "";
+			if(json[i].replied == '0')
+				buttonStr += "<div class='replyBtn'><p id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p></div>" + 
+						 "<div class='deleteBtn'><p id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p></div>";
+			else if(json[i].replied == '1')
+				buttonStr += "<div class='deleteBtn'><p id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p></div>";
+				str += "<tr>" +  
+				"<td>" + json[i].id + "</td>" +  
+				"<td>" + json[i].title + "</td>" +  
+				"<td>" + json[i].user + "</td>" +
+				"<td>"+ buttonStr +"</td>" +						
+				"</tr>";
+		}
+		tbody.innerHTML = str;
 	}
-	tbody.innerHTML = str;
-}
+});
