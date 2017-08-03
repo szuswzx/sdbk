@@ -4,100 +4,7 @@
 <meta charset="utf-8">
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <title></title>
-<style type="text/css">
-.left{
-	padding:5px;
-	margin-top: 20px;
-	width: 12%;
-	font-size: 20px;
-	display: inline-block;
-	float: left;
-	height: 40px;
-	text-align: center;
-	margin-left: 20px;
-}
-.inside{
-	height: 30px;
-	font-size: 15px;
-	padding: 10px 20px;
-	cursor: pointer;
-}
-.right{
-	width: 84%;
-    float: left;
-    padding-left: 40px;
-    padding-top: 30px;
-    padding-right: 20px;
-}
-.rightlabel{
-	width: 68%;
-}
-.lab{
-	font-size: 15px;
-	text-align: right;
-	width: 18%;
-	padding: 0px 10px;
-	float: left;
-	line-height: 36px;
-}
-.item{
-	width: 100%;
-	
-	float: left;
-	margin-top: 5px;
-	margin-bottom: 10px;
-}
-.txt{
-	width: 76%;
-	float: left;
-	margin-left:10px;
-	padding:5px;
-	text-align: justify;
-	font-size: 14px;
-	border: 1px solid lightgrey;
-	border-radius: 3px;
-
-}
-.item>input:hover{
-	border: 1px solid #408ec0;
-}
-.btn{
-	width: 100%;
-	padding-left: 100px;
-}
-.im{
-	border-right: 3px solid #408ec0;
-	color: #408ec0;
-}
-.inputTips{
-	float: right;
-	color: #888;
-	font-size: 14px;
-	line-height: 20px;
-	padding-right: 35px;
-}
-.forcon{
-	border-right: 3px solid #408ec0;
-	color: #408ec0;
-}
-
-.formatWrong{
-	width: 84%;
-	height:40px;
-	border-radius: 5px;
-	text-align: center;
-	color: white;
-	font-size: 18px;
-	float: left;
-	display: none;
-	line-height: 40px;
-
-}
-button[disabled]{
-	cursor: not-allowed;
-	opacity: 50%;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="./../public/dashboard/settingCSS.css">
 </head>
 <body>
 <div class="contain">
@@ -131,13 +38,31 @@ $("document").ready(function(){
 	$addAdmin.click(function(){
 		$(".right").load("../dashboard/add_admin");
 		$changePass.removeClass("im");
-		$addAdmin.addClass("forcon");
+		$manageAdmin.removeClass("im");
+		$Log.removeClass("im");
+		$addAdmin.addClass("im");
 	});
 	$changePass.click(function(){
 		$changePass.addClass("im");
-		$addAdmin.removeClass("forcon");
+		$addAdmin.removeClass("im");
+		$Log.removeClass("im");
+		$manageAdmin.removeClass("im");
 		$(".right").load("../dashboard/setting/changePass");
 	});   
+	$manageAdmin.click(function(){
+		$manageAdmin.addClass("im");
+		$addAdmin.removeClass("im");
+		$changePass.removeClass("im");
+		$Log.removeClass("im");
+		$(".right").load("../dashboard/get_all_admin");
+	});
+	$Log.click(function(){
+		$Log.addClass("im");
+		$manageAdmin.removeClass("im");
+		$changePass.removeClass("im");
+		$addAdmin.removeClass("im");
+		$(".right").load("...");
+	});
 	//看这里！！，有4个左侧栏，我只做了两个，你完善下，一个管理学生url是"../dashboard/setting/changePass",显示的页面写在manage_admin.php里面，
 	//就是一个单纯的表格，输出学生，详情看localhost/dashboard
 	

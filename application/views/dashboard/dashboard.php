@@ -76,6 +76,9 @@
    <div class="solve" id="issues">
      <i class="fa fa-envelope"></i>事务 
    </div>
+   <div class="solve" id="activity">
+     <i class="fa fa-envelope"></i>活动管理 
+   </div>
    <div class="solve" id="findcard">
      <i class="fa fa-credit-card" ></i>校园卡找回
    </div>
@@ -129,12 +132,13 @@ jQuery(function () {
         $('.dLeft').removeClass('mobile-menu-left');
       });
     });
-    // $(".dropdown-menu").on("mouseover",function(){
-    //      $(".user").css("background-color","white");
-    // });
-    // $(".dropdown-menu").on("mouseout",function(){
-    //      $(".user").css("background-color","#f8f8f8");
-    // });
+      $("#activity").on("click",function(){
+      $(".sild").load("../dashboard/activity",function(){
+        $('.head, .sild').removeClass('mobile-left');
+        $('.dLeft').removeClass('mobile-menu-left');
+      });
+    });
+   
 });
 
 </script>
