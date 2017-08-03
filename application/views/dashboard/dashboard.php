@@ -39,7 +39,7 @@
       </a>
       <ul class="dropdown-menu" style="min-width: 100%">
         <li id="setting"><a href="#">账户设置</a></li>
-          <li><a href="#">退出账户</a></li>
+          <li><a href="../dashboard/logout">退出账户</a></li>
       </ul>
    </li>
  </ul>

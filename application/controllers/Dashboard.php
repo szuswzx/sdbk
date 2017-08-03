@@ -298,7 +298,7 @@
 			  'replied' => 1,
 			  'asso' => $this->input->post('asso'),
 			  'reply' => $this->input->post('reply'),
-			  'responder' => 123456,//$this->userinfo['username'],
+			  'responder' => $this->userinfo['username'],
 			  'replyTime' => time()
 		  );
 		  
@@ -512,33 +512,10 @@
 	  //设置
 	  public function setting($page = 'setting')
 	  {
-		  //$this->_check_login();
+		  $this->_check_login();
 		  $this->load->helper('form');
-		  $this->load->library('form_validation');		  
-			  
-		  $config = array(
-			  array(
-				  'field' => 'oldPwd',
-				  'label' => '原密码',
-				  'rules' => "required",
-				  'errors' => array('required' => '原密码不能为空')
-				),
-			  array(
-				  'field' => 'newPwd',
-				  'label' => '新密码',
-				  'rules' => "required",
-				  'errors' => array('required' => '新密码不能为空')
-				),
-			  array(
-				  'field' => 'Pwd',
-				  'label' => '重复新密码',
-				  'rules' => "required",
-				  'errors' => array('required' => '重复密码不能为空')
-				)
-		  );
-		  $this->form_validation->set_rules($config);
 		  
-		  if($this->form_validation->run() == FALSE)
+		  if($this->input->post('ajax') != 'ajax')
 		  {
 			  if($page == 'setting')
 				  $this->load->view('dashboard/setting/setting');
@@ -556,25 +533,8 @@
 	  {
 		  //$this->_check_login();
 		  $this->load->helper('form');
-		  $this->load->library('form_validation');		  
-			  
-		  $config = array(
-			  array(
-				  'field' => 'username',
-				  'label' => '原密码',
-				  'rules' => "required",
-				  'errors' => array('required' => '原密码不能为空')
-				),
-			  array(
-				  'field' => 'password',
-				  'label' => '新密码',
-				  'rules' => "required",
-				  'errors' => array('required' => '密码不能为空')
-				)
-		  );
-		  $this->form_validation->set_rules($config);
 		  
-		  if($this->form_validation->run() == FALSE)
+		  if($this->input->post('ajax') != 'ajax')
 		  {
 			  $this->load->view('dashboard/setting/add_admin');
 		  }
@@ -604,7 +564,7 @@
 	  
 	  public function delete_admin($uid = 0)
 	  {
-		  $this->_check_login();
+		  //$this->_check_login();
 		  if($this->userinfo['rank'] >= 5)
 		  {			  
 			  $res = $this->dashboard_admin_model->delete_admin($uid);
@@ -619,7 +579,7 @@
 	  
 	  public function reset_password($uid = 0)
 	  {
-		  $this->_check_login();
+		  //$this->_check_login();
 		  if($this->userinfo['rank'] >= 5)
 		  {			  
 			  $res = $this->dashboard_admin_model->reset_password($uid);
@@ -630,6 +590,13 @@
 		  }
           else
               echo '权限不足';
+	  }
+	  
+	  public function logout()
+	  {
+		  setcookie('uuid', '', time() - 3600);
+		  header("location:".site_url("dashboard/index"));
+		  exit();
 	  }
 	  	  
 	  //登录检测
