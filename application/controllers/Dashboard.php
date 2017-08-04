@@ -6,6 +6,7 @@
 	  {
 		  parent::__construct();
 		  $this->load->model('dashboard/dashboard_admin_model');
+		  $this->load->model('dashboard/log_model');
 		  $this->load->helper('url_helper');
           $this->userinfo = array();  
 	  }
@@ -184,6 +185,8 @@
 		  else
 		  {
 			  $res = $this->card_model->add_card();
+			  if($res == 1 || $res == 2)
+				  $this->log_model->save_log($this->userinfo['username'], "添加了学号为".$this->input->post('studentNo')."的校园卡丢失信息");
 			  echo $res;
 		  }
 	  }
@@ -206,9 +209,11 @@
 	  
 	  public function return_card($id = 0)
 	  {
-		  //$this->_check_login();
+		  $this->_check_login();
 		  $this->load->model('dashboard/card_model');
-		  $res = $this->card_model->return_card($id);
+		  list($res, $studentNo) = $this->card_model->return_card($id);
+		  if($res == 1 || $res == 2)
+			  $this->log_model->save_log($this->userinfo['username'], "归还了学号为".$studentNo."的校园卡");
 		  echo $res;
 	  }
 	  
@@ -233,7 +238,7 @@
 	  //事务咨询
 	  public function issue($type = 'all', $out = 'page', $page = 1)
 	  {
-		//$this->_check_login();
+		$this->_check_login();
 		$this->load->model('dashboard/issue_model');
 		
 		if($type == 'all')          //type = 0代表返回全部事务
@@ -281,9 +286,10 @@
 	  
 	  public function delete_issue($id = 0)
 	  {
-		  //$this->_check_login();
+		  $this->_check_login();
 		  $this->load->model('dashboard/issue_model');
 		  $success = $this->issue_model->delete_issue_by_id($id);
+		  $this->log_model->save_log($this->userinfo['username'], "删除了id为".$id."的事务");
 		  if($success == 1)
 			  echo 1;
 		  else
@@ -292,7 +298,7 @@
 	  
 	  public function reply_issue($id = 0)
 	  {
-		  //$this->_check_login();
+		  $this->_check_login();
 		  $this->load->model('dashboard/issue_model');
 		  $issue = array(
 			  'replied' => 1,
@@ -303,6 +309,7 @@
 		  );
 		  
 		  $res = $this->issue_model->reply_issue($id, $issue);
+		  $this->log_model->save_log($this->userinfo['username'], "回复了id为".$id."事务：".$issue['reply']);
 		  echo $res;
 	  }
 	  
@@ -525,53 +532,56 @@
 		  else
 		  {		  
 			  $res = $this->dashboard_admin_model->change_password($options = array('uuid' => $this->userinfo['uuid']));
+			  if($res == 'success')
+				  $this->log_model->save_log($this->userinfo['username'], "修改了密码");
 		      echo $res;
 		  }	  
 	  }
 	  
 	  public function add_admin()
 	  {
-		  //$this->_check_login();
+		  $this->_check_login();
 		  $this->load->helper('form');
 		  
-		  if($this->input->post('ajax') != 'ajax')
+		  if($this->userinfo['rank'] >= 5)
 		  {
-			  $this->load->view('dashboard/setting/add_admin');
-		  }
-		  else
-		  {
-			  if($this->userinfo['rank'] >= 5)
+			  if($this->input->post('ajax') != 'ajax')
 			  {
-				  $res = $this->dashboard_admin_model->add_admin();
-				  echo $res;
+				  $this->load->view('dashboard/setting/add_admin');
 			  }
 			  else
-				  echo '权限不足';
-		  }	
+			  {
+					  $res = $this->dashboard_admin_model->add_admin();
+					  if($res == 'success')
+						  $this->log_model->save_log($this->userinfo['username'], "添加了用户名为".$this->input->post('username')."的管理员");
+					  echo $res;
+			  }	
+		  }
+	      else
+			  echo '权限不足';
 	  }
 	  
 	  public function get_all_admin($keyword = '')
 	  {
-		  //$this->_check_login();
-		  //if($this->userinfo['rank'] >= 5)
-		  //{			  
+		  $this->_check_login();
+		  if($this->userinfo['rank'] >= 5)
+		  {			  
 			  $data['admin'] = $this->dashboard_admin_model->get_all_admin($keyword);
 			  $this->load->view('dashboard/setting/manage_admin', $data);
-		  //}
-          //else
-             // echo '权限不足';			  
+		  }
+          else
+              echo '权限不足';			  
 	  }
 	  
 	  public function delete_admin($uid = 0)
 	  {
-		  //$this->_check_login();
+		  $this->_check_login();
 		  if($this->userinfo['rank'] >= 5)
 		  {			  
-			  $res = $this->dashboard_admin_model->delete_admin($uid);
+			  list($res, $username) = $this->dashboard_admin_model->delete_admin($uid);
 			  if($res == 1)
-				  echo 'success';
-			  else
-				  echo 'failed';
+				  $this->log_model->save_log($this->userinfo['username'], "删除了用户名为".$username."的管理员");
+			  echo $res;
 		  }
           else
               echo '权限不足';
@@ -579,17 +589,29 @@
 	  
 	  public function reset_password($uid = 0)
 	  {
-		  //$this->_check_login();
+		  $this->_check_login();
 		  if($this->userinfo['rank'] >= 5)
 		  {			  
-			  $res = $this->dashboard_admin_model->reset_password($uid);
+			  list($res, $username) = $this->dashboard_admin_model->reset_password($uid);
 			  if($res == 1)
-				  echo 'success';
-			  else
-				  echo 'failed';
+				  $this->log_model->save_log($this->userinfo['username'], "重置了用户名为".$username."的管理员密码");
+			  echo $res;
 		  }
           else
               echo '权限不足';
+	  }
+	  
+	  public function dashboard_log()
+	  {
+		  $this->_check_login();
+		  if($this->userinfo['rank'] >= 5)
+		  {
+			  $data['log'] = $this->log_model->get_log();
+			  $data = $this->security->xss_clean($data);
+			  $this->load->view('dashboard/setting/log', $data);
+		  }
+		  else
+			  echo '权限不足';
 	  }
 	  
 	  public function logout()

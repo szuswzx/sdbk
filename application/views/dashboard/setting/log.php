@@ -1,1 +1,29 @@
-<textarea rows="500" cols="500" style="background-color: #888"></textarea>
+<div
+style='
+color: #ffffff; 
+background-color: #888; 
+border: solid 2px black; 
+width: 100%; 
+height: 600px; 
+overflow: scroll;
+overflow_x: hidden; 
+scrollbar-face-color: #889B9F;
+scrollbar-shadow-color: #3D5054;
+scrollbar-highlight-color: #C3D6DA;
+scrollbar-3dlight-color: #3D5054;
+scrollbar-darkshadow-color: #85989C;
+scrollbar-track-color: #95A6AA;
+scrollbar-arrow-color: #FFD6DA;
+'>	
+<?php
+		foreach($log as $row)
+		{
+			echo "<p>"
+				 . date("[Y-m-d H:i:s] ",$row['time'])
+			     . $row['user']
+				 . "："
+				 . $row['log']
+				 . "</p>";
+		}
+	?>
+</div>

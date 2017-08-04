@@ -522,6 +522,10 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+//时区设置
+date_default_timezone_set('Asia/ShangHai');
+$config['time_zone'] = date_default_timezone_get();
+
 /*
 |--------------------------------------------------------------------------
 | SDBK Wechat config

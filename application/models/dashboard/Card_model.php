@@ -101,7 +101,7 @@
 		  
 		  if($update == 1)
 		  {
-			  $card = $this->get_card(1, $options);
+			  list($card, $page_num) = $this->get_card(1, $options);
 			  $card = $card[0];
 			  $user = $this->get_user($options = array('studentNo' => $card['studentNo']));
 			  $this->load->library('weixin', $config = array('AppId' => $this->app_id, 'AppSecret' => $this->app_secret));//220测试
@@ -119,12 +119,12 @@
 			  $result = $this->weixin->pushtemple($token['access_token'], $user['openid'], $this->template_id, $templeurl, $textPic);
 			  $result = json_decode($result, true);
 			  if($result['errcode'] == 0 && $result['errmsg'] == 'ok')
-				  return 1;
+				  return array(1, $card['studentNo']);
 			  else
-				  return 2;
+				  return array(2, $card['studentNo']);
 		  }
 		  else
-			  return 0;
+			  return array(0, $card['studentNo']);
 	  }
 	  
 	  public function search_card_by_keyword($page = 1)

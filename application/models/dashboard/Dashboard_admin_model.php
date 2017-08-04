@@ -18,6 +18,7 @@
 		  $this->db->select($field);
 		  $this->db->or_like('uid', $keyword);
 		  $this->db->or_like('username', $keyword);
+		  $this->db->order_by('rank', 'DESC');
 		  $query = $this->db->get('sdbk_admin');
 		  return $query->result_array();
 	  }
@@ -52,9 +53,10 @@
 	  public function delete_admin($uid = 0)
 	  {
 		  $options = array('uid' => $uid);
+		  $admin = $this->get_admin($options);
 		  $this->db->where($options);
 		  $this->db->delete('sdbk_admin');
-		  return $this->db->affected_rows();
+		  return array($this->db->affected_rows(), $admin['username']);
 	  }
 	  
 	  public function reset_password($uid = 0)
@@ -65,7 +67,7 @@
 		  $this->db->set($field);
 		  $this->db->where($options);
 		  $this->db->update('sdbk_admin');
-		  return $this->db->affected_rows();
+		  return array($this->db->affected_rows(), $admin['username']);
 	  }
 	  
 	  public function change_password($options)
