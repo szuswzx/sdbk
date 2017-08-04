@@ -103,8 +103,13 @@
 	  {
 		  $this->_check_login();
 		  $this->load->model('dashboard/activity_model');
-		  $res = $this->activity_model->add_activity();
-		  echo $res;
+		  if($this->input->post('ajax') != 'ajax')
+			  $this->load->view('dashboard/activity/add_activities');
+		  else
+		  {
+			  $res = $this->activity_model->add_activity();
+			  echo $res;
+		  }
 	  }
 	  
 	  public function export_activity($id)

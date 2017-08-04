@@ -133,7 +133,7 @@ jQuery(function () {
       });
     });
       $("#activity").on("click",function(){
-      $(".sild").load("../dashboard/activity",function(){
+      $(".sild").load("../dashboard/add_activity",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
       });
