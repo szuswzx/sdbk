@@ -36,23 +36,6 @@ td{
 	margin-left: 10px;
 	margin-bottom: 10px;
 }
-/*.page{
-	text-align: center;
-	height: 40px;
-	margin-top: 40px;
-	border-radius: 4px;
-	
-}
-.page a,.page span{
-	text-decoration: none;
-	border: 1px solid lightgrey;
-	padding: 5px 7px;
-	color: #333;
-	cursor: pointer;
-}
-.page a:hover,.page span:hover{
-	background-color: #daa;
-}*/
 .btn{
 	width: 80px;
 	text-align: center;

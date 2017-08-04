@@ -54,7 +54,6 @@
 	font-size: 14px;
 	border: 1px solid lightgrey;
 	border-radius: 3px;
-
 }
 .item>input:hover{
 	border: 1px solid #408ec0;
@@ -74,10 +73,7 @@
 	line-height: 20px;
 	padding-right: 35px;
 }
-.forcon{
-	border-right: 3px solid #408ec0;
-	color: #408ec0;
-}
+
 
 .formatWrong{
 	width: 84%;
@@ -95,12 +91,12 @@ button[disabled]{
 	cursor: not-allowed;
 	opacity: 50%;
 }
-.txt .startTime{
-	background-color: lightgrey;
-
+.txt .time{
+	background-color: #f6f6f6;
 }
 .txt .time:hover{
-	background-color: red;
+	background-color: #f45757;
+	color: #fff;
 }
 .underline{
 	width: 100%;

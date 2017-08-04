@@ -6,9 +6,9 @@ $(function(){
 	var $message=window.document.getElementById("message");
 	
 	$("#notyet").on("click",function(){
-		$all.removeClass('whole');
-		$notyet.addClass('fornotyet');
-		$finish.removeClass('forfini');
+		$all.removeClass('im');
+		$notyet.addClass('im');
+		$finish.removeClass('im');
 		$.ajax({  
 			type: "post",  
 			dataType: "json",  
@@ -25,11 +25,11 @@ $(function(){
 		$('#url').val('../dashboard/issue/notyet/data/');
 		$("#current_page").val('1');
 		$("#searchContent").val('');
-	});
+	});im
 	$("#finish").on("click",function(){
-		$all.removeClass('whole');
-		$finish.addClass('forfini');
-		$notyet.removeClass('fornotyet'); 
+		$all.removeClass('im');
+		$finish.addClass('im');
+		$notyet.removeClass('im'); 
 		$.ajax({  
 			type: "post",  
 			dataType: "json",  
@@ -48,9 +48,9 @@ $(function(){
 		$("#searchContent").val('');
 	});
 	$("#all").on("click",function(){
-		$all.addClass('whole');
-		$notyet.removeClass('fornotyet');
-		$finish.removeClass('forfini');
+		$all.addClass('im');
+		$notyet.removeClass('im');
+		$finish.removeClass('im');
 		$.ajax({  
 			type: "post",  
 			dataType: "json",
@@ -105,10 +105,10 @@ $(function(){
 				{
 					var buttonStr = "";
 					if(json[i].replied == '0')
-						buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;float:left;cursor:pointer' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
-									  "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
+						buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;cursor:pointer' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
+									  "<p class='delBtn' style='cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 					else if(json[i].replied == '1')
-						buttonStr += "<div class='hold'>" + "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
+						buttonStr += "<div class='hold'>" + "<p class='delBtn' style='cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 					str += "<tr>" +  
 						"<td>" + json[i].id + "</td>" +  
 						"<td>" + json[i].title + "</td>" +  
@@ -299,10 +299,10 @@ function loadIssue(json) { //load issue
 	{
 		var buttonStr = "";
 		if(json[i].replied == '0')
-			buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;float:left;cursor:pointer' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
-						  "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
+			buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;cursor:pointer' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
+						  "<p class='delBtn' style='cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 		else if(json[i].replied == '1')
-			buttonStr += "<div class='hold'>" + "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
+			buttonStr += "<div class='hold'>" + "<p class='delBtn' style='cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 			str += "<tr>" +   
 			"<td>" + json[i].id + "</td>" +  
 			"<td>" + json[i].title + "</td>" +  

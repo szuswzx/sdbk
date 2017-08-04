@@ -11,15 +11,7 @@
 	padding: 10px 20px;
 	cursor: pointer;
 }
-.whole{
-	color: #408ec0;
-	border-right: 3px solid #408ec0;
-}
-.fornotyet{
-	color: #408ec0;
-	border-right: 3px solid #408ec0;
-}
-.forfini{
+.im{
 	color: #408ec0;
 	border-right: 3px solid #408ec0;
 }
@@ -203,17 +195,19 @@ textarea{
 	margin:0 auto;
 	padding-top: 10px;
 }
-/*.hold:hover{
-	color: red;
-}*/
+
 .delBtn{
 	display: inline-block;
-	float: left;
 	cursor: pointer;
+}
+.delBtn:hover{
+	color: red;
 }
 .replyBtn{
 	display: inline-block;
-	float: left;
 	cursor: pointer;
+}
+.replyBtn:hover{
+	color: red;
 }
 
