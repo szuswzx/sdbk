@@ -11,7 +11,7 @@
 
 <div class="contain">
 	<div class="left">
-		<p class="inside whole" id="all">全部事务</p>
+		<p class="inside im" id="all">全部事务</p>
 		<p class="inside" id="notyet">未回复事务</p>
 		<p class="inside" id="finish">已回复事务</p>
 	</div>
@@ -36,7 +36,7 @@
 					<div class="hold">
 					<?php 
 				     if($row['replied'] == '0')
-							  echo "<p class='replyBtn' style='display:inline-block;cursor: pointer;' id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>";
+							  echo "<p class='replyBtn' style='display:inline-block;cursor: pointer;padding-right:8px;' id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>";
 					?>
 					<?php echo "<p class='delBtn' style=';cursor: pointer;' id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p>";?>
 					</div>

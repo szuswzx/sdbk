@@ -12,13 +12,16 @@
 		<td><?php echo $row['uid'];?></td>
 		<td><?php echo $row['rank'];?></td>
 		<td><?php echo $row['username'];?></td>
-		<td><?php 
+		<td class='admin'>
+			<div class="hold">
+				<?php 
 		          if($row['rank'] < 5)
-					  echo "<p class='resetBtn' style='display:inline-block;float:left;cursor: pointer;' id=".$row['uid']."><i class='fa fa-trash' style='margin-right: 5px'></i>重置密码</p>"
-				           . "<p class='delBtn' style=';cursor: pointer;' id=".$row['uid']."><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p>";
+					  echo "<p class='resetBtn' style='display:inline-block;cursor: pointer;padding-right:8px;' id=".$row['uid']."><i class='fa fa-trash' style='margin-right: 5px'></i>重置密码</p>"
+				           . "<p class='delBtn' style='display:inline-block;cursor: pointer;' id=".$row['uid']."><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p>";
 				  else
 					  echo '权限不足';
 		    ?>
+		    </div>
 		</td>
 	</tr>
 	<?php }?>

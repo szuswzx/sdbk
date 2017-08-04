@@ -25,7 +25,7 @@ $(function(){
 		$('#url').val('../dashboard/issue/notyet/data/');
 		$("#current_page").val('1');
 		$("#searchContent").val('');
-	});im
+	});
 	$("#finish").on("click",function(){
 		$all.removeClass('im');
 		$finish.addClass('im');
@@ -106,9 +106,9 @@ $(function(){
 					var buttonStr = "";
 					if(json[i].replied == '0')
 						buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;cursor:pointer' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
-									  "<p class='delBtn' style='cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
+									  "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 					else if(json[i].replied == '1')
-						buttonStr += "<div class='hold'>" + "<p class='delBtn' style='cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
+						buttonStr += "<div class='hold'>" + "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 					str += "<tr>" +  
 						"<td>" + json[i].id + "</td>" +  
 						"<td>" + json[i].title + "</td>" +  
@@ -189,7 +189,7 @@ $(function(){
 				$message.innerHTML = '服务器异常';
 				$formatWrong.css('background-color','rgb(224, 68, 68)');
 				$formatWrong.fadeIn('',function(){
-					$formatWrong.fadeOut(3000);
+				$formatWrong.fadeOut(3000);
 				});
 			}  
 		});
@@ -273,10 +273,10 @@ $(function(){
 					$formatWrong.css('background-color','rgb(224, 68, 68)');
 				}
 
-				if($all.attr('class') == 'inside whole')    //事务回复后，刷新页面
+				if($all.attr('class') == 'inside im')    //事务回复后，刷新页面
 					$all.trigger('click');
-				else if($notyet.attr('class') == 'inside fornotyet')
-					$notyet.trigger('click');
+				else if($notyet.attr('class') == 'inside im')
+					$notyet.trigger('click');im
 				
 				$formatWrong.fadeIn('',function(){
 					$formatWrong.fadeOut(3000);
@@ -300,9 +300,9 @@ function loadIssue(json) { //load issue
 		var buttonStr = "";
 		if(json[i].replied == '0')
 			buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;cursor:pointer' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
-						  "<p class='delBtn' style='cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
+						  "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 		else if(json[i].replied == '1')
-			buttonStr += "<div class='hold'>" + "<p class='delBtn' style='cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
+			buttonStr += "<div class='hold'>" + "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 			str += "<tr>" +   
 			"<td>" + json[i].id + "</td>" +  
 			"<td>" + json[i].title + "</td>" +  

@@ -120,3 +120,16 @@ tr:hover{
 td{
 	border-right: 1px solid white;
 }
+.hold{
+	width: 100px;
+	margin:0 auto;
+	padding-top: 10px;
+}
+.resetBtn{
+	display: inline-block;
+	cursor: pointer;
+}
+.delBtn{
+	display: inline-block;
+	cursor: pointer;
+}

@@ -15,6 +15,7 @@
 	color: #408ec0;
 	border-right: 3px solid #408ec0;
 }
+
 .right{
 	width: 84%;
     float: left;
@@ -45,23 +46,6 @@ tr:hover{
 td{
 	border-right: 1px solid white;
 }
-/*.page{
-	text-align: center;
-	height: 40px;
-	margin-top: 40px;
-	border-radius: 4px;
-	
-}
-.page a,.page span{
-	text-decoration: none;
-	border: 1px solid lightgrey;
-	padding: 5px 7px;
-	color: #333;
-	cursor: pointer;
-}
-.page a:hover,.page span:hover{
-	background-color: #daa;
-}*/
 .getMore{
 	width: 200px;
 	height: 40px;
@@ -209,5 +193,8 @@ textarea{
 }
 .replyBtn:hover{
 	color: red;
+}
+.fa.fa-times-circle{
+	color: #fff;
 }
 

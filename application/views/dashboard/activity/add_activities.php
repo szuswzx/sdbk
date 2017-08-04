@@ -60,7 +60,7 @@
 }
 .btn{
 	width: 100%;
-	padding-left: 100px;
+	padding-right:90px;
 }
 .im{
 	border-right: 3px solid #408ec0;
@@ -91,10 +91,11 @@ button[disabled]{
 	cursor: not-allowed;
 	opacity: 50%;
 }
-.txt .time{
+.txt.time{
+	text-align: center;
 	background-color: #f6f6f6;
 }
-.txt .time:hover{
+.txt.time:hover{
 	background-color: #f45757;
 	color: #fff;
 }
