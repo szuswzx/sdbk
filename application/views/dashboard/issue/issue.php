@@ -36,7 +36,7 @@
 					<div class="hold">
 					<?php 
 				     if($row['replied'] == '0')
-							  echo "<p class='replyBtn' style='display:inline-block;float:left;cursor: pointer;' id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>";
+							  echo "<p class='replyBtn' style='display:inline-block;cursor: pointer;' id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>";
 					?>
 					<?php echo "<p class='delBtn' style=';cursor: pointer;' id=".$row['id']."><i class='fa fa-trash' style='margin-right: 5px'></i>删除</p>";?>
 					</div>
