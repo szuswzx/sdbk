@@ -105,7 +105,7 @@ $(function(){
 				{
 					var buttonStr = "";
 					if(json[i].replied == '0')
-						buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;cursor:pointer' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
+						buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;cursor:pointer;padding-right:8px;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
 									  "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 					else if(json[i].replied == '1')
 						buttonStr += "<div class='hold'>" + "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
@@ -276,7 +276,7 @@ $(function(){
 				if($all.attr('class') == 'inside im')    //事务回复后，刷新页面
 					$all.trigger('click');
 				else if($notyet.attr('class') == 'inside im')
-					$notyet.trigger('click');im
+					$notyet.trigger('click');
 				
 				$formatWrong.fadeIn('',function(){
 					$formatWrong.fadeOut(3000);
@@ -299,7 +299,7 @@ function loadIssue(json) { //load issue
 	{
 		var buttonStr = "";
 		if(json[i].replied == '0')
-			buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;cursor:pointer' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
+			buttonStr += "<div class='hold'><p class='replyBtn' style='display:inline-block;cursor:pointer;padding-right:8px;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px'></i>回复</p>" +
 						  "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";
 		else if(json[i].replied == '1')
 			buttonStr += "<div class='hold'>" + "<p class='delBtn' style=';cursor: pointer;' id=" + json[i].id + "><i class='fa fa-trash' style='margin-right: 5px;'></i>删除</p></div>";

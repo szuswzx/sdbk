@@ -1,8 +1,8 @@
 <div
 style='
 color: #ffffff; 
-background-color: #888; 
-border: solid 2px black; 
+background-color: rgba(158, 158, 158, 0.37); 
+border: solid 2px rgba(0, 0, 0, 0.07); 
 width: 100%; 
 height: 600px; 
 overflow: scroll;
