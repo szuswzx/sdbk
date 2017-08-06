@@ -50,6 +50,38 @@
 		  $this->load->view('dashboard/dashboard',$data);
 	  }
 	  
+	  //校园卡解绑
+	  public function find_user($page = 'page', $studentNo)
+	  {
+		  //$this->_check_login();
+		  $this->load->model('user_model');
+		  
+		  $data['user'] = $this->user_model->get_user_by_studentNo($studentNo);
+		  if($page == 'page')
+			  $this->load->view('dashboard/unbind/find_user',$data);
+		  else
+			  echo json_encode($data['user']);
+	  }
+	  
+	  public function unbind($userid)
+	  {
+		  //$this->_check_login();
+		  $this->load->model('user_model');
+		  
+		  $res = $this->user_model->unbind($userid);
+		  if($res >= 1)
+			  echo "success";
+		  else
+			  echo "failed";
+	  }
+	  
+	  //绑定用户推送新公文通
+	  public function push_board()
+	  {
+		  $this->load->model('wechat_model');
+		  echo $this->wechat_model->get_access_token();		  
+	  }
+	  
 	  //活动发布
 	  public function activity()
 	  {
@@ -59,7 +91,7 @@
 		  if($this->userinfo['rank'] >= 5)
 		  {
 		  	  $data['activity'] = $this->activity_model->get_activity();
-			  $this->load->view('dashboard/activity/success', $data);
+			  $this->load->view('dashboard/activity/manage_activity', $data);
 		  }
 		  else
 		  {
@@ -75,6 +107,8 @@
 		  if($this->userinfo['rank'] >= 5)
 		  {
 		  	  $res = $this->activity_model->delete_activity($id);
+			  if($res == 1)
+				  $this->log_model->save_log($this->userinfo['username'], "删除了活动：".$id);
 			  echo $res;
 		  }
 		  else
@@ -87,10 +121,12 @@
 	  {
 		  $this->_check_login();
 		  $this->load->model('dashboard/activity_model');
+		  $this->load->model('wechat_model');
 
 		  if($this->userinfo['rank'] >= 5)
 		  {
-		  	  $res = $this->activity_model->push_activity($id);
+			  $access_token = $this->wechat_model->get_access_token();
+		  	  $res = $this->activity_model->push_activity($id, $access_token);			  
 			  echo $res;
 		  }
 		  else
@@ -99,15 +135,22 @@
 		  }
 	  }
 	  
-	  public function add_activity()
+	  public function add_activity($out = 'all')
 	  {
 		  $this->_check_login();
 		  $this->load->model('dashboard/activity_model');
 		  if($this->input->post('ajax') != 'ajax')
-			  $this->load->view('dashboard/activity/add_activities');
+		  {
+			  if($out == 'all')
+				  $this->load->view('dashboard/activity/add_activities');
+			  else
+				  $this->load->view('dashboard/activity/return_add_activities');
+		  }
 		  else
 		  {
 			  $res = $this->activity_model->add_activity();
+			  if($res == 1)
+				  $this->log_model->save_log($this->userinfo['username'], "添加了活动：".$this->input->post('name'));
 			  echo $res;
 		  }
 	  }
@@ -164,8 +207,9 @@
 	  
 	  public function add_card($page = 'first')
 	  {
-		  //$this->_check_login();
+		  $this->_check_login();
 		  $this->load->model('dashboard/card_model');
+		  $this->load->model('wechat_model');
 		  $this->load->helper('form');
 		  $this->load->library('form_validation');
 		  $config = array(		  
@@ -189,7 +233,9 @@
 		  }
 		  else
 		  {
-			  $res = $this->card_model->add_card();
+
+			  $access_token = $this->wechat_model->get_access_token();
+			  $res = $this->card_model->add_card($access_token);
 			  if($res == 1 || $res == 2)
 				  $this->log_model->save_log($this->userinfo['username'], "添加了学号为".$this->input->post('studentNo')."的校园卡丢失信息");
 			  echo $res;
@@ -216,7 +262,9 @@
 	  {
 		  $this->_check_login();
 		  $this->load->model('dashboard/card_model');
-		  list($res, $studentNo) = $this->card_model->return_card($id);
+		  $this->load->model('wechat_model');
+		  $access_token = $this->wechat_model->get_access_token();
+		  list($res, $studentNo) = $this->card_model->return_card($id, $access_token);
 		  if($res == 1 || $res == 2)
 			  $this->log_model->save_log($this->userinfo['username'], "归还了学号为".$studentNo."的校园卡");
 		  echo $res;
@@ -305,6 +353,7 @@
 	  {
 		  $this->_check_login();
 		  $this->load->model('dashboard/issue_model');
+		  $this->load->model('wechat_model');
 		  $issue = array(
 			  'replied' => 1,
 			  'asso' => $this->input->post('asso'),
@@ -312,8 +361,9 @@
 			  'responder' => $this->userinfo['username'],
 			  'replyTime' => time()
 		  );
-		  
-		  $res = $this->issue_model->reply_issue($id, $issue);
+
+		  $access_token = $this->wechat_model->get_access_token();
+		  $res = $this->issue_model->reply_issue($id, $issue, $access_token);
 		  $this->log_model->save_log($this->userinfo['username'], "回复了id为".$id."事务：".$issue['reply']);
 		  echo $res;
 	  }

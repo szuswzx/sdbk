@@ -44,7 +44,7 @@
 		  return array($card, $page_sum);		  
 	  }
 	  
-	  public function add_card()
+	  public function add_card($access_token = '')
 	  {
 		  $data = array(
 			  'studentNo' => $this->input->post('studentNo'),
@@ -60,8 +60,6 @@
 		  {
 			  $user = $this->get_user($options = array('studentNo' => $data['studentNo']));
 			  $this->load->library('weixin', $config = array('AppId' => $this->app_id, 'AppSecret' => $this->app_secret));//220测试
-			  $token = $this->weixin->getToken();
-			  $token = json_decode($token, true);
 			  $templeurl = ''.$id;//记得写上
 			  $textPic = array(
 				  'first' => array('value'=> $user['studentName'].'，你的校园卡被捡到啦！\n请到事务中心领取你的校园卡 <(￣▽￣)>', 'color'=> '#df4848'),
@@ -71,7 +69,7 @@
 				  'PickerName' => array('value'=> $data['getName'], 'color'=> '#333'),
 				  'remark' => array('value'=> '\n如有问题，请联系事务君（微信号：szushiwujun）', 'color'=> '#bbbbbb'),
 			  );
-			  $result = $this->weixin->pushtemple($token['access_token'], $user['openid'], $this->template_id, $templeurl, $textPic);
+			  $result = $this->weixin->pushtemple($access_token, $user['openid'], $this->template_id, $templeurl, $textPic);
 			  $result = json_decode($result, true);
 			  if($result['errcode'] == 0 && $result['errmsg'] == 'ok')
 				  return 1;
@@ -90,7 +88,7 @@
 		  return $this->db->affected_rows();
 	  }
 	  
-	  public function return_card($id = 0)
+	  public function return_card($id = 0, $access_token = '')
 	  {
 		  $options = array('id' => $id);
 		  $field = array('isreturn' => 1);
@@ -105,8 +103,6 @@
 			  $card = $card[0];
 			  $user = $this->get_user($options = array('studentNo' => $card['studentNo']));
 			  $this->load->library('weixin', $config = array('AppId' => $this->app_id, 'AppSecret' => $this->app_secret));//220测试
-			  $token = $this->weixin->getToken();
-			  $token = json_decode($token, true);
 			  $templeurl = ''.$id;//记得写上
               $textPic = array(
                   'first' => array('value'=> $user['studentName'].'，你的校园卡已经归还给你啦！', 'color'=> '#df4848'),
@@ -116,7 +112,7 @@
                   'PickerName' => array('value'=> $card['getName'], 'color'=> '#333'),
                   'remark' => array('value'=> '\n如果校园卡不是你本人拿走或有任何问题，请联系事务君（微信号：szushiwujun）', 'color'=> '#bbbbbb'),
               );
-			  $result = $this->weixin->pushtemple($token['access_token'], $user['openid'], $this->template_id, $templeurl, $textPic);
+			  $result = $this->weixin->pushtemple($access_token, $user['openid'], $this->template_id, $templeurl, $textPic);
 			  $result = json_decode($result, true);
 			  if($result['errcode'] == 0 && $result['errmsg'] == 'ok')
 				  return array(1, $card['studentNo']);

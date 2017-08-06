@@ -21,10 +21,7 @@ class Activity_model extends CI_Model
 		);
 		
 		$insert = $this->db->insert('sdbk_activity', $activity);
-		if($insert == 1)
-			return 'success';
-		else
-			return 'failed';
+		return $insert;
 	}
 	
 	public function get_activity($options = array(), $field = array())
@@ -49,17 +46,14 @@ class Activity_model extends CI_Model
 			$this->db->where($options);
 			$this->db->delete('sdbk_activity_record');
 			$delete = $this->db->affected_rows();
-			if($delete >= 1)
-				return 'success';
-			else
-				return 'failed';
+			return 1;
 		}
 		else
-			return 'failed';
+			return 0;
 		
 	}
 	
-	public function push_activity($id)
+	public function push_activity($id, $access_token)
 	{
 		$data = array(
 		    'keyword1' => $this->input->post('keyword1'),
@@ -79,8 +73,6 @@ class Activity_model extends CI_Model
 		
 		$templeurl = ''.$id;
 		$this->load->library('weixin', $config = array('AppId' => $this->app_id, 'AppSecret' => $this->app_secret));//220测试
-	    $token = $this->weixin->getToken();
-	    $token = json_decode($token, true);
 		
 		$openids = array();
 		$apply_num = 0;
@@ -140,7 +132,7 @@ class Activity_model extends CI_Model
 			$update = $this->db->affected_rows();
 			if($update == 1)
 			{
-				$result = $this->weixin->pushtemple($token['access_token'], $user, $this->template_id, $templeurl, $textPic);
+				$result = $this->weixin->pushtemple($access_token, $user, $this->template_id, $templeurl, $textPic);
 			    $result = json_decode($result, true);
 				$result['errcode'] = 0;
 				$result['errmsg'] = 'ok';

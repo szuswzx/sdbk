@@ -110,7 +110,7 @@
 		  return $this->db->affected_rows();
 	  }
 	  
-	  public function reply_issue($id = 0, $field = array())
+	  public function reply_issue($id = 0, $field = array(), $access_token = '')
 	  {		  
 		  $options = array('id' => $id);
 		  $this->db->set($field);
@@ -122,8 +122,6 @@
 		  {
 			  $issue = $this->get_issue_by_id($id);
 			  $this->load->library('weixin', $config = array('AppId' => $this->app_id, 'AppSecret' => $this->app_secret));//220测试
-		      $token = $this->weixin->getToken();
-		      $token = json_decode($token, true);
 			  $templeurl = ''.$id;//记得写上
 			  $textPic = array(
 				  'first' => array('value'=> '您咨询的事务有回复啦！\n', 'color'=> '#df4848'),
@@ -131,7 +129,7 @@
 				  'keyword2' => array('value'=> date("Y-m-d h:i:s", time()).'\n回复概况：'.mb_substr(strip_tags($issue['reply']), 0, 32, 'utf-8'), 'color'=> '#333'),
 				  'remark' => array('value'=> '\n如有问题，请联系事务君（微信号：szushiwujun）', 'color'=> '#bbbbbb'),
 			  );
-			  $result = $this->weixin->pushtemple($token['access_token'], $issue['openid'], $this->template_id, $templeurl, $textPic);
+			  $result = $this->weixin->pushtemple($access_token, $issue['openid'], $this->template_id, $templeurl, $textPic);
 			  $result = json_decode($result, true);
 			  if($result['errcode'] == 0 && $result['errmsg'] == 'ok')
 				  return 1;

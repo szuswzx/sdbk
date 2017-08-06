@@ -276,7 +276,7 @@ $(function(){
 				if($all.attr('class') == 'inside im')    //事务回复后，刷新页面
 					$all.trigger('click');
 				else if($notyet.attr('class') == 'inside im')
-					$notyet.trigger('click');im
+					$notyet.trigger('click');
 				
 				$formatWrong.fadeIn('',function(){
 					$formatWrong.fadeOut(3000);
