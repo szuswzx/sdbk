@@ -22,7 +22,7 @@
 			<div class="item"><p class="lab">备注</p><textarea type="text" name="remark" class="txt" placeholder="在哪拾获，交接地点信息等" rows="10"></textarea></div>
 			<input type="hidden" name="ajax" value="ajax">	    	
 	    	</form>
-    		<div class="btn"><button  id="submit" disabled="disabled" onclick="typein()">信息录入</button></div>
+    		<div class="btn" style="opacity: 0.5;"><button  id="submit" disabled="disabled" onclick="typein()">信息录入</button></div>
 		</div>
 
 	</div>

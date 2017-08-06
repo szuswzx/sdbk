@@ -2,125 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8">
-<style type="text/css">
-.left{
-	padding:5px;
-	margin-top: 20px;
-	width: 12%;
-	font-size: 20px;
-	display: inline-block;
-	float: left;
-	height: 40px;
-	text-align: center;
-	margin-left: 20px;
-}
-.inside{
-	height: 30px;
-	font-size: 15px;
-	padding: 10px 20px;
-	cursor: pointer;
-}
-.right{
-	width: 84%;
-    float: left;
-    padding-left: 40px;
-    padding-top: 30px;
-    padding-right: 20px;
-}
-.rightlabel{
-	width: 68%;
-}
-.lab{
-	font-size: 15px;
-	text-align: right;
-	width: 18%;
-	padding: 0px 10px;
-	float: left;
-	line-height: 36px;
-}
-.item{
-	width: 100%;
-	float: left;
-	margin-top: 5px;
-	margin-bottom: 10px;
-	text-align: center;
-}
-.txt{
-	width: 76%;
-	float: left;
-	margin-left:10px;
-	padding:5px;
-	text-align: justify;
-	font-size: 14px;
-	border: 1px solid lightgrey;
-	border-radius: 3px;
-}
-.item>input:hover{
-	border: 1px solid #408ec0;
-}
-.btn{
-	width: 100%;
-	padding-right:90px;
-}
-.im{
-	border-right: 3px solid #408ec0;
-	color: #408ec0;
-}
-.inputTips{
-	float: right;
-	color: #888;
-	font-size: 14px;
-	line-height: 20px;
-	padding-right: 35px;
-}
-
-
-.formatWrong{
-	width: 84%;
-	height:40px;
-	border-radius: 5px;
-	text-align: center;
-	color: white;
-	font-size: 18px;
-	float: left;
-	display: none;
-	line-height: 40px;
-
-}
-button[disabled]{
-	cursor: not-allowed;
-	opacity: 50%;
-}
-.txt.time{
-	text-align: center;
-	background-color: #f6f6f6;
-}
-.txt.time:hover{
-	background-color: #f45757;
-	color: #fff;
-}
-.underline{
-	width: 100%;
-	color: lightgrey;
-	padding:0 20px; 
-}
-.addParam{
-	width: 100%;
-	height: 40px;
-	margin-top: 5px;
-	color: #aaa;
-	font-size: 14px;
-	line-height: 32px;
-	border-radius: 3px;
-	background: #fff;
-	cursor: pointer;
-	border: 2px dashed #ddd;
-}
-.btn{
-	width: 100%;
-	padding-left: 100px;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="./../public/dashboard/activities.css">
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../public/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+<script src="../public/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 
 </head>
 <body>
@@ -138,16 +23,27 @@ button[disabled]{
 			</div>
 			<div class="item">
 				<p class="lab">开始时间</p>
-				<div class="txt time">
-					请选择时间
-				</div>
+				<input class="txt time" id="startTime" placeholder="请选择时间">
+					
 			</div>
 			<div class="item">
 				<p class="lab">结束时间</p>
-				<div class="txt time">
+				<input class="txt time" id="endTime" placeholder="请选择时间">
+					
+			</div>
+			
+			    <!-- <div class="item" >
+					<p class="lab">开始时间</p>
+			            <input type='text' class="txt time" id='datetimepicker4' placeholder="请选择时间">     
+			    </div> -->
+
+			<!-- <div class="item">
+				<p class="lab">结束时间</p>
+				<div class="txt time" id="endTime">
 					请选择时间
 				</div>
-			</div>
+			</div> -->
+
 			<div class="item">
 				<p class="lab">限制人数</p>
 				<input type="text" id="studentNo" name="studentNo" class="txt">
@@ -155,7 +51,23 @@ button[disabled]{
 				</div>
 			</div>
 			<div class="underline"></div>
-			<div class="item">PS：默认会保存学生的所有信息</div>
+			<div class="item ps">PS：默认会保存学生的所有信息</div>
+
+
+			<div class="containMsg">
+				<div class="addMsg" style="display: none;">
+					<div class="item" >
+						<p class="lab">字段<span class="number"></span></p>
+						<input type="text" class="txt" placeholder="字段的名称，不可放空">
+					</div>
+					<div class="item" >
+						<p class="lab del">删除</p>
+						<input type="text" class="txt" placeholder="默认值，可放空">
+					</div>
+				</div>
+			</div>
+
+
 			<button class="addParam">添加字段</button>
 			<div class="btn">
 				<button disabled="disabled">发布活动</button>
@@ -165,24 +77,63 @@ button[disabled]{
 	</div>
 </div>
 </body>
-<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-
 <script type="text/javascript">
 $(function(){
 	var $addAct = $('#addAct');
 	var $adminAct = $('#adminAct');
+	var $startTime = $('#startTime');
+	var $endTime = $('#endTime');
+	var $addParam = $('.addParam');
+	var $addMsgTpl = $('.addMsg');
+	var k = 1;
 
-	$addAct.on('click',function(){
-		$addAct.addClass('im');
-		$adminAct.removeClass('im');
+	function showMsg(k){
+		var addMsg = $addMsgTpl.clone();
+		var num = addMsg.find('.number');
+		addMsg.show();
+		$('.containMsg').append(addMsg);
+		num.text(k);	
+}
+
+
+	$addParam.on('click',function(){
+		showMsg(k);
+		k++;
+	});
+	$('.del').on('click',function(){
+		// var $del_msg = $(this).parent().parent();
+		// var nextNum = $del_msg.nextall('.addMsg').find('.number');
+		// k = k - 2;
+		// nextNum.text(k);
+		// k++;
+		// $del_msg.remove();
+		alert('1');
+
 	});
 
 
+
+	$addAct.on('click',function(){
+		$('.right').load('../dashboard/add_activity/add');
+		$addAct.addClass('im');
+		$adminAct.removeClass('im');
+	});
 	$adminAct.on('click',function(){
+		$('.right').load('../dashboard/activity');
 		$adminAct.addClass('im');
 		$addAct.removeClass('im');
-	})
+    });
 
-})
+
+    $startTime.datetimepicker({
+    	lang:'zh'
+    });
+    $endTime.datetimepicker({
+    	language:'zh-CN'
+    });
+
+    
+});
+
 </script>
 </html>

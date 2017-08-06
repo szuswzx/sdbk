@@ -190,6 +190,7 @@ textarea{
 .replyBtn{
 	display: inline-block;
 	cursor: pointer;
+	padding-right: 8px;
 }
 .replyBtn:hover{
 	color: red;
