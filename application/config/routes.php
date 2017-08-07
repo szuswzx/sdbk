@@ -51,6 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['wechat_api'] = 'wechat_api';
 $route['dashboard'] = 'dashboard';
+$route['cet'] = 'cet';
+$route['scost'] = 'scost';
 
 $route['score/create_scoreimg'] = 'score/create_scoreimg';
 $route['score/save_scoreimg'] = 'score/save_scoreimg';
