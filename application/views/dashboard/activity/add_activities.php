@@ -76,6 +76,55 @@
 
 	</div>
 </div>
+<div class="editMask">
+	<div class="edit">
+		<div class="editTitle">
+			回复事务<span class="close"><i class="fa fa-times-circle"></i></span>
+		</div>
+		<div class="editBody">
+			<div class="item">
+				<div class="editleft">标题</div>
+				<div class="editright"></div>
+			</div>
+			<div class="item">
+				<div class="editleft">事务内容</div>
+				<div class="editright"></div>
+			</div>
+			<div class="item">
+				<div class="editleft">咨询人</div>
+				<div class="editright"></div>
+			</div>
+			<div class="item">
+				<div class="editleft">咨询人学号</div>
+				<div class="editright"></div>
+			</div>
+			<div class="item">
+				<div class="editleft">所在单位</div>
+				<div class="editright"></div>
+			</div>
+			<div class="item">
+				<div class="editleft">联系方式</div>
+				<div class="editright"></div>
+			</div>
+			<div class="item">
+				<div class="editleft">回复部门</div>
+				<div class="editright"><input id="asso" type="text"></div>
+			</div>
+			<div class="item">
+				<div class="editleft">回复内容</div>
+				<div class="editright"><textarea id="reply" placeholder="回复些什么吧"></textarea></div>
+			</div>
+			<div class="item">
+				<div class="editleft">回复人</div>
+				<div class="editright"></div>
+			</div>
+			<div class="item">
+			    <input type="hidden" id="issueId">
+				<div class="replayBtn"><button class="submitReply">提交回复</button><span class="cancel">取消</span></div>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 <script type="text/javascript">
 $(function(){
@@ -144,6 +193,7 @@ $(function(){
 		$submit.removeAttr("disabled");
 	  }else{
 		$submit.prop("disabled","disabled");
+		$('.btn').css('opacity','1');
 	  } 
 	});
 	
@@ -204,6 +254,26 @@ $(function(){
 			}  
 		});
 	});
+
+	var $editMask=$('.editMask');
+	var $content=$('.edit');
+	var $close=$('.fa');
+
+	$('#tbody-result').on('click','.sendMsg',function(evt){
+		$editMask.fadeIn('slow');
+		$content.fadeIn('slow');
+		evt.preventDefault();
+	});
+
+	$close.click(function(){
+		$content.css('display','none');
+		$editMask.css('display','none');
+	});	
+	$('.cancel').click(function(){
+		$content.css('display','none');
+		$editMask.css('display','none');
+	});
+
 });
 
 </script>
