@@ -96,19 +96,20 @@ $(function(){
 }
 
 
-	$addParam.on('click',function(){
+	$('.right').on('click', '.addParam', function(){
 		showMsg(k);
 		k++;
 	});
-	$('.del').on('click',function(){
-		// var $del_msg = $(this).parent().parent();
-		// var nextNum = $del_msg.nextall('.addMsg').find('.number');
-		// k = k - 2;
-		// nextNum.text(k);
-		// k++;
-		// $del_msg.remove();
-		alert('1');
-
+	$('.right').on('click', '.del', function(){      //因为del是后来添加进去的，所以要用一个已经存在且一直存在的父辈right去绑定子辈del	
+		var $del_msg = $(this).parent().parent();
+		var $nextNum = $del_msg.nextAll('.addMsg').find('.number');
+		var i;
+		$nextNum.each(function(){
+			$(this).text($(this).html()*1-1*1);
+			i = $(this).html();
+		});
+		k = i*1 + 1*1;
+		$del_msg.remove();
 	});
 
 
@@ -117,6 +118,7 @@ $(function(){
 		$('.right').load('../dashboard/add_activity/add');
 		$addAct.addClass('im');
 		$adminAct.removeClass('im');
+		k = 1;
 	});
 	$adminAct.on('click',function(){
 		$('.right').load('../dashboard/activity');

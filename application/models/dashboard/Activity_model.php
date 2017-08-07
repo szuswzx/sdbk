@@ -76,7 +76,7 @@ class Activity_model extends CI_Model
 		
 		$openids = array();
 		$apply_num = 0;
-		if($data['markstu'] == '')    //向全部报名用户发送报名成功消息
+		if($data['markstu'] == 'all')    //向全部报名用户发送报名成功消息
 		{
 			$field = array('uid');
 			$options = array('aid' => $id);

@@ -90,7 +90,7 @@
 
 		  if($this->userinfo['rank'] >= 5)
 		  {
-		  	  $data['activity'] = $this->activity_model->get_activity();
+		  	  $data['activities'] = $this->activity_model->get_activity();
 			  $this->load->view('dashboard/activity/manage_activity', $data);
 		  }
 		  else
