@@ -19,8 +19,16 @@ class Activity_model extends CI_Model
 			'param' => $this->input->post('parameters'),
 			'limit' => $this->input->post('limit')
 		);
-		
-		$insert = $this->db->insert('sdbk_activity', $activity);
+		$activity['startTime'] = strtotime($activity['startTime']);
+		$activity['endTime'] = strtotime($activity['endTime']);
+		$activity['param'] = json_encode($activity['param'], JSON_UNESCAPED_UNICODE);
+		if($activity['param'] == 'null')
+			$activity['param'] = json_encode(array());
+		//判断开始时间不能大于结束时间
+		if($activity['startTime'] < $activity['endTime'])
+			$insert = $this->db->insert('sdbk_activity', $activity);
+		else
+			$insert = "time_error";
 		return $insert;
 	}
 	
