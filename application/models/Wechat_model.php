@@ -16,6 +16,7 @@ class Wechat_model extends CI_Model
 		$this->db->where($options);
 		$query = $this->db->get('sdbk_wechat');
 		$result = $query->row_array();
+		//存在这个公众号并且缓存没有过期直接返回数据库中的access_token，过期刷新并保存到数据库
 		if(count($result) !=0 && strtotime(date('y-m-d h:i:s', $result['get_time']))+7100 > strtotime(date('y-m-d h:i:s')))
 			return $result['access_token'];
 		else if(count($result) !=0 && strtotime(date('y-m-d h:i:s', $result['get_time']))+7100 <= strtotime(date('y-m-d h:i:s')))

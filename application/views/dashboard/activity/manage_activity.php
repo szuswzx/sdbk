@@ -7,13 +7,13 @@
 	<tbody id="tbody-result">
 		<?php foreach($activities as $row){?>
 		<tr>
-			<td><?php echo $row['id'];?></td>
-			<td><?php echo $row['name'];?></td>
+			<td id="ID"><?php echo $row['id'];?></td>
+			<td id="NAME"><?php echo $row['name'];?></td>
 			<td>
 				<p class="link">显示连接</p>
 				<p class="sendMsg">发送消息模板</p>
 				<p class="export">导出数据</p>
-				<p class="del">删除</p>
+				<p class="delAct">删除</p>
 			</td>
 		</tr>
 		<?php }?>

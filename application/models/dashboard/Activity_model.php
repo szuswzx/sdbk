@@ -103,7 +103,7 @@ class Activity_model extends CI_Model
 				$apply_num++;
 			}
 		}
-		else if($data['markstu'] != '')   //向部分用户发送报名成功消息
+		else if($data['markstu'] != 'all')   //向部分用户发送报名成功消息
 		{
             $spliceOpenid = str_replace( '，', ',', $data['markstu']);
             $spliceOpenid = explode(',', $spliceOpenid);
@@ -118,11 +118,7 @@ class Activity_model extends CI_Model
 		}
 
 		$success_push = 0;
-		$failed_push = 0;
-		//开启手动事务
-		$this->db->trans_strict(FALSE);
-        $this->db->trans_begin();
-		
+		$failed_push = 0;		
 		foreach($openids as $user)        //更新sdbk_activity_record
 		{
 			$options = array('openid' => $user);
@@ -139,11 +135,9 @@ class Activity_model extends CI_Model
 			$this->db->update('sdbk_activity_record');
 			$update = $this->db->affected_rows();
 			if($update == 1)
-			{
+			{				
 				$result = $this->weixin->pushtemple($access_token, $user, $this->template_id, $templeurl, $textPic);
 			    $result = json_decode($result, true);
-				$result['errcode'] = 0;
-				$result['errmsg'] = 'ok';
 			    if($result['errcode'] == 0 && $result['errmsg'] == 'ok')
 					$success_push++;
 			    else
@@ -154,11 +148,20 @@ class Activity_model extends CI_Model
 			else
 				$failed_push++;
 		}
-		if($success_push == count($openids))
-			$this->db->trans_commit();
-		else
-			$this->db->trans_rollback();			
-		return "success:$success_push , failed:$failed_push";
+		//发送结果反馈
+		$user = 'oNjPnw-AuKkwq7yYbcSwn9uZzrf8';
+		$this->template_id = 'La9vLNUXEhieeXmuoPXk1RsqqczkGPqQuVb_zsQpIds';
+		$templeurl = '';
+		$data['result'] = '成功:'.$success_push.'   失败:'.$failed_push;
+		$textPic1 = array(
+            'first' => array('value'=> $data['result'].'\n', 'color'=> '#F45757'),
+            'keyword1' => array('value'=> $data['keyword1'], 'color'=> '#2b2b2b'),
+            'keyword2' => array('value'=> $data['keyword2'], 'color'=> '#2b2b2b'),
+            'keyword3' => array('value'=> $data['keyword3'], 'color'=> '#2b2b2b'),
+            'remark' => array('value'=> $data['remark'].'\n如有问题，请联系事务君（微信号：szushiwujun）', 'color'=> '#bbbbbb')
+        );
+		$this->weixin->pushtemple($access_token, $user, $this->template_id, $templeurl, $textPic1);
+		return 0;
 	}
 	
 	public function export_activity($id = 0)

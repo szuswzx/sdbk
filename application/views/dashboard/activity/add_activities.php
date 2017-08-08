@@ -83,44 +83,28 @@
 		</div>
 		<div class="editBody">
 			<div class="item">
-				<div class="editleft">标题</div>
-				<div class="editright"></div>
+				<div class="editleft">活动名称</div>
+				<div class="editright"><input id="actName" type="text"></div>
 			</div>
 			<div class="item">
-				<div class="editleft">事务内容</div>
-				<div class="editright"></div>
+				<div class="editleft">活动时间</div>
+				<div class="editright"><input id="actTime" type="text" placeholder="活动举办时间"></div>
 			</div>
 			<div class="item">
-				<div class="editleft">咨询人</div>
-				<div class="editright"></div>
+				<div class="editleft">活动地点</div>
+				<div class="editright"><input id="actSpace" type="text" placeholder="活动举办地点"></div>
 			</div>
 			<div class="item">
-				<div class="editleft">咨询人学号</div>
-				<div class="editright"></div>
+				<div class="editleft">备注</div>
+				<div class="editright"><input id="remark" type="text" placeholder="模板消息推送中的备注"></div>
 			</div>
 			<div class="item">
-				<div class="editleft">所在单位</div>
-				<div class="editright"></div>
-			</div>
+				<div class="editleft">选中学生</div>
+				<div class="editright"><textarea id="student" type="text" placeholder="选中的学生的学号，多个学生用英文的逗号分隔开，如：2014150001,2014150002（全部选中请填写为英文小写的all）"></textarea></div>
+			</div>			
 			<div class="item">
-				<div class="editleft">联系方式</div>
-				<div class="editright"></div>
-			</div>
-			<div class="item">
-				<div class="editleft">回复部门</div>
-				<div class="editright"><input id="asso" type="text"></div>
-			</div>
-			<div class="item">
-				<div class="editleft">回复内容</div>
-				<div class="editright"><textarea id="reply" placeholder="回复些什么吧"></textarea></div>
-			</div>
-			<div class="item">
-				<div class="editleft">回复人</div>
-				<div class="editright"></div>
-			</div>
-			<div class="item">
-			    <input type="hidden" id="issueId">
-				<div class="replayBtn"><button class="submitReply">提交回复</button><span class="cancel">取消</span></div>
+				<input type="hidden" id="actId">
+				<div class="replayBtn"><button class="submitReply">发送</button><span class="cancel">取消</span></div>
 			</div>
 		</div>
 	</div>
@@ -245,7 +229,7 @@ $(function(){
 					$formatWrong.fadeOut(3000);
 				});
 			},  
-			error: function () {  
+			error: function () {					
 				$message.innerHTML = '服务器异常';
 				$formatWrong.css('background-color','rgb(224, 68, 68)');
 				$formatWrong.fadeIn('',function(){
@@ -259,10 +243,60 @@ $(function(){
 	var $content=$('.edit');
 	var $close=$('.fa');
 
-	$('#tbody-result').on('click','.sendMsg',function(evt){
+	$('.right').on('click','.sendMsg',function(evt){              //tbody也是后来在加载进来的，所以要用right，right是一直都在的
+	    var id = $(this).parent().parent().find('#ID').html();
+		var name = $(this).parent().parent().find('#NAME').html();
+		$('#actName').val(name);
+		$('#actId').val(id);
 		$editMask.fadeIn('slow');
 		$content.fadeIn('slow');
 		evt.preventDefault();
+	});
+	
+	$('.submitReply').on('click',function(){  //push activity
+		var actName = $('#actName').val();
+		var actTime = $('#actTime').val();
+		var actSpace = $('#actSpace').val();
+		var remark = $('#remark').val();
+		var student = $('#student').val();
+		var id = $('#actId').val();
+
+		$.ajax({  
+			type: "post",
+			url: "../dashboard/push_activity/"+id,
+			data:{
+				keyword1:actName,
+				keyword2:actTime,
+				keyword3:actSpace,
+				remark:remark,
+				markstu:student
+			},
+			async: true,
+			beforeSend: function (){
+				$('#actName').val("");
+				$('#actTime').val("");
+				$('#actSpace').val("");
+				$('#remark').val("");
+				$('#student').val("");
+				$('#actId').val("");
+				$(window).scrollTop(0);
+				$content.css('display','none');
+		        $editMask.css('display','none');
+				$message.innerHTML = '模板消息正在发送，请耐心等候，请留意结果反馈！';
+				$formatWrong.css('background-color','rgb(68, 249, 68)');
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
+			},
+			error: function () {
+				$(window).scrollTop(0);				
+				$message.innerHTML = '服务器异常';
+				$formatWrong.css('background-color','rgb(224, 68, 68)');
+				$formatWrong.fadeIn('',function(){
+					$formatWrong.fadeOut(3000);
+				});
+			}  
+		});
 	});
 
 	$close.click(function(){
@@ -272,6 +306,51 @@ $(function(){
 	$('.cancel').click(function(){
 		$content.css('display','none');
 		$editMask.css('display','none');
+	});
+	
+	$('.right').on('click','.export',function(evt){   //export activity_record data
+		var id = $(this).parent().parent().find('#ID').html();
+		window.location.href="../dashboard/export_activity/"+id;
+	});
+	
+	$('.right').on('click','.delAct',function(evt){   //del activity
+	    var id = $(this).parent().parent().find('#ID').html();
+		var r = confirm("确定要删除编号为" + id + "的活动吗？")
+		if (r==true)
+		{
+			$.ajax({  
+				type: "post",
+				url: "../dashboard/delete_activity/"+id,
+				async: false,
+				success: function (data){
+					$(window).scrollTop(0);
+					if(data == 1)
+					{
+						$message.innerHTML = '活动删除成功！';
+						$formatWrong.css('background-color','rgb(68, 249, 68)');
+					}
+					else
+					{
+						$message.innerHTML = '活动删除失败！';
+						$formatWrong.css('background-color','rgb(224, 68, 68)');
+					}
+					$formatWrong.fadeIn('',function(){
+						$formatWrong.fadeOut(3000);
+					});
+					$adminAct.trigger('click');
+				},
+				error: function () { 
+					$(window).scrollTop(0);
+					$message.innerHTML = '服务器异常';
+					$formatWrong.css('background-color','rgb(224, 68, 68)');
+					$formatWrong.fadeIn('',function(){
+						$formatWrong.fadeOut(3000);
+					});
+				}  
+			});
+		}
+		else
+		{}
 	});
 
 });

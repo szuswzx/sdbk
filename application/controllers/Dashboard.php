@@ -79,7 +79,7 @@
 	  public function push_board()
 	  {
 		  $this->load->model('wechat_model');
-		  echo $this->wechat_model->get_access_token();		  
+		  echo $this->wechat_model->fresh_access_token();
 	  }
 	  
 	  //活动发布
@@ -126,8 +126,8 @@
 		  if($this->userinfo['rank'] >= 5)
 		  {
 			  $access_token = $this->wechat_model->get_access_token();
-		  	  $res = $this->activity_model->push_activity($id, $access_token);			  
-			  echo $res;
+		  	  $this->activity_model->push_activity($id, $access_token);
+			  $this->log_model->save_log($this->userinfo['username'], "发送了活动消息模板：".$this->input->post('keyword1'));
 		  }
 		  else
 		  {

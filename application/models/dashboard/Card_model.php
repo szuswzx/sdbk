@@ -26,7 +26,7 @@
 	  
 	  public function get_card($page, $options = array())
 	  {
-		  $field = array('id', 'studentNo', 'studentName', 'getName', 'isReturn');
+		  $field = array('id', 'studentNo', 'studentName', 'getName', 'isReturn', 'cardphone', 'cardplace', 'remark', 'time');
 		  $startRow = ($page - 1) * 20;
 		  
 		  $this->db->select($field);
@@ -151,6 +151,22 @@
 		  $page_sum = (int)($sum / 20) + 1;
 		  
 		  return array($card, $page_sum);
+	  }
+	  
+	  public function add_card_without_sendmsg()
+	  {
+		  $data = array(
+			  'studentNo' => $this->input->post('cardnumber'),
+			  'studentName' => $this->input->post('cardowner'),
+			  'getName' => $this->input->post('getName'),
+			  'remark' => $this->input->post('cardremark'),
+			  'time' => date("Y-m-d"),
+			  'cardphone' => $this->input->post('cardphone'),
+			  'cardplace' => $this->input->post('cardplace')
+		  );
+		  $data = $this->security->xss_clean($data);
+		  $insert = $this->insert($data);
+		  return $insert;
 	  }
 	  	 
   }
