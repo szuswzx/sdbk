@@ -147,7 +147,7 @@ $(function(){
 
 	$("#tbody-result").on("click", "td ,td .replyBtn", function(evt){     //popup form
 		var id = $(this).parent().find("p").attr("id");
-		if($(this).attr("class") == "deleteIssue")
+		if($(this).attr("class") == "operation")
 		{
 			$(this).off();
 			return false;
@@ -194,6 +194,7 @@ $(function(){
 			}  
 		});
 	});
+
     $("#tbody-result").on("click", ".delBtn", function(evt){   //delete issue
 		var id = $(this).attr("id");
 		var $issue = $(this).parent('.hold').parent('.deleteIssue').parent('tr');
@@ -292,6 +293,7 @@ $(function(){
 		});
 	});
 
+<<<<<<< HEAD
 function loadIssue(json) { //load issue
 	var tbody=window.document.getElementById("tbody-result"); 
 	var str = "";
