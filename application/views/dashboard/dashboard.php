@@ -77,7 +77,7 @@
      <i class="fa fa-envelope"></i>事务 
    </div>
    <div class="solve" id="activity">
-     <i class="fa fa-envelope"></i>活动管理 
+     <i class="fa fa-cutlery"></i>活动管理 
    </div>
    <div class="solve" id="findcard">
      <i class="fa fa-credit-card" ></i>校园卡找回
