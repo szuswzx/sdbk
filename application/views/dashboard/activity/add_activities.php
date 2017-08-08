@@ -79,7 +79,7 @@
 <div class="editMask">
 	<div class="edit">
 		<div class="editTitle">
-			回复事务<span class="close"><i class="fa fa-times-circle"></i></span>
+			发送模板<span class="close"><i class="fa fa-times-circle"></i></span>
 		</div>
 		<div class="editBody">
 			<div class="item">

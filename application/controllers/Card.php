@@ -7,18 +7,18 @@ class Card extends CI_Controller
 	    parent::__construct();
 		$this->load->model('dashboard/card_model');
 		$this->load->model('user_model');
+		$this->load->helper('url_helper');
 		//$this->_check_user('card');	  
 	}  
 	public function index(){		  
 		list($data['card'], $page_num) = $this->card_model->get_card(1);
-		print_r($data);
-		//$this->load->view('card/',$data);
+		$this->load->view('card/search',$data);
 	}
 	
 	public function add_card($page = 'form')
 	{
 		if($page == 'form')
-			$this->load->view('card/',$data);
+			$this->load->view('card/pickup');
 		else
 		{
 			$data['res'] = $this->card_model->add_card_without_sendmsg();
@@ -29,15 +29,13 @@ class Card extends CI_Controller
 	public function card_detail($id)
 	{
 		list($data['card'], $page_num) = $this->card_model->get_card(1, array('id' => $id));
-		print_r($data);
-		//$this->load->view('card/',$data);
+		$this->load->view('card/message',$data);
 	}
 	
 	public function search_card()
 	{
 		list($data['card'], $page_num)= $this->card_model->search_card_by_keyword(1);
-		echo json_encode($data['card']);
-		//$this->load->view('card/',$data);
+		$this->load->view('card/search',$data);
 	}
 	
 	private function _check_user($pro){

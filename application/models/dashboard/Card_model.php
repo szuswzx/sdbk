@@ -127,7 +127,7 @@
 	  {
 		  $keyword = $this->input->post('keyword');
 		  $keyword = $this->security->xss_clean($keyword);
-		  $field = array('id', 'studentNo', 'studentName', 'getName', 'isReturn', 'remark');
+		  $field = array('id', 'studentNo', 'studentName', 'getName', 'isReturn', 'remark', 'time');
 		  $startRow = ($page - 1) * 20;
 		  
 		  //根据学生姓名，学号，拾获人，备注模糊查找
