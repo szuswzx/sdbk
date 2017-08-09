@@ -16,8 +16,12 @@
 			<td class="text1"><?php echo $row['studentNo'];?></td>
 		</tr>
 		<tr>
-			<td class="text2"><span class="font1">姓名:</span></td>
+			<td class="text2"><span class="font1">失主姓名:</span></td>
 			<td class="text1"><?php echo $row['studentName'];?></td>
+		</tr>
+		<tr>
+			<td class="text2"><span class="font1">拾取者姓名:</span></td>
+			<td class="text1"><?php echo $row['getName'];?></td>
 		</tr>
 		<tr>
 			<td class="text2"><span class="font1">联系方式:</span></td>
@@ -30,6 +34,10 @@
 		<tr>
 			<td class="text2"><span class="font1">备注:</span></td>
 			<td class="text1"><?php echo $row['remark'];?></td>
+		</tr>
+		<tr>
+			<td class="text2"><span class="font1">拾取时间:</span></td>
+			<td class="text1"><?php echo $row['time'];?></td>
 		</tr>
 		<?php }?>
 		</table>
