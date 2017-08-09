@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
-<link rel="stylesheet" type="text/css" href="./../public/dashboard/issue.css"><!-- 这里我只是临时用下这个css，到时候去掉 -->
+<link rel="stylesheet" type="text/css" href="./../public/dashboard/findcard.css"><!-- 这里我只是临时用下这个css，到时候去掉 -->
 <style type="text/css">
 table{
 	width: 90%;
