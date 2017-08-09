@@ -51,19 +51,21 @@
 	  }
 	  
 	  //校园卡解绑
-	  public function find_user($page = 'page', $studentNo)
+	  public function find_user($page = 'page')
 	  {
 		  //$this->_check_login();
 		  $this->load->model('user_model');
-		  
-		  $data['user'] = $this->user_model->get_user_by_studentNo($studentNo);
+		 
 		  if($page == 'page')
-			  $this->load->view('dashboard/unbind/find_user',$data);
+			  $this->load->view('dashboard/unbind/find_user');
 		  else
+		  {
+			  $data['user'] = $this->user_model->get_user_by_studentNo();
 			  echo json_encode($data['user']);
+		  }
 	  }
 	  
-	  public function unbind($userid)
+	  public function unbind($userid = 0)
 	  {
 		  //$this->_check_login();
 		  $this->load->model('user_model');

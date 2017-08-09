@@ -73,6 +73,9 @@
      <h2>深大百科</h2>
      <p>dashboard</p>
    </div>
+    <div class="solve" id="unbind">
+     <i class="fa fa-envelope"></i>校园卡解绑 
+   </div>
    <div class="solve" id="issues">
      <i class="fa fa-envelope"></i>事务 
    </div>
@@ -126,14 +129,20 @@ jQuery(function () {
         $('.dLeft').removeClass('mobile-menu-left');
       });
     });
-      $("#findcard").on("click",function(){
+    $("#findcard").on("click",function(){
       $(".sild").load("../dashboard/add_card",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
       });
     });
-      $("#activity").on("click",function(){
+    $("#activity").on("click",function(){
       $(".sild").load("../dashboard/add_activity",function(){
+        $('.head, .sild').removeClass('mobile-left');
+        $('.dLeft').removeClass('mobile-menu-left');
+      });
+    });
+	$("#unbind").on("click",function(){
+      $(".sild").load("../dashboard/find_user",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
       });

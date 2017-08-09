@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="./../public/dashboard/activities.css">
 <link rel="stylesheet" href="../public/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
-<script src="../public/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 
 </head>
 <body>
@@ -111,17 +110,17 @@
 <div class="_editMask">
 	<div class="_edit">
 		<div class="_editTitle">
-			回复事务<span class="close"><i class="fa fa-times-circle"></i></span>
+			链接<span class="close"><i class="fa fa-times-circle"></i></span>
 		</div>
 		<div class="editImg">
 			<img src="" >
 		</div>
 		<div class="footer">
-			wweee
 		</div>
 	</div>
 </div>
 </body>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="../public/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="./../public/dashboard/activitiesJS.js"></script>
 </html>

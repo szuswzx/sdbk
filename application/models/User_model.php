@@ -12,9 +12,10 @@
 		  return $query->row_array();
 	  }
 	  
-	  public function get_user_by_studentNo($studentNo)
+	  public function get_user_by_studentNo()
 	  {
-		  $field = array('userid', 'nickname', 'studentNo', 'icAccount');
+		  $studentNo = $this->input->post('studentNo');
+		  $field = array('userid', 'nickname', 'studentNo', 'icAccount', 'studentName');
 		  $options = array('studentNo' => $studentNo);
 		  $this->db->select($field);
 		  $this->db->where($options);

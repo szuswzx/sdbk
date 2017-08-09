@@ -142,7 +142,9 @@ $(function(){
 		$content.fadeIn('slow');
 		evt.preventDefault();
 	});
-	$('.right').on('click','.link',function(evt){             
+	$('.right').on('click','.link',function(evt){
+		var id = $(this).parent().parent().find('#ID').html();
+		_content.find('.footer').html("www.szuswzx.com/sdbk/act/index/" + id);
 		_editMask.fadeIn('slow');
 		_content.fadeIn('slow');
 		evt.preventDefault();
