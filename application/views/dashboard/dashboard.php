@@ -73,9 +73,6 @@
      <h2>深大百科</h2>
      <p>dashboard</p>
    </div>
-    <div class="solve" id="unbind">
-     <i class="fa fa-envelope"></i>校园卡解绑 
-   </div>
    <div class="solve" id="issues">
      <i class="fa fa-envelope"></i>事务 
    </div>
@@ -84,6 +81,12 @@
    </div>
    <div class="solve" id="findcard">
      <i class="fa fa-credit-card" ></i>校园卡找回
+   </div>
+   <div class="solve" id="unbind">
+     <i class="fa fa-envelope"></i>校园卡解绑 
+   </div>
+   <div class="solve" id="boardpush">
+     <i class="fa fa-envelope"></i>公文通提醒
    </div>
    <div class="solve" id="settings">
      <i class="fa fa-cogs"></i>设置
