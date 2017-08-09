@@ -199,14 +199,3 @@ textarea{
 .fa.fa-times-circle{
 	color: #fff;
 }
-.deleteBtn{
-	width: 100px;
-	display: inline-block;
-	float: left;
-
-}
-.replyBtn{
-	width: 100px;
-	display: inline-block;
-	float: left;
-}
