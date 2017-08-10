@@ -150,6 +150,12 @@ jQuery(function () {
         $('.dLeft').removeClass('mobile-menu-left');
       });
     });
+	$("#boardpush").on("click",function(){
+      $(".sild").load("../dashboard/board_user",function(){
+        $('.head, .sild').removeClass('mobile-left');
+        $('.dLeft').removeClass('mobile-menu-left');
+      });
+    });
    
 });
 

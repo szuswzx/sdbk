@@ -78,10 +78,46 @@
 	  }
 	  
 	  //绑定用户推送新公文通
-	  public function push_board()
+	  public function board_user($page = 'page')
 	  {
-		  $this->load->model('wechat_model');
-		  echo $this->wechat_model->fresh_access_token();
+		  //$this->_check_login();
+		  $this->load->model('user_model');
+		 
+		  if($page == 'page')
+			  $this->load->view('dashboard/board/board_bind_user');
+		  else if($page == 'page2')
+			  $this->load->view('dashboard/board/return_board_user');
+		  else
+		  {
+			  $data['user'] = $this->user_model->get_user_by_studentNo();
+			  echo json_encode($data['user']);
+		  }
+	  }
+	  
+	  public function board_bind_list()
+	  {
+		  $this->load->model('board/board_bind_model');
+		  
+		  $data['bind_user'] = $this->board_bind_model->get_bind_user();
+		  $this->load->view('dashboard/board/board_bind_list', $data);
+	  }
+	  
+	  public function bind_board_push($userid = 0)
+	  {
+		  //$this->_check_login();
+		  $this->load->model('board/board_bind_model');
+		  
+		  $res = $this->board_bind_model->bind_board_push($userid);
+		  echo $res;
+	  }
+	  
+	  public function unbind_board_push($userid = 0)
+	  {
+		  //$this->_check_login();
+		  $this->load->model('board/board_bind_model');
+		  
+		  $res = $this->board_bind_model->unbind_board_push($userid);
+		  echo $res;
 	  }
 	  
 	  //活动发布
