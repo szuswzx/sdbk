@@ -407,17 +407,21 @@
 	  }
 	  
 	  //菜单设计
-	  public function menu($slug = 0, $mid = 0)
+	  public function menu($slug = 'all', $mid = 0)
 	  {
 		  //$this->_check_login();
-		  $this->load->model('menu_model');
+		  $this->load->model('dashboard/menu_model');
+		  $this->load->model('wechat_model');
+		  
+		  //获取access_token
+		  $access_token = $this->wechat_model->get_access_token();
 
-		  if($slug == 0)		  //0表示显示所有菜单
+		  if($slug == 'all')		  //0表示显示所有菜单
 		  {
 			  $menudata['menudata'] = $this->menu_model->get_menu();
 			  $this->load->view('dashboard/menu/all_menu', $menudata);
 		  }
-		  else if($slug == 1)     //1表示添加菜单，mid传进来的值是添加的菜单的previous
+		  else if($slug == 'add')     //1表示添加菜单，mid传进来的值是添加的菜单的previous
 		  {
 			  $this->load->helper('form');
 			  $this->load->library('form_validation');		  
@@ -466,23 +470,23 @@
 					  else
 					  {
 						  $img = array('upload_data' => $this->upload->data());
-						  $data['picurl'] = $this->menu_model->upload_img($img['upload_data']['full_path']);
-						  $menudata = $this->menu_model->myinsert_menu($mid, $data);
+						  $data['picurl'] = $this->menu_model->upload_img($img['upload_data']['full_path'], $access_token);
+						  $menudata = $this->menu_model->myinsert_menu($mid, $data, $access_token);
 					  }
 				  }
 				  else
 				  {
-					  $menudata = $this->menu_model->myinsert_menu($mid, $data);
+					  $menudata = $this->menu_model->myinsert_menu($mid, $data, $access_token);
 				  }
                   $this->load->view('dashboard/menu/all_menu', $menudata);
 			  }	
 		  }
-		  else if($slug == 2)  //2表示删除菜单
+		  else if($slug == 'delete')  //2表示删除菜单
 		  {			  
-			  $menudata = $this->menu_model->mydelete_menu($mid);
+			  $menudata = $this->menu_model->mydelete_menu($mid,$access_token);
 			  $this->load->view('dashboard/menu/all_menu', $menudata);
 		  }
-		  else if($slug == 3)  //3表示更新当前存在菜单
+		  else if($slug == 'update')  //3表示更新当前存在菜单
 		  {
 			  $this->load->helper('form');
 			  $this->load->library('form_validation');
@@ -541,13 +545,13 @@
 						  else
 						  {
 							  $img = array('upload_data' => $this->upload->data());
-							  $data['picurl'] = $this->menu_model->upload_img($img['upload_data']['full_path']);
-							  $menudata = $this->menu_model->myupdate_menu($mid, $data);
+							  $data['picurl'] = $this->menu_model->upload_img($img['upload_data']['full_path'], $access_token);
+							  $menudata = $this->menu_model->myupdate_menu($mid, $data, $access_token);
 						  }
 					  }
 					  else
 					  {
-						  $menudata = $this->menu_model->myupdate_menu($mid, $data);
+						  $menudata = $this->menu_model->myupdate_menu($mid, $data, $access_token);
 					  }
 					  
 					  //$menudata = $this->menu_model->myupdate_menu($mid, $data);

@@ -45,7 +45,7 @@
 		  return $this->db->affected_rows();
 	  }
 	  
-	  public function myinsert_menu($mid,$data)
+	  public function myinsert_menu($mid,$data, $access_token)
 	  {
 		  //一级菜单不能超过三个，二级菜单不能超过五个
 		  $success = 0;
@@ -62,7 +62,7 @@
 			  $res = $this->insert($data);
 			  if($res == 1)
 			  {	  
-				  $result = $this->_update_menu();			  
+				  $result = $this->_update_menu($access_token);			  
 				  if($result['errcode'] == 0 && $result['errmsg'] == 'ok')
 				  {
 					  $this->db->trans_commit();
@@ -91,7 +91,7 @@
 		  return $menudata;
 	  }
 	  
-	  public function mydelete_menu($mid)
+	  public function mydelete_menu($mid, $access_token)
 	  {
 		  //开启手动事务
 		  $this->db->trans_strict(FALSE);
@@ -107,7 +107,7 @@
 		  $res = $this->delete_menu($options = array('mid' => $mid));
 		  if(($res + $res1) == (1 + $sub_button_num))
 		  {
-			  $result = $this->_update_menu();			  
+			  $result = $this->_update_menu($access_token);			  
 			  if($result['errcode'] == 0 && $result['errmsg'] == 'ok')
 			  {
 				  $this->db->trans_commit();
@@ -130,7 +130,7 @@
 		  return $menudata;
 	  }
 	  
-	  public function myupdate_menu($mid, $data)
+	  public function myupdate_menu($mid, $data, $access_token)
 	  {
 		  //开启手动事务
 		  $this->db->trans_strict(FALSE);
@@ -139,7 +139,7 @@
 		  $res = $this->update_menu(array('mid' => $mid), $data);
 		  if($res == 1)
 		  {
-			  $result = $this->_update_menu();
+			  $result = $this->_update_menu($access_token);
 			  if($result['errcode'] == 0 && $result['errmsg'] == 'ok')
 			  {
 				  $this->db->trans_commit();
@@ -163,17 +163,15 @@
 	  }
 	  
 	  //上传图文消息的图片获取图片url
-	  public function upload_img($filename)
+	  public function upload_img($filename, $access_token)
 	  {
 		  $this->load->library('weixin', $config = array('AppId' => $this->app_id, 'AppSecret' => $this->app_secret));//220测试
-		  $token = $this->weixin->getToken();
-		  $token = json_decode($token, true);
-		  $url = $this->weixin->uploadImgUrl($token['access_token'], $filename);
+		  $url = $this->weixin->uploadImgUrl($access_token, $filename);
 		  return $url;
 	  }
 	  
 	  //通过接口更新微信端公众号菜单，每天可以对菜单进行更新1000次
-	  private function _update_menu()
+	  private function _update_menu($access_token)
 	  {
 		  //获取一级菜单
 		  $button = $this->get_menu($options = array('previous' => '0'));
@@ -199,9 +197,7 @@
 		  $jsonString = urldecode(json_encode($menuJson));
 
 		  $this->load->library('weixin', $config = array('AppId' => $this->app_id, 'AppSecret' => $this->app_secret));//220测试
-		  $token = $this->weixin->getToken();
-		  $token = json_decode($token, true);
-		  $result = json_decode($this->weixin->menuSet($token["access_token"], $jsonString), true);
+		  $result = json_decode($this->weixin->menuSet($access_token, $jsonString), true);
 		  //$result = array('errcode' => '100000','errmsg' =>'nook');
 		  return $result;
 					  
