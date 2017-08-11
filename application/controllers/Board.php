@@ -1,7 +1,7 @@
 <?php 
 class Board extends CI_Controller
 { 
-    public $userinfo = array( 'studentNo'=>'2014150319');
+    public $userinfo = array();
 	public function __construct(){
 
 	    parent::__construct();

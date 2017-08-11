@@ -540,3 +540,4 @@ $config['issue_template_id'] = 'XjbVBFEvMhZ2_UaTMqzntH3bMVbcr8hS0u9xRlQ1WuM';
 $config['card_template_id'] = 'bZkMNzBf8NrGO1ucZ4G-93TLMzJjr9qlqRHux7Tgvtw';
 $config['activity_template_id'] = 'oBulYCzxFhDhGyOJbQU_ZLOEcrdDDPS3QEAg6U09tw0';
 $config['board_template_id'] = 'GubOb2rVk10m-qbu0cjicpgqcKoZljyi2aqQoQCaHhY';
+$config['passport_template_id'] = 'Wb7xTyLZt1ruYOQuiJRjanW5YNF55bBTiTDO_YNqQak';

@@ -1,0 +1,77 @@
+.mainContainer {
+	width: 90%;
+	position: absolute;
+	left: 5%;
+	top: 50%;
+	margin-top: -200px;
+	background: #FFF;
+	border-radius: 5px;
+	border-top: 3px solid #408ec0;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, .15);
+}
+.mainContainer .title {
+	float: left;
+	width: 100%;
+	padding: 10px;
+	color: #FFF;
+	text-align: center;
+	background: #408ec0;
+}
+.mainContainer .title h1 {
+	line-height: 30px;
+	font-size: 24px;
+}
+.mainContainer .headimg {
+	float: left;
+	width: 100%;
+	padding: 10px;
+	text-align: center;
+}
+.mainContainer .headimg img {
+	margin: 5px auto;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	display: block;
+}
+.mainContainer .nickname {
+	float: left;
+	width: 100%;
+	padding: 10px;
+	padding-top: 0;
+	color: #FFF;
+	text-align: center;
+	border-bottom: 1px solid #eee;
+}
+.mainContainer .nickname p {
+	color: #333;
+	line-height: 20px;
+	font-size: 20px;
+}
+.mainContainer .loginBtn {
+	float: left;
+	width: 100%;
+	padding: 10px;
+	color: #FFF;
+	text-align: center;
+}
+.mainContainer .loginBtn p {
+	color: #555;
+	font-weight: bold;
+	line-height: 24px;
+	font-size: 14px;
+}
+a.btn {
+	width: 80%;
+	margin: 10px auto;
+	height: 40px;
+	color: #FFF;
+	font-size: 18px;
+	line-height: 40px;
+	border-radius: 3px;
+	background: #408ec0;
+	display: block;
+}
+a.btn:active {
+	background: #0e5989;
+}
