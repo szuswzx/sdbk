@@ -1,14 +1,15 @@
 <?php
   class Dashboard extends CI_Controller
   {
-	  public $userinfo = array();
+	  private $userinfo = array();
 	  public function __construct()
 	  {
 		  parent::__construct();
 		  $this->load->model('dashboard/dashboard_admin_model');
 		  $this->load->model('dashboard/log_model');
 		  $this->load->helper('url_helper');
-          $this->userinfo = array();  
+          $this->userinfo = array();
+		  $this->_check_login();		  
 	  }
 	  
 	  // 登录
@@ -45,7 +46,6 @@
 	  
 	  public function first_page()
 	  {
-		  //$this->_check_login();
 		  $data = $this->dashboard_admin_model->get_datalist();
 		  $this->load->view('dashboard/dashboard',$data);
 	  }
@@ -53,7 +53,6 @@
 	  //校园卡解绑
 	  public function find_user($page = 'page')
 	  {
-		  //$this->_check_login();
 		  $this->load->model('user_model');
 		 
 		  if($page == 'page')
@@ -67,7 +66,6 @@
 	  
 	  public function unbind($userid = 0)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('user_model');
 		  
 		  $res = $this->user_model->unbind($userid);
@@ -80,7 +78,6 @@
 	  //绑定用户推送新公文通
 	  public function board_user($page = 'page')
 	  {
-		  //$this->_check_login();
 		  $this->load->model('user_model');
 		 
 		  if($page == 'page')
@@ -104,7 +101,6 @@
 	  
 	  public function bind_board_push($userid = 0)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('board/board_bind_model');
 		  
 		  $res = $this->board_bind_model->bind_board_push($userid);
@@ -113,7 +109,6 @@
 	  
 	  public function unbind_board_push($userid = 0)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('board/board_bind_model');
 		  
 		  $res = $this->board_bind_model->unbind_board_push($userid);
@@ -123,7 +118,6 @@
 	  //活动发布
 	  public function activity()
 	  {
-		  $this->_check_login();
 		  $this->load->model('dashboard/activity_model');
 
 		  if($this->userinfo['rank'] >= 5)
@@ -139,7 +133,6 @@
 	  
 	  public function delete_activity($id = 0)
 	  {
-		  $this->_check_login();
 		  $this->load->model('dashboard/activity_model');
 
 		  if($this->userinfo['rank'] >= 5)
@@ -157,7 +150,6 @@
 	  
 	  public function push_activity($id = 0)
 	  {
-		  $this->_check_login();
 		  $this->load->model('dashboard/activity_model');
 		  $this->load->model('wechat_model');
 
@@ -175,7 +167,6 @@
 	  
 	  public function add_activity($out = 'all')
 	  {
-		  $this->_check_login();
 		  $this->load->model('dashboard/activity_model');
 		  if($this->input->post('ajax') != 'ajax')
 		  {
@@ -195,7 +186,6 @@
 	  
 	  public function export_activity($id)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('dashboard/activity_model');
 		  $this->output->set_header('Content-Type: application/vnd.ms-excel');
 		  $this->output->set_header('Content-Disposition: attachment; filename=export-'.time().'.xls');
@@ -217,7 +207,6 @@
 	  //校园卡找回
       public function card($type = 'all', $out = 'page', $page = 1)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('dashboard/card_model');
 		  if($this->input->post('page') != '')
 			  $page = $this->input->post('page');
@@ -245,7 +234,6 @@
 	  
 	  public function add_card($page = 'first')
 	  {
-		  $this->_check_login();
 		  $this->load->model('dashboard/card_model');
 		  $this->load->model('wechat_model');
 		  $this->load->helper('form');
@@ -282,7 +270,6 @@
 	  
 	  public function delete_card($id = 0)
 	  {
-		  //$this->_check_login();
 		  if($this->userinfo['rank'] >= 5)
 		  {
 			  $this->load->model('dashboard/card_model');
@@ -298,7 +285,6 @@
 	  
 	  public function return_card($id = 0)
 	  {
-		  $this->_check_login();
 		  $this->load->model('dashboard/card_model');
 		  $this->load->model('wechat_model');
 		  $access_token = $this->wechat_model->get_access_token();
@@ -310,7 +296,6 @@
 	  
 	  public function search_card($out = 'page', $page = 1)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('dashboard/card_model');
 		  
 		  if($this->input->post('page') != '')
@@ -329,7 +314,6 @@
 	  //事务咨询
 	  public function issue($type = 'all', $out = 'page', $page = 1)
 	  {
-		$this->_check_login();
 		$this->load->model('dashboard/issue_model');
 		
 		if($type == 'all')          //type = 0代表返回全部事务
@@ -355,7 +339,6 @@
 	  
 	  public function issue_by_id($id = 0)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('dashboard/issue_model');
 		  $issue = $this->issue_model->get_issue_by_id($id);
 		  
@@ -365,7 +348,6 @@
 	  
 	  public function search_issue($page = 1)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('dashboard/issue_model');
 		  list($issue, $page_sum) = $this->issue_model->get_issue_by_keyword($page);
 		  
@@ -377,7 +359,6 @@
 	  
 	  public function delete_issue($id = 0)
 	  {
-		  $this->_check_login();
 		  $this->load->model('dashboard/issue_model');
 		  $success = $this->issue_model->delete_issue_by_id($id);
 		  $this->log_model->save_log($this->userinfo['username'], "删除了id为".$id."的事务");
@@ -389,7 +370,6 @@
 	  
 	  public function reply_issue($id = 0)
 	  {
-		  $this->_check_login();
 		  $this->load->model('dashboard/issue_model');
 		  $this->load->model('wechat_model');
 		  $issue = array(
@@ -409,10 +389,8 @@
 	  //菜单设计
 	  public function menu($slug = 'all', $mid = 0)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('dashboard/menu_model');
-		  $this->load->model('wechat_model');
-		  
+		  $this->load->model('wechat_model');		  
 		  //获取access_token
 		  $access_token = $this->wechat_model->get_access_token();
 
@@ -563,7 +541,6 @@
 	  
 	  public function keywords($keyword = '')
 	  {
-		  //$this->_check_login();
 		  $this->load->model('dashboard/wechat_keyword_model');
 		  
 		  $data['keyword'] = $this->wechat_keyword_model->get_keyword($keyword, 1);
@@ -572,7 +549,6 @@
 	  
 	  public function delete_keyword($id = 0)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('dashboard/wechat_keyword_model');
 		  
 		  $res = $this->wechat_keyword_model->delete_keyword($id);
@@ -581,7 +557,6 @@
 	  
 	  public function add_keyword()
 	  {
-		  //$this->_check_login();
 		  $this->load->model('dashboard/wechat_keyword_model');
 		  
 		  $res = $this->wechat_keyword_model->add_keyword();
@@ -590,7 +565,6 @@
 	  
 	  public function update_keyword($id = 0)
 	  {
-		  //$this->_check_login();
 		  $this->load->model('dashboard/wechat_keyword_model');
 		  
 		  $res = $this->wechat_keyword_model->update_keyword($id);
@@ -616,7 +590,6 @@
 	  //设置
 	  public function setting($page = 'setting')
 	  {
-		  $this->_check_login();
 		  $this->load->helper('form');
 		  
 		  if($this->input->post('ajax') != 'ajax')
@@ -637,7 +610,6 @@
 	  
 	  public function add_admin()
 	  {
-		  $this->_check_login();
 		  $this->load->helper('form');
 		  
 		  if($this->userinfo['rank'] >= 5)
@@ -660,7 +632,6 @@
 	  
 	  public function get_all_admin($keyword = '')
 	  {
-		  $this->_check_login();
 		  if($this->userinfo['rank'] >= 5)
 		  {			  
 			  $data['admin'] = $this->dashboard_admin_model->get_all_admin($keyword);
@@ -672,7 +643,6 @@
 	  
 	  public function delete_admin($uid = 0)
 	  {
-		  $this->_check_login();
 		  if($this->userinfo['rank'] >= 5)
 		  {			  
 			  list($res, $username) = $this->dashboard_admin_model->delete_admin($uid);
@@ -686,7 +656,6 @@
 	  
 	  public function reset_password($uid = 0)
 	  {
-		  $this->_check_login();
 		  if($this->userinfo['rank'] >= 5)
 		  {			  
 			  list($res, $username) = $this->dashboard_admin_model->reset_password($uid);
@@ -700,7 +669,6 @@
 	  
 	  public function dashboard_log()
 	  {
-		  $this->_check_login();
 		  if($this->userinfo['rank'] >= 5)
 		  {
 			  $data['log'] = $this->log_model->get_log();
@@ -713,7 +681,9 @@
 	  
 	  public function logout()
 	  {
-		  setcookie('uuid', '', time() - 3600);
+		  $this->load->library('session');
+		  //setcookie('uuid', '', time() - 3600);
+		  $this->session->unset_userdata('uuid');
 		  header("location:".site_url("dashboard/index"));
 		  exit();
 	  }
@@ -721,22 +691,24 @@
 	  //登录检测
 	  private function _check_login()
 	  {
+		$this->load->helper('url');
 		$this->load->library('session');
 		$uuid = $this->session->userdata('uuid');
-		if (isset($_COOKIE['uuid']) && ($uuid == $_COOKIE['uuid'])) 
-		{
-			$uuid = $_COOKIE['uuid'];
-			$this->userinfo = $this->dashboard_admin_model->get_admin(array('uuid' => $uuid));
-			if (!$this->userinfo)
+		if(current_url() != site_url('dashboard/index')){
+			if ($uuid)
+			{
+				$this->userinfo = $this->dashboard_admin_model->get_admin(array('uuid' => $uuid));
+				if (!$this->userinfo)
+				{
+					header("location:".site_url("dashboard/index"));
+					exit();
+				}
+			} 
+			else 
 			{
 				header("location:".site_url("dashboard/index"));
 				exit();
 			}
-		} 
-		else 
-		{
-			header("location:".site_url("dashboard/index"));
-			exit();
 		}
 	  }
 	  
@@ -755,7 +727,7 @@
 		  else 
 		  {
 			  $this->session->set_userdata('uuid', $res['uuid']);
-			  setcookie('uuid', $res['uuid'], time() + 3600);
+			  //setcookie('uuid', $res['uuid'], time() + 3600);
 			  return TRUE;
 		  }
 	  }

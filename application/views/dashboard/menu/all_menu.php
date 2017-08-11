@@ -25,7 +25,7 @@ for($j = 0;$j < $i;$j++)
 {
 echo $first[$j]['name'];
 ?>
-<p><a href="<?php echo site_url('dashboard/menu/1/'.$first[$j]['mid']); ?>">添加菜单</a></p>
+<p><a href="<?php echo site_url('dashboard/menu/add/'.$first[$j]['mid']); ?>">添加菜单</a></p>
 <?php
 foreach ($menudata as $row)
 {

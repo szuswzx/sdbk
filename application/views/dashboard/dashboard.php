@@ -49,7 +49,7 @@
 
 <div class="sild">
  <div class="out">
-  <div class="inner" href="www.baidu.com">
+  <div class="inner" id="sdbkUser">
      <p class="top"><?php echo $usercount;?></p>
      <p class="bottom">总用户/人</p>
    </div>
@@ -106,6 +106,12 @@ jQuery(function () {
             $('.dLeft').addClass('mobile-menu-left');
         }
     });
+    $("#sdbkUser").on("click",function(){
+      $(".sild").load("../dashboard/find_user",function(){
+        $('.head, .sild').removeClass('mobile-left');
+        $('.dLeft').removeClass('mobile-menu-left');
+      });
+    });	
     $("#issue").on("click",function(){
       $(".sild").load("../dashboard/issue",function(){
         $('.head, .sild').removeClass('mobile-left');

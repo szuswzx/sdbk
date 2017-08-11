@@ -3,7 +3,7 @@
 <title>添加菜单</title>
 </head>
 <body>
-<?php echo form_open_multipart('dashboard/menu/1/'.$mid); ?>
+<?php echo form_open_multipart('dashboard/menu/add/'.$mid); ?>
 <h5>名称</h5>
 <input placeholder="请输入菜单名称" type="text" name="name" value="" size="50" />
 <h5>类型</h5>
