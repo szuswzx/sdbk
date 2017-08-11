@@ -20,7 +20,7 @@
  <a id="menu-trigger" href="javascript:void(0)">
  <i class="fa fa-bars"></i>
  <a id="menu-trigger" href=""><i class="fa fa-home"></i></a>
- <span class="dash">深大百科控制台 > 控制台</span>
+ <span class="dash">深大百科控制台 > </span><span class="dash" id="dashPart">控制台</span>
  <div class="floa">
   <a id="menu-trigger" href=""><i class="fa fa-bug"></i></a>
   <ul class="nav navbar-nav">
@@ -35,11 +35,11 @@
 
  <ul class="nav navbar-nav">
    <li class="dropdown">
-      <a href="" class="user dropdown-toggle" data-toggle="dropdown">账户<b class="caret"></b> 
+      <a href="" class="user dropdown-toggle" data-toggle="dropdown"><?php echo $account;?><b class="caret"></b> 
       </a>
       <ul class="dropdown-menu" style="min-width: 100%">
         <li id="setting"><a href="#">账户设置</a></li>
-          <li><a href="../dashboard/logout">退出账户</a></li>
+          <li><a href="<?php echo site_url("dashboard/logout");?>">退出账户</a></li>
       </ul>
    </li>
  </ul>
@@ -110,56 +110,63 @@ jQuery(function () {
       $(".sild").load("../dashboard/find_user",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
+		$('#dashPart').html('校园卡解绑');
       });
     });	
     $("#issue").on("click",function(){
       $(".sild").load("../dashboard/issue",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
+		$('#dashPart').html('事务');
       });
     });
     $("#issues").on("click",function(){
       $(".sild").load("../dashboard/issue",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
+		$('#dashPart').html('事务');
       });
-	   $('.head, .sild').removeClass('mobile-left');
-       $('.dLeft').removeClass('mobile-menu-left');
     });
     $("#setting").on("click",function(){
       $(".sild").load("../dashboard/setting",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
+		$('#dashPart').html('设置');
       });
     });
     $("#settings").on("click",function(){
       $(".sild").load("../dashboard/setting",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
+		$('#dashPart').html('设置');
       });
     });
     $("#findcard").on("click",function(){
       $(".sild").load("../dashboard/add_card",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
+		$('#dashPart').html('校园卡找回');
       });
     });
     $("#activity").on("click",function(){
       $(".sild").load("../dashboard/add_activity",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
+		$('#dashPart').html('活动管理');
       });
     });
 	$("#unbind").on("click",function(){
       $(".sild").load("../dashboard/find_user",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
+		$('#dashPart').html('校园卡解绑');
       });
     });
 	$("#boardpush").on("click",function(){
       $(".sild").load("../dashboard/board_user",function(){
         $('.head, .sild').removeClass('mobile-left');
         $('.dLeft').removeClass('mobile-menu-left');
+		$('#dashPart').html('公文通提醒');
       });
     });
    

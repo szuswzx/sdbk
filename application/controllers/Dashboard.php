@@ -44,9 +44,11 @@
 		  }
 	  }
 	  
+	  //控制台首页
 	  public function first_page()
 	  {
 		  $data = $this->dashboard_admin_model->get_datalist();
+		  $data['account'] = $this->userinfo['username'];
 		  $this->load->view('dashboard/dashboard',$data);
 	  }
 	  
