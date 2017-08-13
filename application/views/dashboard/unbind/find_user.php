@@ -5,8 +5,7 @@
 <meta charset="utf-8">
 
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
-<!-- <link rel="stylesheet" type="text/css" href="./../public/dashboard/findcard.css"> --><!-- 这里我只是临时用下这个css，到时候去掉
- --><style type="text/css">
+<style type="text/css">
 table{
 	width: 100%;
 	margin:0 auto;
@@ -105,6 +104,8 @@ td{
 	</div>
 </div>
 </body>
+
+
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
 jQuery(function () {

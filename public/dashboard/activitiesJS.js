@@ -48,13 +48,15 @@ $(function(){
     //$startTime.datetimepicker({
 	$('.right').on('focus', '#startTime', function(){    //这里日历的样式有点怪，顶部应该有个左右的箭头之类的，是不是css文件没对
 		$(this).datetimepicker({
-    	lang:'zh'
+	    	lang:'zh-CN',
+	    	bootcssVer:3,
 		});
     });
     //$endTime.datetimepicker({
 	$('.right').on('focus', '#endTime', function(){
 		$(this).datetimepicker({
-    	language:'zh-CN'
+			bootcssVer:3,
+    		language:'zh-CN',
 		});
     });
 
