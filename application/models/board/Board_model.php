@@ -120,7 +120,7 @@ class Board_model extends CI_Model
 	}
 	
 	//对绑定了公文通提醒的用户推送最新的公文通提醒通知
-	public function push_board($fetchBoard, $access_token)
+	public function push_board($fetchBoard, $board_user, $access_token)
 	{
 		if ($fetchBoard['insert'] + $fetchBoard['update'] == 0) {
 			return 0;
@@ -128,9 +128,6 @@ class Board_model extends CI_Model
 
 		$this->load->library('weixin', $config = array('AppId' => $this->app_id, 'AppSecret' => $this->app_secret));//220测试
 		$this->template_id = 'hvsefOHltcPW0fMhNj_8jwqEMUQtr9Zs_JX90sYrIQA';
-		//获取需要推送的用户名单
-		$query = $this->db->where(array('bind' => 1))->get('sdbk_board_bind');
-		$board_user = $query->result_array();
 
 		foreach ($fetchBoard['changelist'] as $item) {
 			$templeurl = base_url("board/fetch_article/"). $item['aid'];
@@ -143,15 +140,12 @@ class Board_model extends CI_Model
 				'remark' => array('value'=> '', 'color'=> '#bbbbbb'),
 			);
 			
-			//根据绑定的userid获取openid
+			//获取openid
 			foreach($board_user as $row)
 			{
-				$options = array('userid' => $row['userid']);
-				$query = $this->db->where($options)->get('sdbk_user');
-				$user = $query->row_array();
-				//$this->weixin->pushtemple($access_token, $user['openid'], $this->template_id, $templeurl, $textPic);
+				//$this->weixin->pushtemple($access_token, $row['openid'], $this->template_id, $templeurl, $textPic);
 			}
-			$this->weixin->pushtemple($access_token, 'oNjPnw-AuKkwq7yYbcSwn9uZzrf8', $this->template_id, $templeurl, $textPic);
+			//$this->weixin->pushtemple($access_token, 'oNjPnw-AuKkwq7yYbcSwn9uZzrf8', $this->template_id, $templeurl, $textPic);
 		}
 		return 1;
 	}

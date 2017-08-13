@@ -11,10 +11,11 @@ class Board_bind_model extends CI_Model
 	{
 		$query = $this->db->where(array('bind' => 1))->get('sdbk_board_bind');
 		$bind = $query->result_array();
+		$user = array();
 		foreach($bind as $row)
 		{
 			$options = array('userid' => $row['userid']);
-			$field = array('userid', 'nickname', 'studentNo', 'icAccount', 'studentName');
+			$field = array('userid', 'openid', 'nickname', 'studentNo', 'icAccount', 'studentName');
 			$query1 = $this->db->select($field)->where($options)->get('sdbk_user');
 			$user[] = $query1->row_array();
 		}

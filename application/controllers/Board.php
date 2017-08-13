@@ -13,12 +13,15 @@ class Board extends CI_Controller
 	
 	public function fetchlist()
 	{
+		$this->load->model('board/board_bind_model');
 		//刷新公文通列表
 		$log = $this->board_model->fetchlist();
 		//推送公文通更新提醒
-		$this->load->model('wechat_model');
+		/*$this->load->model('wechat_model');
 		$access_token = $this->wechat_model->get_access_token();
-		$this->board_model->push_board($log, $access_token);
+		//获取需要推送的用户
+		$board_user = $this->board_bind_model->get_bind_user();
+		$this->board_model->push_board($log, $board_user, $access_token);*/
 		$data['log'] = $log;
 		$this->load->view('board/success',$data);
 		

@@ -71,6 +71,7 @@
 		  $this->load->model('user_model');
 		  
 		  $res = $this->user_model->unbind($userid);
+		  $this->log_model->save_log($this->userinfo['username'], "解绑了用户".$userid."的校园卡");
 		  if($res >= 1)
 			  echo "success";
 		  else
@@ -106,6 +107,7 @@
 		  $this->load->model('board/board_bind_model');
 		  
 		  $res = $this->board_bind_model->bind_board_push($userid);
+		  $this->log_model->save_log($this->userinfo['username'], "为".$userid."用户绑定了公文通提醒推送");
 		  echo $res;
 	  }
 	  
@@ -114,6 +116,7 @@
 		  $this->load->model('board/board_bind_model');
 		  
 		  $res = $this->board_bind_model->unbind_board_push($userid);
+		  $this->log_model->save_log($this->userinfo['username'], "为".$userid."用户解除了公文通提醒推送");
 		  echo $res;
 	  }
 	  
@@ -203,7 +206,7 @@
 			  $data2 = iconv('utf-8', 'gbk', implode("\t", $value)). "\n";
 			  $this->output->append_output($data2);
 		  }
-		  
+		  $this->log_model->save_log($this->userinfo['username'], "导出了id为".$id."的活动报名名单");
 	  }
 	  
 	  //校园卡找回
@@ -458,12 +461,14 @@
 				  {
 					  $menudata = $this->menu_model->myinsert_menu($mid, $data, $access_token);
 				  }
-                  $this->load->view('dashboard/menu/all_menu', $menudata);
+				  $this->log_model->save_log($this->userinfo['username'], "添加了".$data['name']."菜单");
+                  $this->load->view('dashboard/menu/all_menu', $menudata);				  
 			  }	
 		  }
 		  else if($slug == 'delete')  //2表示删除菜单
 		  {			  
 			  $menudata = $this->menu_model->mydelete_menu($mid,$access_token);
+			  $this->log_model->save_log($this->userinfo['username'], "删除了id为".$mid."菜单");
 			  $this->load->view('dashboard/menu/all_menu', $menudata);
 		  }
 		  else if($slug == 'update')  //3表示更新当前存在菜单
@@ -535,8 +540,9 @@
 					  }
 					  
 					  //$menudata = $this->menu_model->myupdate_menu($mid, $data);
+					  $this->log_model->save_log($this->userinfo['username'], "更新了id为".$mid."菜单");
 					  $this->load->view('dashboard/menu/all_menu', $menudata);
-				  }
+				  }				  
 			  }				  
 		  }
 	  }
