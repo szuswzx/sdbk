@@ -3,7 +3,7 @@
 <title>添加菜单</title>
 </head>
 <body>
-<?php echo form_open_multipart('dashboard/menu/add/'.$mid); ?>
+<!-- <?php echo form_open_multipart('dashboard/menu/add/'.$mid); ?> -->
 <h5>名称</h5>
 <input placeholder="请输入菜单名称" type="text" name="name" value="" size="50" />
 <h5>类型</h5>
@@ -22,7 +22,7 @@
 <input placeholder="请输入描述" type="text" name="description" value="" size="50" />
 <h5>图文消息图片</h5>
 <input type="file" name="img" value="" size="50" />
-<p><?php echo validation_errors(); ?></p>
+<!-- <p><?php echo validation_errors(); ?></p> -->
 <div><input type="submit" value="Submit" /></div>
 </form>
 </body>

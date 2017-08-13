@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="./../public/dashboard/activities.css">
-<link rel="stylesheet" href="../public/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="./../public/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="./../public/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css">
+
 
 </head>
 <body>
@@ -32,8 +35,9 @@
 			
 			    <!-- <div class="item" >
 					<p class="lab">开始时间</p>
-			            <input type='text' class="txt time" id='datetimepicker4' placeholder="请选择时间">     
+			            <input type='text' class="txt time" id='datetimepicker' placeholder="请选择时间">     
 			    </div> -->
+
 
 			<!-- <div class="item">
 				<p class="lab">结束时间</p>
@@ -121,6 +125,18 @@
 </div>
 </body>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="../public/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
+<script src="<?php echo base_url('public/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js');?>"></script>
+
 <script type="text/javascript" src="./../public/dashboard/activitiesJS.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	// $('.form_datetime.datatimepicker')({
+	// 				autoclose:true,
+	// 			});
+	
+})
+	
+</script>
+	
 </html>
