@@ -80,16 +80,16 @@
      <i class="fa fa-cutlery"></i>活动管理 
    </div>
    <div class="solve" id="sdbkMenu">
-     <i class="fa fa-envelope"></i>菜单管理 
+     <i class="fa fa-cog"></i>菜单管理 
    </div>
    <div class="solve" id="findcard">
      <i class="fa fa-credit-card" ></i>校园卡找回
    </div>
    <div class="solve" id="unbind">
-     <i class="fa fa-envelope"></i>校园卡解绑 
+     <i class="fa fa-chain-broken"></i>校园卡解绑 
    </div>
    <div class="solve" id="boardpush">
-     <i class="fa fa-envelope"></i>公文通提醒
+     <i class="fa fa-thumb-tack"></i>公文通提醒
    </div>
    <div class="solve" id="settings">
      <i class="fa fa-cogs"></i>设置

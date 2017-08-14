@@ -14,7 +14,7 @@
 		<td><?php echo $row['studentNo'];?></td>
 		<td><?php echo $row['studentName'];?></td>
 		<td><?php echo $row['icAccount'];?></td>
-		<td class="unbind"><p>不再推送</p></td>
+		<td class="unbind"><p class="un"><i class='fa fa-chain-broken' style='margin-right: 5px'></i>不再推送</p></td>
 	</tr>
 	<?php }?>
 </table>

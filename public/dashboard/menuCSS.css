@@ -1,0 +1,123 @@
+.navbar{
+	width: 90%;
+	margin:50px auto;
+}
+.navbar-header{
+	width: 100px;
+	font-weight: bold;
+	color: black;
+	
+}
+.navbar-header .navbar-brand{
+	cursor: text;
+}
+.dropdown{
+	width: 180px;
+	text-align: center;
+}
+.dropdown:hover{
+	background-color: #e7e7e7;
+}
+.dropdown-menu li a{
+	width: 178px;
+	text-align: center;
+	cursor: pointer;
+}
+.dropdown-menu li.addMenu a{
+	font-weight: bold;
+	color: rgba(230, 77, 77, 0.9);
+}
+.nav .manage>a{
+	font-weight: bold;
+	font-size: 15px;
+}
+.content{
+	width: 90%;
+	margin:auto;
+	height: auto;
+	margin-bottom: 30px;
+}
+.rightlabel{
+	width: 80%;
+	height: 480px;
+	margin:auto;
+}
+
+.item{
+	width: 100%;
+	
+	float: left;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+.lab{
+	font-size: 15px;
+	text-align: right;
+	width: 20%;
+	padding: 0px 10px;
+	float: left;
+	line-height: 36px;
+}
+.txt{
+	width: 75%;
+	float: left;
+	margin-left:10px;
+	padding:5px;
+	margin-right: 20px;
+	/*text-align: justify;*/
+	font-size: 14px;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+
+}
+.flieTxt{
+	width: 76%;
+	float: left;
+	margin-left:10px;
+	padding:5px;
+	font-size: 14px;
+	border-radius: 3px;
+}
+.btns{
+	width: 80%;
+	float: right;
+	margin-left:10px;
+	padding:5px;
+	margin-right: 20px;
+	font-size: 14px;
+	border-radius: 3px;
+	display: flex;
+	justify-content: space-around;
+}
+.btns .submit,.btns .add,.btns .delete{
+	width: 80px;
+	height: 30px;
+	border-radius: 3px;
+	background-color: #efdddd;
+}
+.menuLevel{
+	width: 90%;
+	margin:auto;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.line{
+	width: 100%;
+	border-bottom: 1px solid #ddd;
+	margin: 20px 0;
+}
+.formatWrong{
+	width: 90%;
+	margin-left: 5%;
+	margin-bottom: 20px;
+	height:40px;
+	border-radius: 5px;
+	text-align: center;
+	color: white;
+	font-size: 18px;
+	float: left;
+	display: none;
+	line-height: 40px;
+}
