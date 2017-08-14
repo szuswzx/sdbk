@@ -128,15 +128,4 @@
 <script src="<?php echo base_url('public/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js');?>"></script>
 
 <script type="text/javascript" src="./../public/dashboard/activitiesJS.js"></script>
-
-<script type="text/javascript">
-$(function(){
-	// $('.form_datetime.datatimepicker')({
-	// 				autoclose:true,
-	// 			});
-	
-})
-	
-</script>
-	
 </html>

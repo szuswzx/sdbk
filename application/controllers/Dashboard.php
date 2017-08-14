@@ -396,18 +396,51 @@
 	  {
 		  $this->load->model('dashboard/menu_model');
 		  $this->load->model('wechat_model');		  
-		  //获取access_token
-		  $access_token = $this->wechat_model->get_access_token();
+
 
 		  if($slug == 'all')		  //0表示显示所有菜单
 		  {
-			  $menudata['menudata'] = $this->menu_model->get_menu();
-			  $this->load->view('dashboard/menu/all_menu', $menudata);
+			  $this->load->helper('form');
+			  $menu = $this->menu_model->get_menu(array(), array('mid', 'previous', 'name'));
+			  //获得一级菜单
+			  foreach($menu as $row)
+			  {
+				  if($row['previous'] == 0)
+				  {
+					  $first[] = $row;
+				  }
+			  }
+			  //获得二级菜单
+			  $i = 0;
+			  foreach($first as $first_menu)
+			  {
+				  $sub_menu[$i] = array();
+				  foreach($menu as $row)
+				  {
+					  if($row['previous'] == $first_menu['mid'])
+					  {
+						  $sub_menu[$i][] = $row;
+					  }
+				  }
+				  $i++;
+			  }
+			  $menudata['first_menu'] = $first;
+			  $menudata['sub_menu'] = $sub_menu;
+			  $this->load->view('dashboard/menu/menuTest', $menudata);
+		  }
+		  else if($slug == 'get_by_id')
+		  {
+			  $menu = $this->menu_model->get_menu(array('mid' => $mid));
+			  if($menu)
+				  $menu = $menu[0];
+			  echo json_encode($menu);
 		  }
 		  else if($slug == 'add')     //1表示添加菜单，mid传进来的值是添加的菜单的previous
 		  {
 			  $this->load->helper('form');
-			  $this->load->library('form_validation');		  
+			  $this->load->library('form_validation');
+			  //获取access_token
+			  $access_token = $this->wechat_model->get_access_token();			  
 			  
 			  $data['mid'] = $mid;
 			  $config = array(
@@ -422,7 +455,7 @@
 			  
 			  if($this->form_validation->run() == FALSE)
 			  {
-				  $this->load->view('dashboard/menu/add_menu', $data);
+				  echo validation_errors();
 			  }
 			  else
 			  {
@@ -448,7 +481,6 @@
 				      {
 						  $menudata['error'] = '1';
 						  $menudata['error_message'] = '图片上传失败，图文消息的图片必须是jpg和png格式且最大1M！';
-						  $menudata['menudata'] = $this->menu_model->get_menu();					  
 					  }
 					  else
 					  {
@@ -462,28 +494,39 @@
 					  $menudata = $this->menu_model->myinsert_menu($mid, $data, $access_token);
 				  }
 				  $this->log_model->save_log($this->userinfo['username'], "添加了".$data['name']."菜单");
-                  $this->load->view('dashboard/menu/all_menu', $menudata);				  
+				  if($menudata['error'] == 0)
+					  echo "菜单添加成功，微信端菜单更新会有点延迟哦，请耐心等候";
+				  else
+					  echo $menudata['error_message'];
+                  //$this->load->view('dashboard/menu/all_menu', $menudata);				  
 			  }	
 		  }
 		  else if($slug == 'delete')  //2表示删除菜单
-		  {			  
+		  {
+			  //获取access_token
+			  $access_token = $this->wechat_model->get_access_token();			  
 			  $menudata = $this->menu_model->mydelete_menu($mid,$access_token);
 			  $this->log_model->save_log($this->userinfo['username'], "删除了id为".$mid."菜单");
-			  $this->load->view('dashboard/menu/all_menu', $menudata);
+			  if($menudata['error'] == 0)
+				  echo "菜单删除成功，微信端菜单更新会有点延迟哦，请耐心等候";
+			  else
+				  echo $menudata['error_message'];
+			  //$this->load->view('dashboard/menu/all_menu', $menudata);
 		  }
 		  else if($slug == 'update')  //3表示更新当前存在菜单
 		  {
 			  $this->load->helper('form');
 			  $this->load->library('form_validation');
+			  //获取access_token
+			  $access_token = $this->wechat_model->get_access_token();			  
 			  
 			  $data['mid'] = $mid;
 			  $data['menudata'] = $this->menu_model->get_menu(array('mid' => $mid));
 			  if(count($data['menudata']) == 0)//菜单不存在
 			  {
-				  $menudata['menudata'] = $this->menu_model->get_menu();
 				  $menudata['error'] = '1';
 				  $menudata['error_message'] = '更新失败，该菜单项不存在哦！';
-			      $this->load->view('dashboard/menu/all_menu', $menudata);
+				  echo $menudata['error_message'];
 			  }
 			  else
 			  {
@@ -499,7 +542,7 @@
 				  
 				  if($this->form_validation->run() == FALSE)
 				  {
-					  $this->load->view('dashboard/menu/update_menu', $data);
+					  echo validation_errors();
 				  }
 				  else
 				  {
@@ -523,9 +566,9 @@
 						  if ( ! $this->upload->do_upload('img'))
 						  {
 							  
-							  $menudata['error'] = '1';
-							  $menudata['error_message'] = '图片上传失败，图文消息的图片必须是jpg和png格式且最大1M:'.$this->upload->display_errors();
-							  $menudata['menudata'] = $this->menu_model->get_menu();					  
+							  /*$menudata['error'] = '1';
+							  $menudata['error_message'] = '图片上传失败，图文消息的图片必须是jpg和png格式且最大1M:'.$this->upload->display_errors();*/
+							  $menudata = $this->menu_model->myupdate_menu($mid, $data, $access_token);							  
 						  }
 						  else
 						  {
@@ -537,11 +580,13 @@
 					  else
 					  {
 						  $menudata = $this->menu_model->myupdate_menu($mid, $data, $access_token);
-					  }
-					  
-					  //$menudata = $this->menu_model->myupdate_menu($mid, $data);
-					  $this->log_model->save_log($this->userinfo['username'], "更新了id为".$mid."菜单");
-					  $this->load->view('dashboard/menu/all_menu', $menudata);
+					  }					  
+					  $this->log_model->save_log($this->userinfo['username'], "更新了id为".$mid."菜单");					  
+					  //$this->load->view('dashboard/menu/all_menu', $menudata);
+					  if($menudata['error'] == 0)
+						  echo "菜单更新成功，微信端菜单更新会有点延迟哦，请耐心等候";
+					  else
+						  echo $menudata['error_message'];
 				  }				  
 			  }				  
 		  }
@@ -694,6 +739,13 @@
 		  $this->session->unset_userdata('uuid');
 		  header("location:".site_url("dashboard/index"));
 		  exit();
+	  }
+	  
+	  public function fresh()
+	  {
+		  $this->load->model('wechat_model');
+		  $access_token = $this->wechat_model->fresh_access_token();
+		  echo $access_token;
 	  }
 	  	  
 	  //登录检测

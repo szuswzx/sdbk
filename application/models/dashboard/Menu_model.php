@@ -87,7 +87,6 @@
 			  $menudata['error'] = '1';
 			  $menudata['error_message'] = "添加失败，一级菜单只能有3个，二级菜单只能有5个哦，请检查一下吧下=_=";
 		  }
-		  $menudata['menudata'] = $this->get_menu();
 		  return $menudata;
 	  }
 	  
@@ -126,7 +125,6 @@
 			  $menudata['error'] = '1';
 			  $menudata['error_message'] = "删除失败";
 		  }
-		  $menudata['menudata'] = $this->get_menu();
 		  return $menudata;
 	  }
 	  
@@ -158,7 +156,6 @@
 			  $menudata['error'] = '1';
 			  $menudata['error_message'] = '更新失败';
 		  }
-		  $menudata['menudata'] = $this->get_menu();
 		  return $menudata;
 	  }
 	  
@@ -187,7 +184,9 @@
 		  foreach($button as $row)
 		  {
 			  if(empty($sub_button[$i]))
+			  {
 				  $menuJson['button'][] = array('type' => $row['type'], 'name' => $row['name'], 'url' => $row['url'], 'key' => $row['key']);
+			  }
 			  else
 				  $menuJson['button'][] = array('name' => $row['name'], 'sub_button' => $sub_button[$i]);
 			  $i++;

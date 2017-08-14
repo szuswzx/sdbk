@@ -79,6 +79,9 @@
    <div class="solve" id="activity">
      <i class="fa fa-cutlery"></i>活动管理 
    </div>
+   <div class="solve" id="sdbkMenu">
+     <i class="fa fa-envelope"></i>菜单管理 
+   </div>
    <div class="solve" id="findcard">
      <i class="fa fa-credit-card" ></i>校园卡找回
    </div>
@@ -169,7 +172,13 @@ jQuery(function () {
 		$('#dashPart').html('公文通提醒');
       });
     });
-   
+	$("#sdbkMenu").on("click",function(){
+      $(".sild").load("../dashboard/menu",function(){
+        $('.head, .sild').removeClass('mobile-left');
+        $('.dLeft').removeClass('mobile-menu-left');
+		$('#dashPart').html('菜单管理');
+      });
+    });   
 });
 
 </script>
