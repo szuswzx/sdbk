@@ -77,6 +77,7 @@
 	padding:5px;
 	font-size: 14px;
 	border-radius: 3px;
+	cursor: pointer;
 }
 .btns{
 	width: 80%;

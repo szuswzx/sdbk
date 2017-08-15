@@ -1,3 +1,7 @@
+*{
+	margin:0;
+	padding:0;
+}
 .left{
 	padding:5px;
 	margin-top: 20px;
@@ -275,4 +279,9 @@ textarea{
 }
 .link,.sendMsg,.export,.delAct{
 	display: inline-block;
+	cursor: pointer;
+	margin: 0;
+}
+.link:hover,.sendMsg:hover,.export:hover,.delAct:hover{
+	color: red;
 }
