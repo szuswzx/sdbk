@@ -73,11 +73,12 @@
      <h2>深大百科</h2>
      <p>dashboard</p>
    </div>
+   <input id="Rank" type="hidden" value="<?php echo $rank;?>">
    <div class="solve" id="issues">
      <i class="fa fa-envelope"></i>事务 
    </div>
    <div class="solve" id="activity">
-     <i class="fa fa-cutlery"></i>活动管理 
+     <i class="fa fa-cutlery"></i>活动管理
    </div>
    <div class="solve" id="sdbkMenu">
      <i class="fa fa-cog"></i>菜单管理 
@@ -100,6 +101,8 @@
  <script type="text/javascript">
 jQuery(function () {
     $('#menu-trigger').on("click",function () {
+		if($('#Rank').val()*1 < 5*1)
+			$("#activity").hide();
         if ($('.dLeft').hasClass('mobile-menu-left')) {
             $('.dLeft').removeClass('mobile-menu-left');
             $('.head, .sild, .footer').removeClass('mobile-left');

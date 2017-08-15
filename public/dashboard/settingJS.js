@@ -6,6 +6,13 @@ $("document").ready(function(){
 	var $formatWrong=$('.formatWrong');
 	var $message=window.document.getElementById("message");
 	
+	if($('#Rank').val()*1 < 5*1)
+	{
+		$addAdmin.hide();
+		$manageAdmin.hide();
+		$Log.hide();
+	}
+	
 	$addAdmin.click(function(){
 		$(".right").load("../dashboard/add_admin");
 		$changePass.removeClass("im");

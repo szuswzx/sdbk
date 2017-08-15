@@ -41,7 +41,7 @@
 				$box.find('#submitUrl').val('../dashboard/menu/add/'+mid);
 				$box.find('#deleteUrl').val('');				
 				$box.show();
-				$box.find('.menuLevel').html('一级菜单-(添加菜单)<br><h5>添加一级菜单请输入任意url作为暂时设置</h5>');				
+				$box.find('.menuLevel').html('一级菜单-(添加菜单)<br><h5>添加一级菜单请输入任意链接作为暂时设置</h5>');				
 			}
 		});
 
@@ -110,14 +110,25 @@
 				async: false,  //同步等待结果执行返回  
 				success: function(data) {
 					// alert(data);
-					$message.innerHTML = data;
-					$formatWrong.css('background-color','rgb(68, 249, 68)');
-					$formatWrong.fadeIn('',function(){
-						$formatWrong.fadeOut(3000);
-					});
-					var timer = setTimeout(function(){
-						$("#sdbkMenu").trigger('click');
-					},3000);
+					if(data == "success")
+					{
+						$message.innerHTML = "菜单更新成功，微信端菜单更新会有点延迟哦，请耐心等候";
+						$formatWrong.css('background-color','rgb(68, 249, 68)');
+						$formatWrong.fadeIn('',function(){
+							$formatWrong.fadeOut(3000);
+						});
+						var timer = setTimeout(function(){
+							$("#sdbkMenu").trigger('click');
+						},3000);
+					}
+					else
+					{
+						$message.innerHTML = data;
+						$formatWrong.css('background-color','rgb(224, 68, 68)');
+						$formatWrong.fadeIn('',function(){
+							$formatWrong.fadeOut(3000);
+						});
+					}
 				
 				},
 				error: function(request) {
@@ -142,15 +153,25 @@
 					async: false,  //同步等待结果执行返回  
 					success: function(data) {
 						// alert(data);
-						$message.innerHTML = data;
-						$formatWrong.css('background-color','rgb(68, 249, 68)');
-						$formatWrong.fadeIn('',function(){
-							$formatWrong.fadeOut(3000);
-						});
-						var timer = setTimeout(function(){
-							$("#sdbkMenu").trigger('click');
-						},3000);
-					
+						if(data == "success")
+						{
+							$message.innerHTML = "菜单删除成功，微信端菜单更新会有点延迟哦，请耐心等候";
+							$formatWrong.css('background-color','rgb(68, 249, 68)');
+							$formatWrong.fadeIn('',function(){
+								$formatWrong.fadeOut(3000);
+							});
+							var timer = setTimeout(function(){
+								$("#sdbkMenu").trigger('click');
+							},3000);
+						}
+						else
+						{
+							$message.innerHTML = data;
+							$formatWrong.css('background-color','rgb(224, 68, 68)');
+							$formatWrong.fadeIn('',function(){
+								$formatWrong.fadeOut(3000);
+							});
+						}
 					},
 					error: function(request) {
 						$message.innerHTML = '服务器异常';

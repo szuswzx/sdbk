@@ -49,6 +49,7 @@
 	  {
 		  $data = $this->dashboard_admin_model->get_datalist();
 		  $data['account'] = $this->userinfo['username'];
+		  $data['rank'] = $this->userinfo['rank'];
 		  $this->load->view('dashboard/dashboard',$data);
 	  }
 	  
@@ -495,7 +496,7 @@
 				  }
 				  $this->log_model->save_log($this->userinfo['username'], "添加了".$data['name']."菜单");
 				  if($menudata['error'] == 0)
-					  echo "菜单添加成功，微信端菜单更新会有点延迟哦，请耐心等候";
+					  echo "success";
 				  else
 					  echo $menudata['error_message'];
                   //$this->load->view('dashboard/menu/all_menu', $menudata);				  
@@ -508,7 +509,7 @@
 			  $menudata = $this->menu_model->mydelete_menu($mid,$access_token);
 			  $this->log_model->save_log($this->userinfo['username'], "删除了id为".$mid."菜单");
 			  if($menudata['error'] == 0)
-				  echo "菜单删除成功，微信端菜单更新会有点延迟哦，请耐心等候";
+				  echo "success";
 			  else
 				  echo $menudata['error_message'];
 			  //$this->load->view('dashboard/menu/all_menu', $menudata);
@@ -584,7 +585,7 @@
 					  $this->log_model->save_log($this->userinfo['username'], "更新了id为".$mid."菜单");					  
 					  //$this->load->view('dashboard/menu/all_menu', $menudata);
 					  if($menudata['error'] == 0)
-						  echo "菜单更新成功，微信端菜单更新会有点延迟哦，请耐心等候";
+						  echo "success";
 					  else
 						  echo $menudata['error_message'];
 				  }				  
@@ -613,7 +614,7 @@
 		  $this->load->model('dashboard/wechat_keyword_model');
 		  
 		  $res = $this->wechat_keyword_model->add_keyword();
-		  echo $res;		  
+		  echo $res;
 	  }
 	  
 	  public function update_keyword($id = 0)

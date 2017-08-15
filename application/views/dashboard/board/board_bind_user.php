@@ -34,5 +34,5 @@
 </div>
 </body>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="./../public/dashboard/boardJS.css"></script>
+<script type="text/javascript" src="./../public/dashboard/boardJS.js"></script>
 </html>
