@@ -38,6 +38,7 @@ class Passport extends CI_Controller
 						$userinfo = $this->user_model->get_user($openid);
 						if (count($userinfo) == 0) {   //用户第一次使用百科功能,请求用户授权,保存用户信息
 							header('Location:https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri='.$thisPageUri.'&response_type=code&scope=snsapi_userinfo&state=login#wechat_redirect');
+							exit();
 						}
 						setcookie("openid", $openid, time() + 3600, '/', 'www.szuswzx.com');
 						setcookie("secret", md5($openid), time() + 3600, '/', 'www.szuswzx.com');
@@ -45,6 +46,7 @@ class Passport extends CI_Controller
 					else 
 					{
 						header('Location:https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri='.$thisPageUri.'&response_type=code&scope=snsapi_base&state=checkuser#wechat_redirect');
+						exit();
 					}
 					break;
 				}
@@ -84,6 +86,7 @@ class Passport extends CI_Controller
 						setcookie('openid', $openid, time() + 3600, '/', 'www.szuswzx.com');
 						setcookie('secret', md5($openid), time() + 3600, '/', 'www.szuswzx.com');
 						header('Location: '.$thisPageUri);
+						exit();
 					} 
 					else 
 					{
@@ -99,6 +102,7 @@ class Passport extends CI_Controller
 			if ($_COOKIE["secret"] != md5($_COOKIE["openid"])) 
 			{
 				header('Location:https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri='.$thisPageUri.'&response_type=code&scope=snsapi_base&state=checkuser#wechat_redirect');
+				exit();
 			}
 			$openid = $_COOKIE["openid"];
 			//$userinfo = $db->get_one('sdbk_user', array('openid' => $openid));
@@ -107,12 +111,14 @@ class Passport extends CI_Controller
 		else 
 		{
 			header('Location:https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri='.$thisPageUri.'&response_type=code&scope=snsapi_base&state=checkuser#wechat_redirect');
+			exit();
 		}
 		
 		//用户已经将校园卡绑定
 		if ($userinfo['studentNo'] != 0) 
 		{
 			header('Location: '.base_url("passport/bind").'?ticket=LOGIN');
+			exit();
 		}
 		
 		if ($userinfo['nickname'] == null)
