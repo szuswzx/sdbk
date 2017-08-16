@@ -22,25 +22,26 @@ class Board extends CI_Controller
 		//获取需要推送的用户
 		$board_user = $this->board_bind_model->get_bind_user();
 		$this->board_model->push_board($log, $board_user, $access_token);*/
-		$data['log'] = $log;
-		$this->load->view('board/success',$data);
+		echo json_encode($log);
 		
 	}
 	
-	public function board_list($type = 'all', $out = 'page', $page = 1)
+	public function board_list($out = 'page', $page = 1)
 	{
-		if($type == 'all')
+		$type = $this->input->post('type');
+		if(!$type || $type == "全部")
 		{
 			$data['board'] = $this->board_model->get_board_list($page, array('fixed' => '0'));
 			$data['fixed_board'] = $this->board_model->get_board_list($page, array('fixed' => '1'));//置顶的公文通
 			if($out == 'page')
 				$this->load->view('board/board_list',$data);
 			else
-				echo json_encode($data['board']);
+				echo json_encode(array_merge($data['fixed_board'],$data['board']));
 		}
 		else
 		{
-			$board = $this->board_model->get_board_list($page, array('fixed' => '0', 'type' => str_replace('\'', '', $type)));
+			$data['board'] = $this->board_model->get_board_list($page, array('type' => str_replace('\'', '', $type)));
+			echo json_encode($data['board']);
 		}
 	}
 	
