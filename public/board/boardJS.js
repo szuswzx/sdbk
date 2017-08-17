@@ -83,7 +83,11 @@ $(function(){
 			}
 		});
 	});
-	
+	$('.searchIcon').on('click',function(){
+		window.location.reload();
+	})
+
+
 	$('.content').on('click', '.board_item', function(){   
 		var aid = $(this).attr('id');
 		window.location.href="fetch_article/"+aid;

@@ -64,16 +64,6 @@
 	<div class="ex_slid"></div>
 </div>
 
-
-<!-- <div class="search_in" style="display: none;">
-	<div class="bg">
-		<div class="returnBtn">
-			<i class="fa fa-cogs"></i>
-		</div>
-		<input class="keyWord" type="text" placeholder="标题关键词">
-	</div>
-</div> -->
-
 <div class="search_in" style="display: none;">
 	<div class="searchHeaderContain">
 		<div class="searchIcon">
