@@ -1,0 +1,168 @@
+*{
+	padding: 0;
+	margin:0;
+	text-decoration: none;
+}
+#menu-trigger {
+     display:block; 
+     font-size: 20px;
+     /*padding:0 20px;*/
+     z-index:99999999; 
+     display: inline-block;
+     height:45px;
+     line-height: 45px;
+     cursor: pointer;
+     z-index: 999;
+  }
+.head {
+     width:100%;
+     height:45px;
+     background:#408ec0; 
+
+ }
+ .faBox{
+ 	width: 45px;
+ 	height:45px;
+ 	float: left;
+ }
+ .fa-bars,.fa-search,
+.fa-refresh{
+     width: 45px;
+     height: 45px;
+     padding:12px;
+     color: #fff;
+     font-size: 20px;
+     display: inline-block;
+     cursor: pointer;
+ }	
+ .dash{
+ 	color: #fff;
+ 	text-decoration: none;
+ }
+ .floa{
+ 	float: right;
+ }
+ .search{
+ 	display: inline-block;
+ }
+ .load{
+ 	display: inline-block;
+ }
+
+.content{
+	width: 100%;
+	
+}
+.content .board_item{
+	width: 100%;
+	/*height: 120px;*/
+	text-align: center;
+	padding: 20px 20px;
+	border-bottom: 1px solid #ddd;
+	position: relative;
+}
+.content .board_item .board_text{
+	font-size: 20px;
+
+}
+.content .board_item .board_text .top{
+	color: red;
+}
+.content .board_item .board_footer{
+	display: flex;	
+	justify-content: space-between;
+	color: rgba(158, 158, 158, 0.77);
+}
+
+ .mask{
+ 	position: fixed;
+ 	left: 0;
+ 	top: 0;
+ 	width: 100%;
+ 	height: 100%;
+ 	background-color: rgba(158, 158, 158, 0.51);
+ 	z-index: 2;
+ 	display: none;
+ 
+ }
+
+ .slid{
+ 	position: fixed;
+ 	left: -30%;
+ 	top: 0;
+ 	width: 30%;
+ 	height: 100%;
+ 	background-color: #fff;
+ 	padding-top: 30px;
+ 	z-index: 2;
+
+ 	-webkit-transition:all 1s;
+	-moz-transition:all 1s;
+	transition:all 1s;
+ }
+ .slid_in{
+ 	left: 0;
+ 	
+ }
+ .slid_out{
+ 	left: -30%;
+ }
+ .slid .item{
+ 	width: 100%;
+ 	height: 60px;
+ 	border-bottom: 1px solid #ddd;
+ 	padding: 10px;
+ 	text-align: center;
+ 	line-height: 60px;
+ 	font-size: 15px;
+ 	color: #3085c7;
+ 	cursor: pointer;
+ }
+.ex_slid{
+	position: fixed;
+	left: 30%;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-transition:all 1s;
+	-moz-transition:all 1s;
+	transition:all 1s;
+	background-color: rgba(158, 158, 158, 0.51);
+}
+.ex_slid_out{
+	left: 30%;
+	display: block;
+}
+
+
+
+.search_in{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 50px;
+	color: #fff;
+	padding: 8px;
+	background-color: #408ec0;
+}
+
+.searchIcon{
+	float: left;
+	width: 10%;
+	height: 42px;
+	font-size: 18px;
+	text-align: center;
+	line-height: 42px;
+	
+}
+.searchInput input{
+	float: left;
+	width: 88%;
+	height: 42px;
+	color: #444;
+	line-height: 34px;
+	font-size: 14px;
+	border-radius: 5px;
+}
