@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>公文通-深大百科</title>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
 <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -78,34 +79,34 @@
 
 <div class="header">
 	<div class="rtn_btn"><i class="fa fa-mail-reply"></i></div>
-	关于收集深圳市2011-2016年新材料领域战略性新兴产业专项资金资助项目绩效评价资料的通知
+	<?php echo $article['title'];?>
 	<div class="cate">
-			<p>科学技术部 | 2017-8-10 16:20:00</p>
+			<p><?php echo $article['department']." | ".$article['releasetime'];?></p>
 	</div>
 </div>
 	<div class="article">
-		<p class="act_p">	各有关单位：</p>
-		<p class="act_p">根据科创委工作安排，定于2017年8月对2011至2016年新材料领域战略性新兴产业专项资金资助项目进行绩效评价。请各项目负责人（详见附件1）安排尽快开展绩效自评，填报《2011-2016年新材料产业专项资金资助项目单位基础信息表》（详见附件2）。</p>
-		<p class="act_p">各项目组应于8月12日17:30前将上述材料纸质版送到行政办公楼519室，电子版EXCEL表格直接发送到邮箱：szmma@sina.com。科创委将对此次绩效自评和资料收集情况进行总结，作为市科技计划项目实施诚信状况评价的重要参考。
-		</p>
-		<p class="act_p">联系人：王西祯，电话：26536206
-		</p>
-		<p class="act_p">特此通知。</p>
-		<div class="atc_right">
-			<p>科学技术部</p>
-			<p>2017年8月10日</p>
-		</div>
+		<p class="act_p"><?php echo $article['article'];?></p>
 	</div>
-	</div>
-	<div class="ex_file">
-		<p class="ex_file_msg">附件：</p>
-		<p class="ex_file_msg"><a href="">fhsjkdfhsjkhfksjhf</a></p>
-		<p class="ex_file_msg"><a href="">fhsjkdfhsjkhfksjhf</a></p>
-	</div>
+	</div>	
+	<?php if($attachment)
+	{
+		echo "<div class='ex_file'>";
+		echo "<p class='ex_file_msg'>附件：</p>";
+		foreach($attachment as $row)
+		{
+			echo "<p class='ex_file_msg'><a href='".$row['url']."'>".$row['name']."</a></p>";
+		}
+		echo "</div>";
+	}?>
 	<div class="footer">
 		<p>深大百科</p>
-	</div>
-
-	
+	</div>	
 </body>
+ <script type="text/javascript">
+jQuery(function () {
+	$('.rtn_btn').on('click',function(){
+		window.location.href="../board_list";
+	});		
+});
+</script>
 </html>

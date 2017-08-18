@@ -53,8 +53,11 @@ class Board extends CI_Controller
 	
 	public function fetch_article($aid = 0)
 	{
-		$article = $this->board_model->fetch_article($aid);
-		print_r($article);
+		$data['article'] = $this->board_model->fetch_article($aid);
+		$data['attachment'] = json_decode(base64_decode($data['article']['attachment']),true);
+		//print_r($data['attachment']);exit();
+		//print_r($article);
+		$this->load->view('board/boardIndex', $data);
 	}
 	
 	private function _check_user($pro){
