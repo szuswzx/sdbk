@@ -52,6 +52,7 @@
 		<?php }?>
 	</div>
 </div>
+
 <div class="mask" id="mask" style="display: none;">
 	<div class="slid">
 		<div class="item">全部消息</div>
@@ -64,16 +65,30 @@
 	<div class="ex_slid"></div>
 </div>
 
-<div class="search_in" style="display: none;">
-	<div class="searchHeaderContain">
-		<div class="searchIcon">
-			<i class="fa fa-mail-reply"></i>
-		</div>
-		<div class="searchInput">
-			<input class="keyWord" type="text" placeholder="标题关键词">
+<div class="wrap" style="display: none;">
+	<div class="search_in" >
+		<div class="searchHeaderContain">
+			<div class="searchIcon">
+				<i class="fa fa-mail-reply"></i>
+			</div>
+			<div class="searchInput">
+				<input class="keyWord" type="text" placeholder="标题关键词" onkeyup="show(this.value)">
+			</div>
+		</div>	
+	</div>
+	<div class="search_item">
+		<div class="board_item">
+			<div class="board_text">
+				dasdasdad
+			</div>
+			<div class="board_footer">
+				<div>dasdskda</div>
+				<div>2017</div>
+			</div>
 		</div>
 	</div>
 </div>
+</body>
 </body>
 <script type="text/javascript" src="./../public/board/boardJS.js">
 
