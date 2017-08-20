@@ -22,7 +22,7 @@ class Card extends CI_Controller
 		else
 		{
 			$data['res'] = $this->card_model->add_card_without_sendmsg();
-			$this->load->view('card/',$data);
+			$this->load->view('card/result',$data);
 		}
 	}
 	
