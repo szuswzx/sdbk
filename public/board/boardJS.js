@@ -59,12 +59,12 @@ $(function(){
 
 	$('.search').on('click',function(){    //search board
 		$('.contain').hide();
-		// $('.search_in').show();
-		$('.wrap').show();
+		$('.search_in').show();
+		// $('.wrap').show();
 		$('.content').empty();
 		getMoreUrl = 'search_board/';
 	});
-	
+
 	$('.keyWord').on('input', function(){
 		keyword = $('.keyWord').val();
 		page = 2;
@@ -76,7 +76,7 @@ $(function(){
 			beforeSend: function(){
 				//$('.loading').show();         //增加一个正在加载的div,弹出
 			},
-			success: loadboard,
+			success: search_loadboard,
 			error: function() {
 				alert('error');
             },
@@ -132,6 +132,7 @@ $(function(){
 			});			
 		}
 	});
+
 	function loadboard(json){
 		$('.content').empty();
 		var fixed_str = "";
@@ -161,5 +162,36 @@ $(function(){
 		}
 		$('.content').append(fixed_str);
 		$('.content').append(str);
+	}
+
+	function search_loadboard(json){
+		$('.search_item').empty();
+		var fixed_str = "";
+		var str = "";
+		for(var i=0;i<json.length;i++)
+		{
+			if(json[i]['fixed'] == '1')
+			{
+				fixed_str += "<div id="+json[i]['aid']+" class='board_item'>"+
+							"<div class='board_text'><span class='top'>【置顶】</span>"+json[i]['title']+"</div>"+
+							"<div class='board_footer'>"+
+							"<div>"+json[i]['type']+"|"+json[i]['department']+"</div>"+
+							"<div>"+json[i]['date']+"</div>"+
+							"</div>"+
+					   "</div>";
+			}
+			else
+			{
+				str += "<div id="+json[i]['aid']+" class='board_item'>"+
+							"<div class='board_text'>"+json[i]['title']+"</div>"+
+							"<div class='board_footer'>"+
+							"<div>"+json[i]['type']+"|"+json[i]['department']+"</div>"+
+							"<div>"+json[i]['date']+"</div>"+
+							"</div>"+
+					   "</div>";
+			}						
+		}
+		$('.search_item').append(fixed_str);
+		$('.search_item').append(str);
 	}
 });	

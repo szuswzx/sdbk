@@ -65,28 +65,17 @@
 	<div class="ex_slid"></div>
 </div>
 
-<div class="wrap" style="display: none;">
-	<div class="search_in" >
-		<div class="searchHeaderContain">
-			<div class="searchIcon">
-				<i class="fa fa-mail-reply"></i>
-			</div>
-			<div class="searchInput">
-				<input class="keyWord" type="text" placeholder="标题关键词">
-			</div>
-		</div>	
-	</div>
-	<div class="search_item">
-		<div class="board_item">
-			<div class="board_text">
-				dasdasdad
-			</div>
-			<div class="board_footer">
-				<div>dasdskda</div>
-				<div>2017</div>
-			</div>
+<div class="search_in" style="display: none;">
+	<div class="searchHeaderContain">
+		<div class="searchIcon">
+			<i class="fa fa-mail-reply"></i>
 		</div>
-	</div>
+		<div class="searchInput">
+			<input class="keyWord" type="text" placeholder="标题关键词">
+		</div>
+	</div>	
+</div>
+<div class="search_item">
 </div>
 </body>
 </body>

@@ -9,7 +9,7 @@
 	<body>
 		<p class="para">校园卡拾获上报</p>
 		
-		<form method="post" action="<?php echo site_url("add_card/add")?>">
+		<form method="post" action="<?php echo site_url("card/add_card/add")?>">
 		<table>
 		<tr>
 			<td class="text2"><font class="font1">卡号:</font></td>
