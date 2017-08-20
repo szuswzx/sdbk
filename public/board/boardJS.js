@@ -64,48 +64,27 @@ $(function(){
 		$('.content').empty();
 		getMoreUrl = 'search_board/';
 	});
-	// $('.keyWord').on('input', function(){
-	// 	keyword = $('.keyWord').val();
-	// 	page = 2;
-	// 	$.ajax({
-	// 		type: 'post',
-	// 		url: 'search_board',
-	// 		data: {keyword:keyword},
-	// 		dataType : 'json',
-	// 		beforeSend: function(){
-	// 			//$('.loading').show();         //增加一个正在加载的div,弹出
-	// 		},
-	// 		success: loadboard,
-	// 		error: function() {
-	// 			alert('error');
- //            },
-	// 		complete: function(){
-	// 			// $('.loading').hide();         //隐藏一个正在加载的div
-	// 		}
-	// 	});
-	// });
-
-
-	// function show(str){
-	// 	// keyword = $('.keyWord').val();
-	// 	page = 2;
-	// 	$.ajax({
-	// 		type: 'post',
-	// 		url: 'search_board',
-	// 		data: {str:keyword},
-	// 		dataType : 'json',
-	// 		beforeSend: function(){
-	// 			//$('.loading').show();         //增加一个正在加载的div,弹出
-	// 		},
-	// 		success: loadboard,
-	// 		error: function() {
-	// 			alert('error');
- //            },
-	// 		complete: function(){
-	// 			// $('.loading').hide();         //隐藏一个正在加载的div
-	// 		}
-	// 	});
-	// }
+	
+	$('.keyWord').on('input', function(){
+		keyword = $('.keyWord').val();
+		page = 2;
+		$.ajax({
+			type: 'post',
+			url: 'search_board',
+			data: {keyword:keyword},
+			dataType : 'json',
+			beforeSend: function(){
+				//$('.loading').show();         //增加一个正在加载的div,弹出
+			},
+			success: loadboard,
+			error: function() {
+				alert('error');
+            },
+			complete: function(){
+				// $('.loading').hide();         //隐藏一个正在加载的div
+			}
+		});
+	});
 
 
 	$('.searchIcon').on('click',function(){    //search_return_btn

@@ -72,7 +72,7 @@
 				<i class="fa fa-mail-reply"></i>
 			</div>
 			<div class="searchInput">
-				<input class="keyWord" type="text" placeholder="标题关键词" onkeyup="show(this.value)">
+				<input class="keyWord" type="text" placeholder="标题关键词">
 			</div>
 		</div>	
 	</div>
