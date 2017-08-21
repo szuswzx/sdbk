@@ -24,6 +24,7 @@
 	width: 100px;
 	background-color: #408ec0;
 	display: inline-block;
+	cursor: pointer;
 }
 .header .cate{
 	color: rgba(0,0,0,.54);

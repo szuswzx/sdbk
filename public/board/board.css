@@ -59,6 +59,7 @@
 	padding: 20px;
 	border-bottom: 1px solid #ddd;
 	position: relative;
+	cursor: pointer;
 }
 .content .board_item .board_text .top{
 	color: red;
