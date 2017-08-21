@@ -35,13 +35,19 @@
 <body>
 <div class="box">
 	<div class="success">
-		<div>提交成功</div>
-		<a href="<?php echo base_url('card/index');?>"><button>返回</button></a>
+	<?php if($res == 1)
+	{
+		echo "<div>提交成功</div>";
+		echo "<a href='".base_url('card/index')."'><button>返回</button></a>";
+	}
+	else
+	{
+		echo "<div>提交失败，请重新提交</div>";
+		echo "<a href='".base_url('card/add_card')."'><button>返回</button></a>";
+	}		
+	?>
 	</div>
-	<div class="fail">
-		<div>提交失败，请重新提交</div>
-		<a href=""><button>返回</button></a>
-	</div>
+
 </div>
 </body>
 </html>

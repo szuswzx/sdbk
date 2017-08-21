@@ -3,6 +3,7 @@ $(function(){
 	var page = 2;
 	var getMoreUrl = getMoreUrl = 'board_list/data/';
 	var keyword = "";
+	var $loadmore = $('.content');
 	
 	$('#menu-trigger').click(function(){
 		$('.mask').fadeIn();
@@ -63,6 +64,7 @@ $(function(){
 		// $('.wrap').show();
 		$('.content').empty();
 		getMoreUrl = 'search_board/';
+		$loadmore = $('.search_item');
 	});
 
 	$('.keyWord').on('input', function(){
@@ -92,7 +94,7 @@ $(function(){
 	})
 
 
-	$('.content').on('click', '.board_item', function(){   
+	$('.content, .search_item').on('click', '.board_item', function(){   
 		var aid = $(this).attr('id');
 		window.location.href="fetch_article/"+aid;
 	});	
@@ -121,7 +123,7 @@ $(function(){
 					}
 					if(json.length != 0)
 						page++;
-					$('.content').append(str);
+					$loadmore.append(str);
 				},
 				error: function() {
 					alert('error');
