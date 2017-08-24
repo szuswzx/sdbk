@@ -19,7 +19,9 @@ $(function(){
 	
 
 	$('.load').on('click',function(){      //refresh
-		window.location.href="board_list";
+		// window.location.href="board_list";
+		location.href="board_list"
+		window.location.reload(location.href+'?time='+((new Date()).getTime()));
 	});		
 	
 	$('.mask').on('click', '.item',function(){      //load by type
@@ -90,7 +92,8 @@ $(function(){
 
 
 	$('.searchIcon').on('click',function(){    //search_return_btn
-		window.location.reload();
+		// window.location.reload();
+		window.location.reload(location.href+'?time='+((new Date()).getTime()));
 	})
 
 
